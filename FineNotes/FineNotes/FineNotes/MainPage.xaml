@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local = "clr-namespace:FineNotes"
+             x:Class="FineNotes.MainPage">
+
+    <StackLayout BackgroundColor="#B3B3B3">
+        <Frame BackgroundColor="#5873FF" CornerRadius="0" HeightRequest="70">
+        <RelativeLayout>
+          <Label Text="Заметки" TextColor="#FFEEB1" FontSize="26" FontFamily="palanquin"
+            RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
+                Property=Width, Factor=0.35, Constant=-50}" 
+           RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
+                Property=Height, Factor=0.4, Constant=-20}"
+           />
+            <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.pen_logo.png}"
+           RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
+                Property=Width, Factor=0.1, Constant=-50}" 
+           RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
+                Property=Height, Factor=0.3, Constant=-20}"
+           />
+        <Frame BackgroundColor="#0084E4" CornerRadius="15" WidthRequest="20" HeightRequest="20" x:Name="logout_btn" Padding="10" Margin="0"
+        RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
+                Property=Width, Factor=0.95, Constant=-10}" 
+           RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
+                Property=Height, Factor=0, Constant=-20}"
+        >
+        <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.logout.png}" HeightRequest="10" WidthRequest="10"
+               />
+                </Frame>
+
+        <Frame BackgroundColor="#0084E4" CornerRadius="15" WidthRequest="30" HeightRequest="30" x:Name="info_btn" Padding="5" Margin="0"
+        RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
+                Property=Width, Factor=0.95, Constant=-50}" 
+           RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
+                Property=Height, Factor=0, Constant=-20}"
+        >
+        <Label FontSize="20" HorizontalOptions="Center" VerticalOptions="Center" TextColor="White"
+
+               >i</Label>
+
+                </Frame>
+                
+            </RelativeLayout>
+
+        </Frame>
+        <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
+        <Label Text="Make changes to your XAML file and save to see your UI update in the running app with XAML Hot Reload. Give it a try!" FontSize="16" Padding="30,0,30,0"/>
+        <Label FontSize="16" Padding="30,24,30,0">
+            <Label.FormattedText>
+                <FormattedString>
+                    <FormattedString.Spans>
+                        <Span Text="Learn more at "/>
+                        <Span Text="https://aka.ms/xamarin-quickstart" FontAttributes="Bold"/>
+                    </FormattedString.Spans>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+    </StackLayout>
+</ContentPage>
+
