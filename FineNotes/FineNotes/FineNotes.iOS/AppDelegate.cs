@@ -24,6 +24,7 @@ namespace FineNotes.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
+            UIApplication.SharedApplication.StatusBarHidden = true;
 
             return base.FinishedLaunching(app, options);
         }

@@ -15,15 +15,18 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="Resources\Palanquin-Regular.ttf" />
-    <None Remove="Resources\Palanquin-Regular.ttf" />
     <None Remove="Resources\img\logout.png" />
     <None Remove="Resources\img\pen_logo.png" />
     <None Remove="Resources\img\logout.png" />
+    <None Remove="Resources\noto-sans-display-bold-italic.otf" />
+    <None Remove="Resources\noto-sans-display-bold-italic.otf" />
+    <None Remove="Resources\noto-sans-italic.otf" />
+    <None Remove="Resources\noto-sans-italic.otf" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Palanquin-Regular.ttf" />
     <EmbeddedResource Include="Resources\img\pen_logo.png" />
     <EmbeddedResource Include="Resources\img\logout.png" />
+    <EmbeddedResource Include="Resources\noto-sans-display-bold-italic.otf" />
+    <EmbeddedResource Include="Resources\noto-sans-italic.otf" />
   </ItemGroup>
 </Project>

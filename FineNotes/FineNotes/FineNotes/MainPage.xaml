@@ -7,11 +7,11 @@
     <StackLayout BackgroundColor="#B3B3B3">
         <Frame BackgroundColor="#5873FF" CornerRadius="0" HeightRequest="70">
         <RelativeLayout>
-          <Label Text="Заметки" TextColor="#FFEEB1" FontSize="26" FontFamily="palanquin"
+          <Label Text="Заметки" TextColor="#FFEEB1" FontSize="28" FontFamily="noto-header"
             RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
                 Property=Width, Factor=0.35, Constant=-50}" 
            RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
-                Property=Height, Factor=0.4, Constant=-20}"
+                Property=Height, Factor=0.3, Constant=-20}"
            />
             <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.pen_logo.png}"
            RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
@@ -40,10 +40,63 @@
                >i</Label>
 
                 </Frame>
-                
+
+        <Label Text="Все" FontSize="20" FontFamily="noto-italic" TextColor="White" x:Name="label_all"
+           RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
+                Property=Width, Factor=0.2}" 
+           RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
+                Property=Height, Factor=0.7}"
+               />
+        <BoxView HeightRequest="5" WidthRequest="40" BackgroundColor="#BBFA8A" CornerRadius="30" x:Name="underline_all"
+             RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=label_all,
+             Property=X, Factor=1, Constant=-4}"
+              RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=label_all, 
+              Property=Y, Factor=1, Constant=30}"
+                 />
+
+        <Label Text="Личные" FontSize="20" FontFamily="noto-italic" TextColor="White" x:Name="label_priv"
+             RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=label_all,
+             Property=X, Factor=1, Constant=45}"
+           RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
+                Property=Height, Factor=0.7}"
+               />
+
+              <BoxView HeightRequest="5" WidthRequest="85" BackgroundColor="#5873FF" CornerRadius="30" x:Name="underline_priv"
+             RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=label_priv,
+             Property=X, Factor=1, Constant=-4}"
+              RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=label_priv, 
+              Property=Y, Factor=1, Constant=30}"
+                 />
+
+         <Label Text="Групповые" FontSize="20" FontFamily="noto-italic" TextColor="White" x:Name="label_group"
+             RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=label_priv,
+             Property=X, Factor=1, Constant=90}"
+           RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
+                Property=Height, Factor=0.7}"
+               />
+
+             <BoxView HeightRequest="5" WidthRequest="110" BackgroundColor="#5873FF" CornerRadius="30" x:Name="underline_group"
+             RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=label_group,
+             Property=X, Factor=1, Constant=-1}"
+              RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=label_group, 
+              Property=Y, Factor=1, Constant=30}"
+                 />
+
             </RelativeLayout>
 
         </Frame>
+        <ScrollView>
+        <StackLayout>
+            <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
+            <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
+            <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
+            <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
+            <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
+
+            <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
+            <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
+            <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
+            <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
         <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
         <Label Text="Make changes to your XAML file and save to see your UI update in the running app with XAML Hot Reload. Give it a try!" FontSize="16" Padding="30,0,30,0"/>
         <Label FontSize="16" Padding="30,24,30,0">
@@ -56,6 +109,10 @@
                 </FormattedString>
             </Label.FormattedText>
         </Label>
+
+        </StackLayout>
+        </ScrollView>
+        <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
     </StackLayout>
 </ContentPage>
 
