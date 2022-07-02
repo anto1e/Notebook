@@ -97,36 +97,38 @@
             
         <ScrollView Grid.Column="0" Grid.Row="0" VerticalOptions="StartAndExpand">
         <StackLayout>
-            <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
-            <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
-                    <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
-                    <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
-                    <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
-                    <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
-                    <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
-                    <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
-                    <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
-                    <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
-                    <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
-                    <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
-                    <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
+        <Frame BackgroundColor="#FFFFFF" Margin="30,10,30,0" CornerRadius="20" HeightRequest="100" BorderColor="#9A9A9A">
+        <RelativeLayout>
+        <Label Text="Заголовок" TextColor="#1456FF" FontFamily="noto-header" HorizontalTextAlignment="Center" x:Name="label_head" FontSize="Medium"
+         RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
+                Property=Width, Factor=0.5, Constant=-50}" 
+         RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
+                Property=Height, Factor=0, Constant=-10}"
+               />
+        <Label Text="Текст заметки..." TextColor="#696969" FontFamily="noto-italic" HorizontalTextAlignment="Start" x:Name="label_text"
+             RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=label_head,
+             Property=X, Factor=0, Constant=-4}"
+              RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=label_head, 
+              Property=Y, Factor=0, Constant=15}"
+               />
+        <Label Text="test@mail.ru" TextColor="#696969" HorizontalTextAlignment="Start" x:Name="label_email" FontSize="10"
+         RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
+                Property=Width, Factor=0, Constant=0}" 
+         RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
+                Property=Height, Factor=1, Constant=-5}"
+               />
+          <Label Text="02.07.2022" TextColor="#696969" HorizontalTextAlignment="Start" x:Name="label_time" FontSize="10"
+         RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
+                Property=Width, Factor=1, Constant=-50}" 
+         RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
+                Property=Height, Factor=1, Constant=-5}"
+               />
 
-                    <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
-                    <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
-            <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
-                    <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
-        <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
-        <Label Text="Make changes to your XAML file and save to see your UI update in the running app with XAML Hot Reload. Give it a try!" FontSize="16" Padding="30,0,30,0"/>
-        <Label FontSize="16" Padding="30,24,30,0">
-            <Label.FormattedText>
-                <FormattedString>
-                    <FormattedString.Spans>
-                        <Span Text="Learn more at "/>
-                        <Span Text="https://aka.ms/xamarin-quickstart" FontAttributes="Bold"/>
-                    </FormattedString.Spans>
-                </FormattedString>
-            </Label.FormattedText>
-        </Label>
+        
+         </RelativeLayout>
+
+        </Frame>
+
 
         </StackLayout>
         </ScrollView>
