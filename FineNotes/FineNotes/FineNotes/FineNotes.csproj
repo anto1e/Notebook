@@ -22,11 +22,18 @@
     <None Remove="Resources\noto-sans-display-bold-italic.otf" />
     <None Remove="Resources\noto-sans-italic.otf" />
     <None Remove="Resources\noto-sans-italic.otf" />
+    <None Remove="Resources\img\refresh.png" />
+    <None Remove="Resources\img\add.png" />
+    <None Remove="Resources\img\add.png" />
+    <None Remove="Resources\img\find.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\img\pen_logo.png" />
     <EmbeddedResource Include="Resources\img\logout.png" />
     <EmbeddedResource Include="Resources\noto-sans-display-bold-italic.otf" />
     <EmbeddedResource Include="Resources\noto-sans-italic.otf" />
+    <EmbeddedResource Include="Resources\img\refresh.png" />
+    <EmbeddedResource Include="Resources\img\add.png" />
+    <EmbeddedResource Include="Resources\img\find.png" />
   </ItemGroup>
 </Project>

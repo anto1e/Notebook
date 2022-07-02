@@ -4,7 +4,7 @@
              xmlns:local = "clr-namespace:FineNotes"
              x:Class="FineNotes.MainPage">
 
-    <StackLayout BackgroundColor="#B3B3B3">
+    <StackLayout BackgroundColor="#ECECEC">
         <Frame BackgroundColor="#5873FF" CornerRadius="0" HeightRequest="70">
         <RelativeLayout>
           <Label Text="Заметки" TextColor="#FFEEB1" FontSize="28" FontFamily="noto-header"
@@ -133,12 +133,39 @@
         
         <RelativeLayout HeightRequest="10" Grid.Column="0" Grid.Row="1">
             <Label Text="Developed by anto1e in 2022" FontSize="8" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" />
-        <Frame BackgroundColor="#0084E4" CornerRadius="15" WidthRequest="300" HeightRequest="50" x:Name="toolbar_frame" Padding="5" Margin="0"
+                <Frame BackgroundColor="#0084E4" CornerRadius="15" WidthRequest="180" HeightRequest="30" x:Name="toolbar_frame" Padding="5" Margin="0"
         RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
-                Property=Width, Factor=0.5, Constant=-155}" 
+                Property=Width, Factor=0.5, Constant=-92}" 
            RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
                 Property=Height, Factor=0, Constant=-70}"
         ></Frame>
+                <Frame BackgroundColor="#BAE88C" CornerRadius="40" HeightRequest="35" WidthRequest="35" x:Name="toolbar_circle"
+              RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=toolbar_frame,
+             Property=X, Factor=1, Constant=56.5}"
+              RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=toolbar_frame, 
+              Property=Y, Factor=1, Constant=-17.5}"
+                       >
+           <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.add.png}" HeightRequest="30" WidthRequest="30"
+              RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=toolbar_frame,
+             Property=X, Factor=1, Constant=15}"
+              RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=toolbar_frame, 
+              Property=Y, Factor=0.5, Constant=-30}"
+           />
+                </Frame>
+
+
+           <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.find.png}" HeightRequest="30" WidthRequest="30"
+              RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=toolbar_frame,
+             Property=X, Factor=1, Constant=15}"
+              RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=toolbar_frame, 
+              Property=Y, Factor=0.5, Constant=-30}"
+           />
+            <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.refresh.png}" HeightRequest="30" WidthRequest="30"
+              RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=toolbar_frame,
+             Property=X, Factor=1, Constant=145}"
+              RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=toolbar_frame, 
+              Property=Y, Factor=0.5, Constant=-30}"
+           />
             </RelativeLayout>
     </Grid>
 
