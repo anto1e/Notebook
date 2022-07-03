@@ -7,18 +7,18 @@
     <StackLayout BackgroundColor="#ECECEC">
         <Frame BackgroundColor="#5873FF" CornerRadius="0" HeightRequest="70">
         <RelativeLayout>
-          <Label Text="Заметки" TextColor="#FFEEB1" FontSize="28" FontFamily="noto-header"
+          <Label Text="Заметки" TextColor="#FFEEB1" FontSize="28" FontFamily="noto-header" x:Name="header_text"
             RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
                 Property=Width, Factor=0.35, Constant=-50}" 
            RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
                 Property=Height, Factor=0.3, Constant=-20}"
            />
-            <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.pen_logo.png}"
+            <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.pen_logo.png}" x:Name="a"
            RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
                 Property=Width, Factor=0.1, Constant=-50}" 
            RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
                 Property=Height, Factor=0.3, Constant=-20}"
-           />
+           > </Image>
         <Frame BackgroundColor="#0084E4" CornerRadius="15" WidthRequest="20" HeightRequest="20" x:Name="logout_btn" Padding="10" Margin="0"
         RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
                 Property=Width, Factor=0.95, Constant=-10}" 
@@ -86,73 +86,72 @@
 
         </Frame>
 
+
             <Grid VerticalOptions="FillAndExpand">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="10" />
         </Grid.RowDefinitions>
             
         <ScrollView Grid.Column="0" Grid.Row="0" VerticalOptions="StartAndExpand">
         <StackLayout>
         <Frame BackgroundColor="#FFFFFF" Margin="30,10,30,0" CornerRadius="20" HeightRequest="100" BorderColor="#9A9A9A">
         <RelativeLayout>
-        <Label Text="Заголовок" TextColor="#1456FF" FontFamily="noto-header" HorizontalTextAlignment="Center" x:Name="label_head" FontSize="Medium"
+        <Label Text="Заголовок" TextColor="#1456FF" FontFamily="noto-header" HorizontalTextAlignment="Center" FontSize="Medium"
          RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
                 Property=Width, Factor=0.5, Constant=-50}" 
          RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
                 Property=Height, Factor=0, Constant=-10}"
                />
-        <Label Text="Текст заметки..." TextColor="#696969" FontFamily="noto-italic" HorizontalTextAlignment="Start" x:Name="label_text"
-             RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=label_head,
-             Property=X, Factor=0, Constant=-4}"
-              RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=label_head, 
-              Property=Y, Factor=0, Constant=15}"
-               />
-        <Label Text="test@mail.ru" TextColor="#696969" HorizontalTextAlignment="Start" x:Name="label_email" FontSize="10"
-         RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
+        <Label Text="Текст заметки..." TextColor="#696969" FontFamily="noto-italic" HorizontalTextAlignment="Start"
+           RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
                 Property=Width, Factor=0, Constant=0}" 
-         RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
-                Property=Height, Factor=1, Constant=-5}"
+           RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
+                Property=Height, Factor=0.2}"
+               />
+        <Label Text="test@mail.ru" TextColor="#696969" HorizontalTextAlignment="Start" FontSize="10"
+           RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
+                Property=Width, Factor=0, Constant=0}" 
+           RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
+                Property=Height, Factor=0.95}"
                />
           <Label Text="02.07.2022" TextColor="#696969" HorizontalTextAlignment="Start" x:Name="label_time" FontSize="10"
-         RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
-                Property=Width, Factor=1, Constant=-50}" 
-         RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
-                Property=Height, Factor=1, Constant=-5}"
+           RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
+                Property=Width, Factor=0.8, Constant=0}" 
+           RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
+                Property=Height, Factor=0.95}"
                />
-
         
          </RelativeLayout>
 
         </Frame>
-
-
+        
         </StackLayout>
         </ScrollView>
-        
-        <RelativeLayout HeightRequest="10" Grid.Column="0" Grid.Row="1">
-            <Label Text="Developed by anto1e in 2022" FontSize="8" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" />
-                <Frame BackgroundColor="#0084E4" CornerRadius="15" WidthRequest="180" HeightRequest="30" x:Name="toolbar_frame" Padding="5" Margin="0"
-        RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
-                Property=Width, Factor=0.5, Constant=-92}" 
-           RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
-                Property=Height, Factor=0, Constant=-70}"
-        ></Frame>
+       <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="End" Opacity="1" Margin="0,0,0,35" HeightRequest="40">
+                <RelativeLayout>
+                <Frame BackgroundColor="#0084E4" CornerRadius="15" WidthRequest="180" HeightRequest="30" x:Name="toolbar_frame" Padding="5"
+                ></Frame>
+                
                 <Frame BackgroundColor="#BAE88C" CornerRadius="40" HeightRequest="35" WidthRequest="35" x:Name="toolbar_circle"
               RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=toolbar_frame,
              Property=X, Factor=1, Constant=56.5}"
               RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=toolbar_frame, 
-              Property=Y, Factor=1, Constant=-17.5}"
-                       >
-           <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.add.png}" HeightRequest="30" WidthRequest="30"
+              Property=Y, Factor=1, Constant=-17.5}">
+                                
+
+           <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.add.png}" HeightRequest="30" WidthRequest="30" VerticalOptions="FillAndExpand" x:Name="b"
               RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=toolbar_frame,
-             Property=X, Factor=1, Constant=15}"
+             Property=X, Factor=1, Constant=-115}"
               RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=toolbar_frame, 
               Property=Y, Factor=0.5, Constant=-30}"
-           />
+           >
+            <Image.GestureRecognizers>
+            <TapGestureRecognizer Tapped="addBtnClicked" NumberOfTapsRequired="1"/>
+            </Image.GestureRecognizers> 
+            </Image>
                 </Frame>
 
 
@@ -160,18 +159,19 @@
               RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=toolbar_frame,
              Property=X, Factor=1, Constant=15}"
               RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=toolbar_frame, 
-              Property=Y, Factor=0.5, Constant=-30}"
-           />
+              Property=Y, Factor=0.5, Constant=5}"
+           >         
+                </Image>
+
             <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.refresh.png}" HeightRequest="30" WidthRequest="30"
               RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=toolbar_frame,
              Property=X, Factor=1, Constant=145}"
               RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=toolbar_frame, 
-              Property=Y, Factor=0.5, Constant=-30}"
+              Property=Y, Factor=0.5, Constant=5}"
            />
-            </RelativeLayout>
+      </RelativeLayout>
+     </AbsoluteLayout>
     </Grid>
-
-
     </StackLayout>
 </ContentPage>
 

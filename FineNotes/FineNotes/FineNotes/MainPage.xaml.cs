@@ -14,6 +14,12 @@ namespace FineNotes
         {
             InitializeComponent();
         }
+
+        void addBtnClicked(object sender, EventArgs args)       //Обработка нажатия на кнопку "Добавить"
+        {
+            header_text.Text += "4";
+        }
+
     }
 }
 
