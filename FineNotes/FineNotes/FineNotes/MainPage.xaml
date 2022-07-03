@@ -2,7 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local = "clr-namespace:FineNotes"
-             x:Class="FineNotes.MainPage">
+             x:Class="FineNotes.MainPage"
+             NavigationPage.HasNavigationBar="false"
+            >
 
     <StackLayout BackgroundColor="#ECECEC">
         <Frame BackgroundColor="#5873FF" CornerRadius="0" HeightRequest="70">
@@ -13,7 +15,7 @@
            RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
                 Property=Height, Factor=0.3, Constant=-20}"
            />
-            <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.pen_logo.png}" x:Name="a"
+            <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.pen_logo.png}"
            RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
                 Property=Width, Factor=0.1, Constant=-50}" 
            RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
@@ -95,7 +97,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
             
-        <ScrollView Grid.Column="0" Grid.Row="0" VerticalOptions="StartAndExpand">
+        <ScrollView Grid.Column="0" Grid.Row="0" VerticalOptions="StartAndExpand" Scrolled="scrollHandler">
         <StackLayout>
         <Frame BackgroundColor="#FFFFFF" Margin="30,10,30,0" CornerRadius="20" HeightRequest="100" BorderColor="#9A9A9A">
         <RelativeLayout>
@@ -127,10 +129,64 @@
          </RelativeLayout>
 
         </Frame>
-        
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                                        <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                                        <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                    <Label>123</Label>
+                  
         </StackLayout>
         </ScrollView>
-       <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="End" Opacity="1" Margin="0,0,0,35" HeightRequest="40">
+       <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="End" Opacity="1" Margin="0,0,0,35" HeightRequest="40" x:Name="toolbar_layout">
                 <RelativeLayout>
                 <Frame BackgroundColor="#0084E4" CornerRadius="15" WidthRequest="180" HeightRequest="30" x:Name="toolbar_frame" Padding="5"
                 ></Frame>
@@ -140,7 +196,9 @@
              Property=X, Factor=1, Constant=56.5}"
               RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=toolbar_frame, 
               Property=Y, Factor=1, Constant=-17.5}">
-                                
+                <Frame.GestureRecognizers>
+            <TapGestureRecognizer Tapped="addBtnClicked" NumberOfTapsRequired="1"/>
+            </Frame.GestureRecognizers>                 
 
            <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.add.png}" HeightRequest="30" WidthRequest="30" VerticalOptions="FillAndExpand" x:Name="b"
               RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=toolbar_frame,

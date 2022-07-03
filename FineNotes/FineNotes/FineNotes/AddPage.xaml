@@ -2,7 +2,45 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="FineNotes.AddPage">
+    x:Class="FineNotes.AddPage"
+    xmlns:local = "clr-namespace:FineNotes"
+    NavigationPage.HasNavigationBar="false">
+
+    <StackLayout BackgroundColor="#ECECEC">
+        <AbsoluteLayout BackgroundColor="#5873FF" HeightRequest="60">
+        <RelativeLayout>
+
+                        <Frame Opacity="0" HeightRequest ="60" WidthRequest="60" Margin="0" Padding="0" HorizontalOptions="Start"
+
+                       > <Frame.GestureRecognizers>
+            <TapGestureRecognizer Tapped="BackButton_Clicked" NumberOfTapsRequired="1"/>
+            </Frame.GestureRecognizers></Frame>
+             <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.left_arrow.png}" WidthRequest="40" HeightRequest="50"
+           RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
+                Property=Width, Factor=0, Constant=10}" 
+           RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
+                Property=Height, Factor=0.3, Constant=-10}"
+           ><Image.GestureRecognizers>
+            <TapGestureRecognizer Tapped="BackButton_Clicked" NumberOfTapsRequired="1"/>
+            </Image.GestureRecognizers></Image>
+
+                <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.pen_logo.png}" WidthRequest="50" HeightRequest="50"
+           RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
+                Property=Width, Factor=1, Constant=-55}" 
+           RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
+                Property=Height, Factor=0.3, Constant=-10}"
+           />
+        </RelativeLayout>
+
+        </AbsoluteLayout>
+
+
+            <Frame BackgroundColor="#F9FFE2" Margin="20" CornerRadius="20" Grid.Row="0" VerticalOptions="FillAndExpand">
+            <Editor FontFamily="noto-italic"/>
+
+        </Frame>
+
+    </StackLayout>
 
 </ContentPage>
 
