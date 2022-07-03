@@ -98,28 +98,40 @@
         </Grid.RowDefinitions>
             
         <ScrollView Grid.Column="0" Grid.Row="0" VerticalOptions="StartAndExpand" Scrolled="scrollHandler">
-        <StackLayout>
-        <Frame BackgroundColor="#FFFFFF" Margin="30,10,30,0" CornerRadius="20" HeightRequest="100" BorderColor="#9A9A9A">
+       <StackLayout BindableLayout.ItemsSource= "{Binding}" x:Name="notesList">
+      <BindableLayout.ItemTemplate>
+        <DataTemplate>
+
+        <Frame BackgroundColor="#FFFFFF" Margin="30,10,30,0" CornerRadius="20" HeightRequest="100" BorderColor="#9A9A9A" VerticalOptions="FillAndExpand">
+             <Frame.GestureRecognizers>
+            <TapGestureRecognizer CommandParameter="{Binding Number}" Tapped="OnListViewItemSelected" NumberOfTapsRequired="1"/>
+            </Frame.GestureRecognizers>     
         <RelativeLayout>
-        <Label Text="Заголовок" TextColor="#1456FF" FontFamily="noto-header" HorizontalTextAlignment="Center" FontSize="Medium"
+          <Label Text="{Binding Number}" TextColor="#EBDD" FontFamily="noto-header" HorizontalTextAlignment="Center" FontSize="Small"
+         RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
+                Property=Width, Factor=0, Constant=-10}" 
+         RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
+                Property=Height, Factor=0, Constant=-15}"
+               />
+        <Label Text="{Binding Header}" TextColor="#1456FF" FontFamily="noto-header" HorizontalTextAlignment="Center" FontSize="Medium"
          RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
                 Property=Width, Factor=0.5, Constant=-50}" 
          RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
                 Property=Height, Factor=0, Constant=-10}"
                />
-        <Label Text="Текст заметки..." TextColor="#696969" FontFamily="noto-italic" HorizontalTextAlignment="Start"
+        <Label Text="{Binding Message}" TextColor="#696969" FontFamily="noto-italic" HorizontalTextAlignment="Start"
            RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
                 Property=Width, Factor=0, Constant=0}" 
            RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
                 Property=Height, Factor=0.2}"
                />
-        <Label Text="test@mail.ru" TextColor="#696969" HorizontalTextAlignment="Start" FontSize="10"
+        <Label Text="{Binding Author}" TextColor="#696969" HorizontalTextAlignment="Start" FontSize="10"
            RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
                 Property=Width, Factor=0, Constant=0}" 
            RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
                 Property=Height, Factor=0.95}"
                />
-          <Label Text="02.07.2022" TextColor="#696969" HorizontalTextAlignment="Start" x:Name="label_time" FontSize="10"
+          <Label Text="{Binding Date}" TextColor="#696969" HorizontalTextAlignment="Start" x:Name="label_time" FontSize="10"
            RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
                 Property=Width, Factor=0.8, Constant=0}" 
            RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
@@ -129,62 +141,12 @@
          </RelativeLayout>
 
         </Frame>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                                        <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                                        <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
-                    <Label>123</Label>
+        </DataTemplate>
+      </BindableLayout.ItemTemplate>
+    </StackLayout>
+
                   
-        </StackLayout>
+
         </ScrollView>
        <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="End" Opacity="1" Margin="0,0,0,35" HeightRequest="40" x:Name="toolbar_layout">
                 <RelativeLayout>
