@@ -26,18 +26,23 @@
 
                 <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.pen_logo.png}" WidthRequest="50" HeightRequest="50"
            RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
-                Property=Width, Factor=1, Constant=-55}" 
+                Property=Width, Factor=1, Constant=-60}" 
            RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
                 Property=Height, Factor=0.3, Constant=-10}"
-           />
+           ><Image.GestureRecognizers>
+            <TapGestureRecognizer Tapped="AddButton_Clicked" NumberOfTapsRequired="1"/>
+            </Image.GestureRecognizers>
+                </Image>
         </RelativeLayout>
 
         </AbsoluteLayout>
 
 
             <Frame BackgroundColor="#F9FFE2" Margin="20" CornerRadius="20" Grid.Row="0" VerticalOptions="FillAndExpand">
-            <Editor FontFamily="noto-italic"/>
-
+            <StackLayout>
+            <Entry Placeholder="Заголовок"  x:Name="Note_header" />
+            <Editor FontFamily="noto-italic" VerticalOptions="FillAndExpand" Placeholder="Текст заметки" x:Name="Note_msg"/>
+            </StackLayout>
         </Frame>
 
     </StackLayout>

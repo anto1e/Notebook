@@ -12,20 +12,30 @@ namespace FineNotes
 {
     public partial class MainPage : ContentPage
     {
-        protected internal ObservableCollection<Note> Notes { get; set; }
+        NotesCollection notCol = NotesCollection.getInstance();
         public MainPage()
         {
             InitializeComponent();
-            Notes = new ObservableCollection<Note> {
-            new Note{Number=1,Header="Test",Message="Message",Author="123@mail.ru",Date="03.07.2022"},
-            new Note{Number=2,Header="Test1",Message="Message",Author="123@mail.ru",Date="03.07.2022"},
-            new Note{Number=3,Header="Test2",Message="Message",Author="123@mail.ru",Date="03.07.2022"},
-            new Note{Number=4,Header="Test3",Message="Message",Author="123@mail.ru",Date="03.07.2022"},
-            new Note{Number=5,Header="Test4",Message="Message",Author="123@mail.ru",Date="03.07.2022"},
-            };
-            notesList.BindingContext = Notes;
+            //var x = Notes.Count();
+            //header_text.Text = x.ToString();
+        notesList.BindingContext = notCol.Notes;
+            SubscribeColChanging();
+            MessagingCenter.Send<Page>(this, "CollectionChanged!");
         }
+        private void SubscribeColChanging()
+        {
+              MessagingCenter.Subscribe<Page>(
+                this, // кто подписывается на сообщения
+                "CollectionChanged!",   // название сообщения
+                (sender) => {
+                    int cntNotCol = notCol.Notes.Count;
+                    if (cntNotCol < 100)
+                        label_priv.Text = "Личные(" + notCol.Notes.Count.ToString() + ")";
+                    else
+                        label_priv.Text = "Личные(" + notCol.Notes.Count.ToString() + ")";
+                });    // вызываемое действие
 
+        }
         public async void addBtnClicked(object sender, EventArgs args)       //Обработка нажатия на кнопку "Добавить"
         {
             await Navigation.PushAsync(new AddPage());
@@ -69,12 +79,9 @@ namespace FineNotes
             }
         }
         void OnListViewItemSelected(object sender, EventArgs args) {                //Функция полученя заметки, на которую нажал пользователь
-            Note SelectedItem = Notes.FirstOrDefault(itm => itm.Number == Convert.ToInt32(((TappedEventArgs)args).Parameter.ToString()));
+            Note SelectedItem = notCol.Notes.FirstOrDefault(itm => itm.Number == Convert.ToInt32(((TappedEventArgs)args).Parameter.ToString()));
         }
-        protected internal void AddNote(Note note)
-        {
-            Notes.Add(note);
-        }
+
     }
 }
 
