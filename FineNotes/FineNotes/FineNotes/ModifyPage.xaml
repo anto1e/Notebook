@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="FineNotes.ModifyPage"
+    xmlns:local = "clr-namespace:FineNotes"
+    NavigationPage.HasNavigationBar="false">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="#ECECEC">
+            <AbsoluteLayout BackgroundColor="#5873FF" HeightRequest="60">
+            <RelativeLayout>
+
+                        <Frame Opacity="0" HeightRequest ="60" WidthRequest="60" Margin="0" Padding="0" HorizontalOptions="Start"
+
+                       > <Frame.GestureRecognizers>
+            <TapGestureRecognizer Tapped="BackButton_Clicked" NumberOfTapsRequired="1"/>
+            </Frame.GestureRecognizers></Frame>
+             <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.left_arrow.png}" WidthRequest="40" HeightRequest="50"
+           RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
+                Property=Width, Factor=0, Constant=10}" 
+           RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
+                Property=Height, Factor=0.3, Constant=-10}"
+           ><Image.GestureRecognizers>
+            <TapGestureRecognizer Tapped="BackButton_Clicked" NumberOfTapsRequired="1"/>
+            </Image.GestureRecognizers></Image>
+
+                <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.pen_logo.png}" WidthRequest="50" HeightRequest="50"
+           RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
+                Property=Width, Factor=1, Constant=-60}" 
+           RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
+                Property=Height, Factor=0.3, Constant=-10}"
+           ></Image>
+        </RelativeLayout>
+            </AbsoluteLayout>
+                        <Grid VerticalOptions="FillAndExpand">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+            <Frame BackgroundColor="#F9FFE2" Margin="20" CornerRadius="20" VerticalOptions="FillAndExpand" Grid.Row="0" Grid.Column="0">
+            <StackLayout>
+                        <AbsoluteLayout HeightRequest="20">
+                        <RelativeLayout>
+                     <Label  WidthRequest="100" HorizontalTextAlignment="Start"
+                                RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
+                Property=Width, Factor=0, Constant=0}" 
+                RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
+                Property=Height, Factor=0.5, Constant=-10}" x:Name="Email_label" TextDecorations="Underline"></Label>
+                    <Label WidthRequest="100" HorizontalTextAlignment="End"
+                RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
+                Property=Width, Factor=1, Constant=-100}" 
+                RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
+                Property=Height, Factor=0.5, Constant=-10}"
+                x:Name="Date_label" TextDecorations="Underline"></Label>
+
+                        </RelativeLayout>
+                    </AbsoluteLayout>
+            <Entry Placeholder="Заголовок"  x:Name="Note_header" TextColor="#1456FF" FontFamily="noto-header" /><ScrollView VerticalOptions="FillAndExpand">
+            <Editor FontFamily="noto-italic" VerticalOptions="FillAndExpand" Placeholder="Текст заметки" x:Name="Note_msg"></Editor></ScrollView>
+
+            </StackLayout>
+        </Frame>
+                <AbsoluteLayout HorizontalOptions="End" VerticalOptions="End" Margin="0,0,10,170" HeightRequest="40">
+                        <Frame HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#61C7B4" x:Name="ArrowFrame">
+                        <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.right_arrow.png}" x:Name="ArrowBtn" WidthRequest="20" HeightRequest="20" Scale="1.8">
+                            <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ShowBtnsClicked" NumberOfTapsRequired="1"/>
+                            </Image.GestureRecognizers>
+
+                        </Image>
+                             <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ShowBtnsClicked" NumberOfTapsRequired="1"/>
+                            </Frame.GestureRecognizers>
+                    </Frame>
+
+                </AbsoluteLayout>
+                 <AbsoluteLayout HorizontalOptions="End" VerticalOptions="End" Margin="0,0,10,100" HeightRequest="40">
+                    <StackLayout Spacing="2" x:Name="buttons_layout">
+                     <Frame HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#FF3E3E">
+                        <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.cancel.png}" WidthRequest="20" HeightRequest="20" Scale="3"/>
+                    </Frame>
+                    <Frame HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0CC8A6">
+                        <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.check.png}" WidthRequest="20" HeightRequest="20" Scale="3.5"/>
+                    </Frame>
+
+
+                    </StackLayout>
+
+                </AbsoluteLayout>
+                </Grid>
+        </StackLayout>
+
+    </ContentPage.Content>
+</ContentPage>
+

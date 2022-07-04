@@ -162,7 +162,7 @@
             <TapGestureRecognizer Tapped="addBtnClicked" NumberOfTapsRequired="1"/>
             </Frame.GestureRecognizers>                 
 
-           <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.add.png}" HeightRequest="30" WidthRequest="30" VerticalOptions="FillAndExpand" x:Name="b"
+           <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.add.png}" x:Name="ArrowBtn" HeightRequest="30" WidthRequest="30" VerticalOptions="FillAndExpand"
               RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=toolbar_frame,
              Property=X, Factor=1, Constant=-115}"
               RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=toolbar_frame, 

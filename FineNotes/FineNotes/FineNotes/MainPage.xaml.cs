@@ -78,8 +78,10 @@ namespace FineNotes
                 }
             }
         }
-        void OnListViewItemSelected(object sender, EventArgs args) {                //Функция полученя заметки, на которую нажал пользователь
+
+        public async void OnListViewItemSelected(object sender, EventArgs args) {                //Функция полученя заметки, на которую нажал пользователь
             Note SelectedItem = notCol.Notes.FirstOrDefault(itm => itm.Number == Convert.ToInt32(((TappedEventArgs)args).Parameter.ToString()));
+            await Navigation.PushAsync(new ModifyPage(SelectedItem));
         }
 
     }

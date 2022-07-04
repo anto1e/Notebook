@@ -28,6 +28,11 @@
     <None Remove="Resources\img\find.png" />
     <None Remove="Resources\img\left_arrow.png" />
     <None Remove="Resources\img\left_arrow.png" />
+    <None Remove="Resources\img\right_arrow.png" />
+    <None Remove="Resources\img\right_arrow.png" />
+    <None Remove="Resources\img\cancel.png" />
+    <None Remove="Resources\img\cancel.png" />
+    <None Remove="Resources\img\check.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\img\pen_logo.png" />
@@ -38,5 +43,8 @@
     <EmbeddedResource Include="Resources\img\add.png" />
     <EmbeddedResource Include="Resources\img\find.png" />
     <EmbeddedResource Include="Resources\img\left_arrow.png" />
+    <EmbeddedResource Include="Resources\img\right_arrow.png" />
+    <EmbeddedResource Include="Resources\img\cancel.png" />
+    <EmbeddedResource Include="Resources\img\check.png" />
   </ItemGroup>
 </Project>
