@@ -31,54 +31,77 @@
                />
                 </Frame>
 
-
-        <Label Text="Все(5)" FontSize="18" FontFamily="noto-italic" TextColor="White" x:Name="label_all"
+        <Label Text="Все(0)" FontSize="18" FontFamily="noto-italic" TextColor="White" x:Name="label_all"
            RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
                 Property=Width, Factor=0.08}" 
            RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
                 Property=Height, Factor=0.75}"
-               />
-        <BoxView HeightRequest="5" WidthRequest="35" BackgroundColor="#BBFA8A" CornerRadius="2" x:Name="underline_all"
+               >
+
+                </Label>
+            <BoxView HeightRequest="5" WidthRequest="35" BackgroundColor="#BBFA8A" CornerRadius="2" x:Name="underline_all"
              RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=label_all,
              Property=X, Factor=1, Constant=-4}"
               RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=label_all, 
-              Property=Y, Factor=1, Constant=25}"
-                 />
+              Property=Y, Factor=1, Constant=28}"
+                 >
+            </BoxView>
+                <BoxView Opacity="1" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
+                Property=Width, Factor=0.08}" 
+           RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
+                Property=Height, Factor=0.7 ,Constant=0}" WidthRequest="50" HeightRequest="40"><BoxView.GestureRecognizers>
+            <TapGestureRecognizer Tapped="AllNotesClicked"/>
+            </BoxView.GestureRecognizers></BoxView>
 
-        <Label Text="Личные(5)" FontSize="18" FontFamily="noto-italic" TextColor="White" x:Name="label_priv" 
+        <Label Text="Личные(0)" FontSize="18" FontFamily="noto-italic" TextColor="White" x:Name="label_priv" 
              RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=label_all,
              Property=X, Factor=1, Constant=65}"
            RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
                 Property=Height, Factor=0.75}"
-               />
-
-              <BoxView HeightRequest="5" WidthRequest="75" BackgroundColor="#5873FF" CornerRadius="2" x:Name="underline_priv"
+               ></Label>
+                
+              <BoxView HeightRequest="5" WidthRequest="75" BackgroundColor="#5873FF" CornerRadius="2" x:Name="underline_priv" TranslationX="500"
              RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=label_priv,
              Property=X, Factor=1, Constant=-4}"
               RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=label_priv, 
-              Property=Y, Factor=1, Constant=25}"
-                 />
+              Property=Y, Factor=1, Constant=28}"
+                 ></BoxView>
+
+                 <BoxView Opacity="1" RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=label_all,
+             Property=X, Factor=1, Constant=68}"
+           RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
+                Property=Height, Factor=0.7}" WidthRequest="85"><BoxView.GestureRecognizers>
+            <TapGestureRecognizer Tapped="PrivateNotesClicked"/>
+            </BoxView.GestureRecognizers></BoxView>
 
          <Label Text="Групповые(0)" FontSize="18" FontFamily="noto-italic" TextColor="White" x:Name="label_group"
              RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=label_priv,
              Property=X, Factor=1, Constant=115}"
            RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
                 Property=Height, Factor=0.75}"
-               />
 
-             <BoxView HeightRequest="5" WidthRequest="100" BackgroundColor="#5873FF" CornerRadius="2" x:Name="underline_group"
+               />
+                
+             <BoxView HeightRequest="5" WidthRequest="100" BackgroundColor="#5873FF" CornerRadius="2" x:Name="underline_group" TranslationX="500"
              RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=label_group,
              Property=X, Factor=1, Constant=-1}"
               RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=label_group, 
-              Property=Y, Factor=1, Constant=25}"
+              Property=Y, Factor=1, Constant=28}"
                  />
+                <BoxView Opacity="1" RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=label_priv,
+             Property=X, Factor=1, Constant=115}"
+           RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
+                Property=Height, Factor=0.7}"
+           WidthRequest="115"><BoxView.GestureRecognizers>
+            <TapGestureRecognizer Tapped="GroupNotesClicked"/>
+            </BoxView.GestureRecognizers></BoxView>
 
             </RelativeLayout>
 
         </Frame>
 
 
-            <Grid VerticalOptions="FillAndExpand">
+            <Grid VerticalOptions="FillAndExpand" x:Name="Grid_messages">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>

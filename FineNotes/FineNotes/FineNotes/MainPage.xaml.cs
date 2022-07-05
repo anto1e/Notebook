@@ -16,24 +16,37 @@ namespace FineNotes
         public MainPage()
         {
             InitializeComponent();
-            //var x = Notes.Count();
-            //header_text.Text = x.ToString();#F9FFE2
-        notesList.BindingContext = notCol.Notes;
+            notesList.BindingContext = notCol.Notes;
             SubscribeColChanging();
             MessagingCenter.Send<Page>(this, "CollectionChanged!");
             
         }
-        private void SubscribeColChanging()
+        private string currentPage = "All";
+        private void SubscribeColChanging()     //Функция для изменения отображения кол-ва заметок на главной странице при изменении коллекции
         {
               MessagingCenter.Subscribe<Page>(
                 this, // кто подписывается на сообщения
                 "CollectionChanged!",   // название сообщения
                 (sender) => {
                     int cntNotCol = notCol.Notes.Count;
+                    int cntNotColPriv = notCol.Notes.Count(i => i.Allowers.Count() == 0 && i.Author == "123@mail.ru");
+                    int cntNotColGroup = notCol.Notes.Count(i => i.Allowers.Count() != 0 || i.Author != "123@mail.ru");
                     if (cntNotCol < 100)
-                        label_all.Text = "Все(" + notCol.Notes.Count.ToString() + ")";
+                        label_all.Text = "Все(" + cntNotCol.ToString() + ")";
                     else
-                        label_all.Text = "Все(" + notCol.Notes.Count.ToString() + ")";
+                        label_all.Text = "Все>99";
+                    if (cntNotColPriv < 100)
+                        label_priv.Text = "Личные(" + cntNotColPriv.ToString() + ")";
+                    else
+                        label_priv.Text = "Личные>99";
+                    if (cntNotColGroup < 100)
+                        label_group.Text = "Групповые(" + cntNotColGroup.ToString() + ")";
+                    else
+                        label_group.Text = "Групповые>99";
+                    if (currentPage == "Private")
+                        notCol.fillPrivateTemp();
+                    if (currentPage == "Group")
+                        notCol.fillGroupTemp();
                 });    // вызываемое действие
 
         }
@@ -79,15 +92,90 @@ namespace FineNotes
                 }
             }
         }
-
-        public async void OnListViewItemSelected(object sender, EventArgs args) {                //Функция полученя заметки, на которую нажал пользователь
+        private async void OnListViewItemSelected(object sender, EventArgs args) {                //Функция полученя заметки, на которую нажал пользователь
             var frame = (Frame)sender;
             frame.BackgroundColor = Color.FromHex("DCE1C6");
             Note SelectedItem = notCol.Notes.FirstOrDefault(itm => itm.Number == Convert.ToInt32(((TappedEventArgs)args).Parameter.ToString()));
             await Navigation.PushAsync(new ModifyPage(SelectedItem));
             frame.BackgroundColor = Color.FromHex("F9FFE2");
         }
-
+        private async void PrivateNotesClicked(object sender, EventArgs e)      //Переход на страницу с личными заметками
+        {
+            notCol.fillPrivateTemp();
+            underline_priv.TranslationX = 0;
+            underline_priv.BackgroundColor = Color.FromHex("BBFA8A");
+            if (currentPage == "All")
+            {
+                underline_all.BackgroundColor = Color.FromHex("5873FF");
+                underline_all.TranslationX = 500;
+                await Grid_messages.TranslateTo(-500, 0, 100);
+                notesList.BindingContext = notCol.Notes_temp;
+                await Grid_messages.TranslateTo(500, 0, 0);
+                await Grid_messages.TranslateTo(0, 0, 100);
+                currentPage = "Private";
+            }
+            if (currentPage == "Group")
+            {
+                underline_group.BackgroundColor = Color.FromHex("5873FF");
+                underline_group.TranslationX = 500;
+                await Grid_messages.TranslateTo(500, 0, 100);
+                notesList.BindingContext = notCol.Notes_temp;
+                await Grid_messages.TranslateTo(-500, 0, 0);
+                await Grid_messages.TranslateTo(0, 0, 100);
+                currentPage = "Private";
+            }
+        }
+        private async void AllNotesClicked(object sender, EventArgs e)      //Переход на страницу со всеми заметками
+        {
+            underline_all.TranslationX = 0;
+            underline_all.BackgroundColor = Color.FromHex("BBFA8A");
+            if (currentPage == "Private")
+            {
+                underline_priv.BackgroundColor = Color.FromHex("5873FF");
+                underline_priv.TranslationX = 500;
+                await Grid_messages.TranslateTo(500, 0, 100);
+                notesList.BindingContext = notCol.Notes;
+                await Grid_messages.TranslateTo(-500, 0, 0);
+                await Grid_messages.TranslateTo(0, 0, 100);
+                currentPage = "All";
+            }
+            if (currentPage == "Group")
+            {
+                underline_group.BackgroundColor = Color.FromHex("5873FF");
+                underline_group.TranslationX = 500;
+                await Grid_messages.TranslateTo(500, 0, 100);
+                notesList.BindingContext = notCol.Notes;
+                await Grid_messages.TranslateTo(-500, 0, 0);
+                await Grid_messages.TranslateTo(0, 0, 100);
+                currentPage = "All";
+            }
+        }
+        private async void GroupNotesClicked(object sender, EventArgs e)      //Переход на страницу с групповыми заметками
+        {
+            notCol.fillGroupTemp();
+            underline_group.TranslationX = 0;
+            underline_group.BackgroundColor = Color.FromHex("BBFA8A");
+            if (currentPage == "Private")
+            {
+                underline_priv.BackgroundColor = Color.FromHex("5873FF");
+                underline_priv.TranslationX = 500;
+                await Grid_messages.TranslateTo(-500, 0, 100);
+                notesList.BindingContext = notCol.Notes_temp;
+                await Grid_messages.TranslateTo(500, 0, 0);
+                await Grid_messages.TranslateTo(0, 0, 100);
+                currentPage = "Group";
+            }
+            if (currentPage == "All")
+            {
+                underline_all.BackgroundColor = Color.FromHex("5873FF");
+                underline_all.TranslationX = 500;
+                await Grid_messages.TranslateTo(-500, 0, 100);
+                notesList.BindingContext = notCol.Notes_temp;
+                await Grid_messages.TranslateTo(500, 0, 0);
+                await Grid_messages.TranslateTo(0, 0, 100);
+                currentPage = "Group";
+            }
+        }
     }
 }
 

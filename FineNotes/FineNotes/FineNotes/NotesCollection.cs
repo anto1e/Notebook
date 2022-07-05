@@ -8,9 +8,11 @@ namespace FineNotes
     public class NotesCollection                        //Коллекция заметок, паттерн одиночка
     {
         protected internal ObservableCollection<Note> Notes { get; set; }
+        protected internal ObservableCollection<Note> Notes_temp { get; set; }
         private static NotesCollection instance = null;
         public NotesCollection()
         {
+            Notes_temp = new ObservableCollection<Note> {};
             Notes = new ObservableCollection<Note> {
             new Note{Number=1,Header="Test",Message="Message",Author="123@mail.ru",Date="03.07.2022",},
             new Note{Number=2,Header="Test1",Message="Message",Author="123@mail.ru",Date="03.07.2022"},
@@ -29,7 +31,30 @@ namespace FineNotes
         {
             var index = Notes.Count()+1;
             Notes.Add(new Note {Number = index, Header = header, Message = message, Author = author, Date = date, Allowers=list});
-            
+        }
+        public void fillPrivateTemp()   //Наполнение временной коллекции личными заметками
+        {
+            Notes_temp.Clear();
+            foreach (var elem in Notes)
+            {
+                if (elem.Author == "123@mail.ru" && elem.Allowers.Count() == 0)
+                {
+                    Notes_temp.Add(new Note { Number = elem.Number, Header = elem.Header, Message = elem.Message, Author = elem.Author, Date = elem.Date, Allowers = elem.Allowers });
+                }
+                
+            }
+        }
+        public void fillGroupTemp()   //Наполнение временной коллекции групповыми заметками
+        {
+            Notes_temp.Clear();
+            foreach (var elem in Notes)
+            {
+                if (elem.Author != "123@mail.ru" || elem.Allowers.Count() != 0)
+                {
+                    Notes_temp.Add(new Note { Number = elem.Number, Header = elem.Header, Message = elem.Message, Author = elem.Author, Date = elem.Date, Allowers = elem.Allowers });
+                }
+
+            }
         }
     }
 }
