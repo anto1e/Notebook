@@ -16,13 +16,14 @@ namespace FineNotes
             Note_header.Text = note.Header;
             Note_msg.Text = note.Message;
             Email_label.Text = note.Author;
+            List<string> lst = note.Allowers;
             Date_label.Text = note.Date;
         }
         private async void BackButton_Clicked(object sender, EventArgs e)
         {
             await Navigation.PopAsync();
         }
-        private bool hided = false;
+        private bool hided = true;
         private void ShowBtnsClicked(object sender, EventArgs e) //Функция скрывания/показа кнопок удаления и изменения
         {
             if (!hided)
@@ -47,9 +48,10 @@ namespace FineNotes
             {
                 note.Header = Note_header.Text;
                 note.Message = Note_msg.Text;
+                note.Date = DateTime.Now.ToString();
             }
         }
-        private async void NoteDeleteClicked(object sender, EventArgs e)
+        private async void NoteDeleteClicked(object sender, EventArgs e)        //Функция удаления заметки
         {
             var note = notCol.Notes.FirstOrDefault(i => i.Number == number);
             notCol.Notes.Remove(note);

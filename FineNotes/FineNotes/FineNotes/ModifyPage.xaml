@@ -56,8 +56,8 @@
             </StackLayout>
         </Frame>
                 <AbsoluteLayout HorizontalOptions="End" VerticalOptions="End" Margin="0,0,10,170" HeightRequest="40">
-                        <Frame HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0084E4" x:Name="ArrowFrame">
-                        <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.right_arrow.png}" x:Name="ArrowBtn" WidthRequest="20" HeightRequest="20" Scale="1.8">
+                        <Frame HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0084E4" x:Name="ArrowFrame" Opacity="0.2">
+                        <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.right_arrow.png}" x:Name="ArrowBtn" WidthRequest="20" HeightRequest="20" Scale="1.8" RotationY="180">
                             <Image.GestureRecognizers>
                             <TapGestureRecognizer Tapped="ShowBtnsClicked" NumberOfTapsRequired="1"/>
                             </Image.GestureRecognizers>
@@ -70,7 +70,7 @@
 
                 </AbsoluteLayout>
                  <AbsoluteLayout HorizontalOptions="End" VerticalOptions="End" Margin="0,0,10,20">
-                    <StackLayout Spacing="2" x:Name="buttons_layout">
+                    <StackLayout Spacing="2" x:Name="buttons_layout" TranslationX="100">
                      <Frame HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0084E4">
                              <Frame.GestureRecognizers>
                             <TapGestureRecognizer Tapped="NoteDeleteClicked" NumberOfTapsRequired="1"/>

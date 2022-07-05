@@ -27,8 +27,11 @@ namespace FineNotes
              string note_header = Note_header.Text;
             string note_msg = Note_msg.Text;
             string note_author = "123@123.ru";
-            string date = "123";
-            notCol.addNote(note_header, note_msg, note_author, date);
+            string date = DateTime.Now.ToString();
+            List<string> temp = new List<string>();     //Поменять!!!
+            temp.Add("123@1233.ru");
+            temp.Add("321@321.ru");
+            notCol.addNote(note_header, note_msg, note_author, date,temp);
             MessagingCenter.Send<Page>(this, "CollectionChanged!");
             await Navigation.PopAsync();
             }

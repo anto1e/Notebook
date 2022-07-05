@@ -120,9 +120,9 @@
            RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
                 Property=Height, Factor=0.95}"
                />
-          <Label Text="{Binding Date}" TextColor="#696969" HorizontalTextAlignment="Start" x:Name="label_time" FontSize="10"
+          <Label Text="{Binding Date}" TextColor="#696969" HorizontalTextAlignment="End" x:Name="label_time" FontSize="10" WidthRequest="105"
            RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
-                Property=Width, Factor=0.8, Constant=0}" 
+                Property=Width, Factor=1, Constant=-100}" 
            RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
                 Property=Height, Factor=0.95}"
                />

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Numerics;
 
 namespace FineNotes
 {
@@ -10,6 +12,7 @@ namespace FineNotes
         private string author;
         private string date;
         private int number;
+        List<string> allowers = new List<string>();
 
         public int Number
         {
@@ -69,6 +72,15 @@ namespace FineNotes
                     date = value;
                     OnPropertyChanged("Date");
                 }
+            }
+        }
+        public List<string> Allowers
+        {
+            get { return allowers; }
+            set
+            {
+                allowers = value;
+                OnPropertyChanged("Allowers");
             }
         }
 
