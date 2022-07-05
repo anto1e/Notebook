@@ -17,10 +17,11 @@ namespace FineNotes
         {
             InitializeComponent();
             //var x = Notes.Count();
-            //header_text.Text = x.ToString();
+            //header_text.Text = x.ToString();#F9FFE2
         notesList.BindingContext = notCol.Notes;
             SubscribeColChanging();
             MessagingCenter.Send<Page>(this, "CollectionChanged!");
+            
         }
         private void SubscribeColChanging()
         {
@@ -30,20 +31,20 @@ namespace FineNotes
                 (sender) => {
                     int cntNotCol = notCol.Notes.Count;
                     if (cntNotCol < 100)
-                        label_priv.Text = "Личные(" + notCol.Notes.Count.ToString() + ")";
+                        label_all.Text = "Все(" + notCol.Notes.Count.ToString() + ")";
                     else
-                        label_priv.Text = "Личные(" + notCol.Notes.Count.ToString() + ")";
+                        label_all.Text = "Все(" + notCol.Notes.Count.ToString() + ")";
                 });    // вызываемое действие
 
         }
-        public async void addBtnClicked(object sender, EventArgs args)       //Обработка нажатия на кнопку "Добавить"
+        private async void addBtnClicked(object sender, EventArgs args)       //Обработка нажатия на кнопку "Добавить"
         {
             await Navigation.PushAsync(new AddPage());
         }
         private double previousScrollPosition = 0;          //Переменная для хранения значения предыдущей позиции
         private int scrollXCnt = 0;                         //Счетик, отвечающий за кол-во прокрутки прежде чем уберется тулбар
         private int scrollYCnt = 0;                         //Счетик, отвечающий за кол-во прокрутки прежде чем появится тулбар
-        void scrollHandler(object sender, Xamarin.Forms.ScrolledEventArgs e)        //Функция отображения/скрытия тулбара
+        private void scrollHandler(object sender, Xamarin.Forms.ScrolledEventArgs e)        //Функция отображения/скрытия тулбара
         {
             if (Convert.ToInt16(e.ScrollY) > 10)
             {
@@ -80,8 +81,11 @@ namespace FineNotes
         }
 
         public async void OnListViewItemSelected(object sender, EventArgs args) {                //Функция полученя заметки, на которую нажал пользователь
+            var frame = (Frame)sender;
+            frame.BackgroundColor = Color.FromHex("DCE1C6");
             Note SelectedItem = notCol.Notes.FirstOrDefault(itm => itm.Number == Convert.ToInt32(((TappedEventArgs)args).Parameter.ToString()));
             await Navigation.PushAsync(new ModifyPage(SelectedItem));
+            frame.BackgroundColor = Color.FromHex("F9FFE2");
         }
 
     }

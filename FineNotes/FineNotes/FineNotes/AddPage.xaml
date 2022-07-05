@@ -23,28 +23,34 @@
            ><Image.GestureRecognizers>
             <TapGestureRecognizer Tapped="BackButton_Clicked" NumberOfTapsRequired="1"/>
             </Image.GestureRecognizers></Image>
-
-                <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.pen_logo.png}" WidthRequest="50" HeightRequest="50"
-           RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
-                Property=Width, Factor=1, Constant=-60}" 
-           RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
-                Property=Height, Factor=0.3, Constant=-10}"
-           ><Image.GestureRecognizers>
-            <TapGestureRecognizer Tapped="AddButton_Clicked" NumberOfTapsRequired="1"/>
-            </Image.GestureRecognizers>
-                </Image>
         </RelativeLayout>
 
         </AbsoluteLayout>
 
-
-            <Frame BackgroundColor="#F9FFE2" Margin="20" CornerRadius="20" Grid.Row="0" VerticalOptions="FillAndExpand">
+         <Grid VerticalOptions="FillAndExpand">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+            <Frame BackgroundColor="#F9FFE2" Margin="20" CornerRadius="20" Grid.Row="0" VerticalOptions="FillAndExpand" Grid.Column="0">
             <StackLayout>
-            <Entry Placeholder="Заголовок"  x:Name="Note_header" TextColor="#1456FF" FontFamily="noto-header" />
-            <Editor FontFamily="noto-italic" VerticalOptions="FillAndExpand" Placeholder="Текст заметки" x:Name="Note_msg"/>
+            <Entry Placeholder="Заголовок"  x:Name="Note_header" TextColor="#1456FF" FontFamily="noto-header" TextChanged="AddTextChanged" FontSize="Large"/>
+            <Editor FontFamily="noto-italic" VerticalOptions="FillAndExpand" Placeholder="Текст заметки" x:Name="Note_msg" TextChanged="AddTextChanged"/>
             </StackLayout>
         </Frame>
+                     <AbsoluteLayout HorizontalOptions="End" VerticalOptions="End" Margin="0,0,10,100" HeightRequest="40">
+                     <Frame HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#00E492" x:Name="Pen_frame" Opacity="0.2">
+                        <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.pen_logo.png}" WidthRequest="20" HeightRequest="20" Scale="2">
+                        <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="AddButton_Clicked" NumberOfTapsRequired="1"/>
+                        </Image.GestureRecognizers>
+                        </Image>
+                    </Frame>
 
+                </AbsoluteLayout>
+            </Grid>
     </StackLayout>
 
 </ContentPage>

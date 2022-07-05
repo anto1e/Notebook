@@ -23,13 +23,6 @@
            ><Image.GestureRecognizers>
             <TapGestureRecognizer Tapped="BackButton_Clicked" NumberOfTapsRequired="1"/>
             </Image.GestureRecognizers></Image>
-
-                <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.pen_logo.png}" WidthRequest="50" HeightRequest="50"
-           RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
-                Property=Width, Factor=1, Constant=-60}" 
-           RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
-                Property=Height, Factor=0.3, Constant=-10}"
-           ></Image>
         </RelativeLayout>
             </AbsoluteLayout>
                         <Grid VerticalOptions="FillAndExpand">
@@ -63,7 +56,7 @@
             </StackLayout>
         </Frame>
                 <AbsoluteLayout HorizontalOptions="End" VerticalOptions="End" Margin="0,0,10,170" HeightRequest="40">
-                        <Frame HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#61C7B4" x:Name="ArrowFrame">
+                        <Frame HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0084E4" x:Name="ArrowFrame">
                         <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.right_arrow.png}" x:Name="ArrowBtn" WidthRequest="20" HeightRequest="20" Scale="1.8">
                             <Image.GestureRecognizers>
                             <TapGestureRecognizer Tapped="ShowBtnsClicked" NumberOfTapsRequired="1"/>
@@ -78,11 +71,11 @@
                 </AbsoluteLayout>
                  <AbsoluteLayout HorizontalOptions="End" VerticalOptions="End" Margin="0,0,10,100" HeightRequest="40">
                     <StackLayout Spacing="2" x:Name="buttons_layout">
-                     <Frame HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#FF3E3E">
+                     <Frame HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0084E4">
                         <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.cancel.png}" WidthRequest="20" HeightRequest="20" Scale="3"/>
                     </Frame>
                     <Frame HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0CC8A6">
-                        <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.check.png}" WidthRequest="20" HeightRequest="20" Scale="3.5"/>
+                        <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.check.png}" WidthRequest="20" HeightRequest="20" Scale="3.2"/>
                     </Frame>
 
 
