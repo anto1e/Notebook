@@ -50,6 +50,7 @@ namespace FineNotes
                 note.Message = Note_msg.Text;
                 note.Date = DateTime.Now.ToString();
             }
+            MessagingCenter.Send<Page>(this, "CollectionChanged!");
         }
         private async void NoteDeleteClicked(object sender, EventArgs e)        //Функция удаления заметки
         {

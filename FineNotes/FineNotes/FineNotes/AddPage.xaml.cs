@@ -22,7 +22,7 @@ namespace FineNotes
         }
         private async void AddButton_Clicked(object sender, EventArgs args)
         {   //Функция добавления заметки, если заголовок или текст не пуст
-            if (!String.IsNullOrEmpty(Note_header.Text) || !String.IsNullOrEmpty(Note_msg.Text))
+            if (!String.IsNullOrEmpty(Note_header.Text))
             {
              string note_header = Note_header.Text;
             string note_msg = Note_msg.Text;
@@ -38,7 +38,7 @@ namespace FineNotes
         }
         public void AddTextChanged(object sender, EventArgs e)              //Функция изменения прозрачности у кнопки
         {
-            if (!String.IsNullOrEmpty(Note_header.Text) || !String.IsNullOrEmpty(Note_msg.Text))
+            if (!String.IsNullOrEmpty(Note_header.Text))
                 Pen_frame.Opacity = 1;
             else
                 Pen_frame.Opacity = 0.2;

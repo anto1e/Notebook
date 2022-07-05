@@ -45,9 +45,13 @@ namespace FineNotes
                     else
                         label_group.Text = "Групповые>99";
                     if (currentPage == "Private")
+                    {
                         notCol.fillPrivateTemp();
+                    }
                     if (currentPage == "Group")
+                    {
                         notCol.fillGroupTemp();
+                    }
                 });    // вызываемое действие
 
         }
@@ -220,7 +224,7 @@ namespace FineNotes
             SearchToolbarLayoutArrow.TranslateTo(100, 0, 250);
         }
         private void SearchClicked(object sender, EventArgs e)
-        {       //Функция удаления заметки
+        {       //Функция поиска заметки
             string find_str = SearchEntry.Text;
             notCol.findAllByPart(find_str);
             notesList.BindingContext = notCol.Notes_temp;
