@@ -56,6 +56,17 @@ namespace FineNotes
 
             }
         }
+        public void findAllByPart(string str)
+        {
+            Notes_temp.Clear();
+            foreach (var elem in Notes)
+            {
+                if (elem.Header.IndexOf(str, StringComparison.OrdinalIgnoreCase) >= 0 || elem.Message.IndexOf(str, StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    Notes_temp.Add(new Note { Number = elem.Number, Header = elem.Header, Message = elem.Message, Author = elem.Author, Date = elem.Date, Allowers = elem.Allowers });
+                }
+            }
+        }
     }
 }
 

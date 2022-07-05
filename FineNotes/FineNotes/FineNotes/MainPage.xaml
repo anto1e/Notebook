@@ -35,11 +35,11 @@
            RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
                 Property=Width, Factor=0.08}" 
            RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
-                Property=Height, Factor=0.75}"
+                Property=Height, Factor=0.7}"
                >
 
                 </Label>
-            <BoxView HeightRequest="5" WidthRequest="35" BackgroundColor="#BBFA8A" CornerRadius="2" x:Name="underline_all"
+            <BoxView HeightRequest="5" WidthRequest="35"  BackgroundColor="#BBFA8A" CornerRadius="2" x:Name="underline_all"
              RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=label_all,
              Property=X, Factor=1, Constant=-4}"
               RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=label_all, 
@@ -57,7 +57,7 @@
              RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=label_all,
              Property=X, Factor=1, Constant=65}"
            RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
-                Property=Height, Factor=0.75}"
+                Property=Height, Factor=0.7}"
                ></Label>
                 
               <BoxView HeightRequest="5" WidthRequest="75" BackgroundColor="#5873FF" CornerRadius="2" x:Name="underline_priv" TranslationX="500"
@@ -78,7 +78,7 @@
              RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=label_priv,
              Property=X, Factor=1, Constant=115}"
            RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
-                Property=Height, Factor=0.75}"
+                Property=Height, Factor=0.7}"
 
                />
                 
@@ -100,7 +100,7 @@
 
         </Frame>
 
-
+        <Entry Placeholder="" TranslationY="0" HeightRequest="0" x:Name="SearchEntry" BackgroundColor="#BAEAFF" FontFamily="noto-italic"/>
             <Grid VerticalOptions="FillAndExpand" x:Name="Grid_messages">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -108,8 +108,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-            
-        <ScrollView Grid.Column="0" Grid.Row="0" VerticalOptions="StartAndExpand" Scrolled="scrollHandler">
+         
+        <ScrollView Grid.Column="0" Grid.Row="0" VerticalOptions="StartAndExpand" Scrolled="scrollHandler" TranslationY="0">
        <StackLayout BindableLayout.ItemsSource= "{Binding}" x:Name="notesList">
       <BindableLayout.ItemTemplate>
         <DataTemplate>
@@ -192,7 +192,9 @@
              Property=X, Factor=1, Constant=15}"
               RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=toolbar_frame, 
               Property=Y, Factor=0.5, Constant=5}"
-           >         
+            ><Image.GestureRecognizers>
+            <TapGestureRecognizer Tapped="FindBtdClicked"/>
+            </Image.GestureRecognizers>        
                 </Image>
 
             <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.refresh.png}" HeightRequest="30" WidthRequest="30"
@@ -203,6 +205,47 @@
            />
       </RelativeLayout>
      </AbsoluteLayout>
+            <AbsoluteLayout HorizontalOptions="End" VerticalOptions="End" Margin="0,0,10,170" HeightRequest="40" TranslationX="100" x:Name="SearchToolbarLayoutArrow">
+                        <Frame HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0084E4" x:Name="ArrowFrame" Opacity="0.2">
+                        <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.right_arrow.png}" x:Name="ArrowBtnTool" WidthRequest="20" HeightRequest="20" Scale="1.8" RotationY="180">
+                            <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ShowBtnsClicked" NumberOfTapsRequired="1"/>
+                            </Image.GestureRecognizers>
+
+                        </Image>
+                             <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ShowBtnsClicked" NumberOfTapsRequired="1"/>
+                            </Frame.GestureRecognizers>
+                    </Frame>
+
+                </AbsoluteLayout>
+                 <AbsoluteLayout HorizontalOptions="End" VerticalOptions="End" Margin="0,0,10,20" x:Name="SearchToolbarLayout">
+                    <StackLayout Spacing="2" x:Name="buttons_layout" TranslationX="100">
+                     <Frame HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0084E4">
+                             <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="SearchBackClicked" NumberOfTapsRequired="1"/>
+                            </Frame.GestureRecognizers>
+                        <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.cancel.png}" WidthRequest="20" HeightRequest="20" Scale="3">
+                             <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="SearchBackClicked" NumberOfTapsRequired="1"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </Frame>
+                    <Frame HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0CC8A6">
+                             <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="SearchClicked" NumberOfTapsRequired="1"/>
+                            </Frame.GestureRecognizers>
+                        <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.check.png}" WidthRequest="20" HeightRequest="20" Scale="3.2">
+                            <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="SearchClicked" NumberOfTapsRequired="1"/>
+                            </Image.GestureRecognizers>
+                                </Image>
+                    </Frame>
+
+
+                    </StackLayout>
+
+                </AbsoluteLayout>
     </Grid>
     </StackLayout>
 </ContentPage>

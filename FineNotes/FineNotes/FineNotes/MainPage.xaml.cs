@@ -21,6 +21,7 @@ namespace FineNotes
             MessagingCenter.Send<Page>(this, "CollectionChanged!");
             
         }
+        bool toolBarBlocked = false;
         private string currentPage = "All";
         private void SubscribeColChanging()     //Функция для изменения отображения кол-ва заметок на главной странице при изменении коллекции
         {
@@ -59,35 +60,38 @@ namespace FineNotes
         private int scrollYCnt = 0;                         //Счетик, отвечающий за кол-во прокрутки прежде чем появится тулбар
         private void scrollHandler(object sender, Xamarin.Forms.ScrolledEventArgs e)        //Функция отображения/скрытия тулбара
         {
-            if (Convert.ToInt16(e.ScrollY) > 10)
+            if (!toolBarBlocked)
             {
-                if (previousScrollPosition < e.ScrollY)
+                if (Convert.ToInt16(e.ScrollY) > 10)
                 {
-                    if (scrollXCnt > 5)
+                    if (previousScrollPosition < e.ScrollY)
                     {
-                        //scrolled down
-                        previousScrollPosition = e.ScrollY;
-                        toolbar_layout.TranslateTo(0, 250, 150);
+                        if (scrollXCnt > 5)
+                        {
+                            //scrolled down
+                            previousScrollPosition = e.ScrollY;
+                            toolbar_layout.TranslateTo(0, 250, 150);
+                        }
+                        else
+                        {
+                            scrollXCnt++;
+                            scrollYCnt = 0;
+                        }
                     }
                     else
                     {
-                        scrollXCnt++;
-                        scrollYCnt = 0;
-                    }
-                }
-                else
-                {
-                    if (scrollYCnt > 1)
-                    {
-                        if (Convert.ToInt16(e.ScrollY) == 0)
-                            previousScrollPosition = 0;
-                        previousScrollPosition = e.ScrollY;
-                        toolbar_layout.TranslateTo(0, 0, 150);
-                    }
-                    else
-                    {
-                        scrollYCnt++;
-                        scrollXCnt = 0;
+                        if (scrollYCnt > 1)
+                        {
+                            if (Convert.ToInt16(e.ScrollY) == 0)
+                                previousScrollPosition = 0;
+                            previousScrollPosition = e.ScrollY;
+                            toolbar_layout.TranslateTo(0, 0, 150);
+                        }
+                        else
+                        {
+                            scrollYCnt++;
+                            scrollXCnt = 0;
+                        }
                     }
                 }
             }
@@ -175,6 +179,51 @@ namespace FineNotes
                 await Grid_messages.TranslateTo(0, 0, 100);
                 currentPage = "Group";
             }
+        }
+
+        private void FindBtdClicked(object sender, EventArgs e)                //Функция инициализации поиска
+        {
+                toolbar_layout.TranslateTo(0, 250, 150);
+                var rotateAnimation = new Animation(v => SearchEntry.HeightRequest = v, 0, 60);
+                rotateAnimation.Commit(this, "HeightAnimation", 16, 500, Easing.SinIn, null, null);
+                SearchToolbarLayout.TranslateTo(0, 0, 250);
+                SearchToolbarLayoutArrow.TranslateTo(0, 0, 250);
+                toolBarBlocked = true;
+        }
+        bool hided = true;
+        private void ShowBtnsClicked(object sender, EventArgs e) //Функция скрывания/показа кнопок удаления и изменения
+        {
+            if (!hided)
+            {
+                buttons_layout.TranslateTo(100, 0, 250);
+                ArrowBtnTool.RotateYTo(180, 250);
+                ArrowFrame.Opacity = 0.2;
+                hided = true;
+            }
+            else
+            {
+                buttons_layout.TranslateTo(0, 0, 250);
+                ArrowBtnTool.RotateYTo(0, 250);
+                ArrowFrame.Opacity = 1;
+                hided = false;
+            }
+        }
+        private void SearchBackClicked(object sender, EventArgs e)      //Функция сохранения изменений в заметке
+        {var rotateAnimation = new Animation(v => SearchEntry.HeightRequest = v, 0, 60);
+            notCol.Notes_temp.Clear();
+            notesList.BindingContext = notCol.Notes;
+            var rotateAnimationBack = new Animation(v => SearchEntry.HeightRequest = v, 60, 0);
+            rotateAnimationBack.Commit(this, "HeightAnimationBack", 16, 500, Easing.SinIn, null, null);
+            toolBarBlocked = false;
+            toolbar_layout.TranslateTo(0, 0, 150);
+            SearchToolbarLayout.TranslateTo(100, 0, 250);
+            SearchToolbarLayoutArrow.TranslateTo(100, 0, 250);
+        }
+        private void SearchClicked(object sender, EventArgs e)
+        {       //Функция удаления заметки
+            string find_str = SearchEntry.Text;
+            notCol.findAllByPart(find_str);
+            notesList.BindingContext = notCol.Notes_temp;
         }
     }
 }
