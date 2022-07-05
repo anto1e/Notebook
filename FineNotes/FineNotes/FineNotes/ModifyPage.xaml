@@ -69,13 +69,27 @@
                     </Frame>
 
                 </AbsoluteLayout>
-                 <AbsoluteLayout HorizontalOptions="End" VerticalOptions="End" Margin="0,0,10,100" HeightRequest="40">
+                 <AbsoluteLayout HorizontalOptions="End" VerticalOptions="End" Margin="0,0,10,20">
                     <StackLayout Spacing="2" x:Name="buttons_layout">
                      <Frame HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0084E4">
-                        <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.cancel.png}" WidthRequest="20" HeightRequest="20" Scale="3"/>
+                             <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="NoteDeleteClicked" NumberOfTapsRequired="1"/>
+                            </Frame.GestureRecognizers>
+                        <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.cancel.png}" WidthRequest="20" HeightRequest="20" Scale="3">
+                             <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="NoteDeleteClicked" NumberOfTapsRequired="1"/>
+                            </Image.GestureRecognizers>
+                        </Image>
                     </Frame>
                     <Frame HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0CC8A6">
-                        <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.check.png}" WidthRequest="20" HeightRequest="20" Scale="3.2"/>
+                             <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="NoteChangeClicked" NumberOfTapsRequired="1"/>
+                            </Frame.GestureRecognizers>
+                        <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.check.png}" WidthRequest="20" HeightRequest="20" Scale="3.2">
+                            <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="NoteChangeClicked" NumberOfTapsRequired="1"/>
+                            </Image.GestureRecognizers>
+                                </Image>
                     </Frame>
 
 

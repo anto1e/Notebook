@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Linq;
 using Xamarin.Forms;
 
 namespace FineNotes
 {
     public partial class ModifyPage : ContentPage
     {
+        NotesCollection notCol = NotesCollection.getInstance();
+        int number;
         public ModifyPage(Note note)
         {
             InitializeComponent();
+            number = note.Number;
             Note_header.Text = note.Header;
             Note_msg.Text = note.Message;
             Email_label.Text = note.Author;
@@ -20,7 +23,7 @@ namespace FineNotes
             await Navigation.PopAsync();
         }
         private bool hided = false;
-        public void ShowBtnsClicked(object sender, EventArgs e)
+        private void ShowBtnsClicked(object sender, EventArgs e) //Функция скрывания/показа кнопок удаления и изменения
         {
             if (!hided)
             {
@@ -37,6 +40,27 @@ namespace FineNotes
                 hided = false;
             }
         }
-    }
+        private void NoteChangeClicked(object sender, EventArgs e)      //Функция сохранения изменений в заметке
+        {
+            var note = notCol.Notes.FirstOrDefault(i => i.Number == number);
+            if (note != null)
+            {
+                note.Header = Note_header.Text;
+                note.Message = Note_msg.Text;
+            }
+        }
+        private async void NoteDeleteClicked(object sender, EventArgs e)
+        {
+            var note = notCol.Notes.FirstOrDefault(i => i.Number == number);
+            notCol.Notes.Remove(note);
+            foreach(var elem in notCol.Notes)
+            {
+                if (elem.Number > number)
+                    elem.Number -= 1;
+            }
+            MessagingCenter.Send<Page>(this, "CollectionChanged!");
+            await Navigation.PopAsync();
+        }
+    }   
 }
 
