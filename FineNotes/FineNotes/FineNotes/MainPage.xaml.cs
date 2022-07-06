@@ -100,6 +100,7 @@ namespace FineNotes
                 }
             }
         }
+        bool hided = true;
         private async void OnListViewItemSelected(object sender, EventArgs args) {                //Функция полученя заметки, на которую нажал пользователь
             var frame = (Frame)sender;
             frame.BackgroundColor = Color.FromHex("DCE1C6");
@@ -109,29 +110,44 @@ namespace FineNotes
         }
         private async void PrivateNotesClicked(object sender, EventArgs e)      //Переход на страницу с личными заметками
         {
-            notCol.fillPrivateTemp();
             underline_priv.TranslationX = 0;
             underline_priv.BackgroundColor = Color.FromHex("BBFA8A");
             if (currentPage == "All")
             {
-                underline_all.BackgroundColor = Color.FromHex("5873FF");
-                underline_all.TranslationX = 500;
-                await Grid_messages.TranslateTo(-500, 0, 100);
-                notesList.BindingContext = notCol.Notes_temp;
-                await Grid_messages.TranslateTo(500, 0, 0);
-                await Grid_messages.TranslateTo(0, 0, 100);
                 currentPage = "Private";
+                if (!hided)
+                {
+                    SearchClicked(null, null);
+                }else
+                    notCol.fillPrivateTemp();
+                SearchToolbarLayoutArrow.IsVisible = false;
+                SearchToolbarLayout.IsVisible = false;
+                underline_all.BackgroundColor = Color.FromHex("5873FF");
+                underline_all.TranslationX = 1000;
+                await Grid_messages.TranslateTo(-1000, 0, 150);
+                notesList.BindingContext = notCol.Notes_temp;
+                await Grid_messages.TranslateTo(1000, 0, 0);
+                await Grid_messages.TranslateTo(0, 0, 150);
             }
             if (currentPage == "Group")
             {
-                underline_group.BackgroundColor = Color.FromHex("5873FF");
-                underline_group.TranslationX = 500;
-                await Grid_messages.TranslateTo(500, 0, 100);
-                notesList.BindingContext = notCol.Notes_temp;
-                await Grid_messages.TranslateTo(-500, 0, 0);
-                await Grid_messages.TranslateTo(0, 0, 100);
                 currentPage = "Private";
+                if (!hided)
+                {
+                    SearchClicked(null, null);
+                }else
+                    notCol.fillPrivateTemp();
+                SearchToolbarLayoutArrow.IsVisible = false;
+                SearchToolbarLayout.IsVisible = false;
+                underline_group.BackgroundColor = Color.FromHex("5873FF");
+                underline_group.TranslationX = 1000;
+                await Grid_messages.TranslateTo(1000, 0, 150);
+                notesList.BindingContext = notCol.Notes_temp;
+                await Grid_messages.TranslateTo(-1000, 0, 0);
+                await Grid_messages.TranslateTo(0, 0, 150);
             }
+            SearchToolbarLayoutArrow.IsVisible = true;
+            SearchToolbarLayout.IsVisible = true;
         }
         private async void AllNotesClicked(object sender, EventArgs e)      //Переход на страницу со всеми заметками
         {
@@ -139,50 +155,85 @@ namespace FineNotes
             underline_all.BackgroundColor = Color.FromHex("BBFA8A");
             if (currentPage == "Private")
             {
-                underline_priv.BackgroundColor = Color.FromHex("5873FF");
-                underline_priv.TranslationX = 500;
-                await Grid_messages.TranslateTo(500, 0, 100);
-                notesList.BindingContext = notCol.Notes;
-                await Grid_messages.TranslateTo(-500, 0, 0);
-                await Grid_messages.TranslateTo(0, 0, 100);
                 currentPage = "All";
+                if (!hided)
+                {   
+                    SearchClicked(null, null);
+                }
+                SearchToolbarLayoutArrow.IsVisible = false;
+                SearchToolbarLayout.IsVisible = false;
+                underline_priv.BackgroundColor = Color.FromHex("5873FF");
+                underline_priv.TranslationX = 1000;
+                await Grid_messages.TranslateTo(1000, 0, 150);
+                if (hided)
+                {
+                    notesList.BindingContext = notCol.Notes;
+                }
+                await Grid_messages.TranslateTo(-1000, 0, 0);
+                await Grid_messages.TranslateTo(0, 0, 150);
             }
             if (currentPage == "Group")
             {
-                underline_group.BackgroundColor = Color.FromHex("5873FF");
-                underline_group.TranslationX = 500;
-                await Grid_messages.TranslateTo(500, 0, 100);
-                notesList.BindingContext = notCol.Notes;
-                await Grid_messages.TranslateTo(-500, 0, 0);
-                await Grid_messages.TranslateTo(0, 0, 100);
                 currentPage = "All";
+                if (!hided)
+                {
+                    SearchClicked(null, null);
+                }
+                SearchToolbarLayoutArrow.IsVisible = false;
+                SearchToolbarLayout.IsVisible = false;
+                underline_group.BackgroundColor = Color.FromHex("5873FF");
+                underline_group.TranslationX = 1000;
+                await Grid_messages.TranslateTo(1000, 0, 150);
+                if (hided)
+                {
+                    notesList.BindingContext = notCol.Notes;
+                }
+                await Grid_messages.TranslateTo(-1000, 0, 0);
+                await Grid_messages.TranslateTo(0, 0, 150);
             }
+            SearchToolbarLayoutArrow.IsVisible = true;
+            SearchToolbarLayout.IsVisible = true;
         }
         private async void GroupNotesClicked(object sender, EventArgs e)      //Переход на страницу с групповыми заметками
         {
-            notCol.fillGroupTemp();
             underline_group.TranslationX = 0;
             underline_group.BackgroundColor = Color.FromHex("BBFA8A");
             if (currentPage == "Private")
             {
-                underline_priv.BackgroundColor = Color.FromHex("5873FF");
-                underline_priv.TranslationX = 500;
-                await Grid_messages.TranslateTo(-500, 0, 100);
-                notesList.BindingContext = notCol.Notes_temp;
-                await Grid_messages.TranslateTo(500, 0, 0);
-                await Grid_messages.TranslateTo(0, 0, 100);
                 currentPage = "Group";
+                if (!hided)
+                {
+                    SearchClicked(null, null);
+                }else
+                    notCol.fillGroupTemp();
+                SearchToolbarLayoutArrow.IsVisible = false;
+                SearchToolbarLayout.IsVisible = false;
+                underline_priv.BackgroundColor = Color.FromHex("5873FF");
+                underline_priv.TranslationX = 1000;
+                await Grid_messages.TranslateTo(-1000, 0, 150);
+                notesList.BindingContext = notCol.Notes_temp;
+                await Grid_messages.TranslateTo(1000, 0, 0);
+                await Grid_messages.TranslateTo(0, 0, 150);
             }
             if (currentPage == "All")
             {
-                underline_all.BackgroundColor = Color.FromHex("5873FF");
-                underline_all.TranslationX = 500;
-                await Grid_messages.TranslateTo(-500, 0, 100);
-                notesList.BindingContext = notCol.Notes_temp;
-                await Grid_messages.TranslateTo(500, 0, 0);
-                await Grid_messages.TranslateTo(0, 0, 100);
                 currentPage = "Group";
+                if (!hided)
+                {
+                    SearchClicked(null, null);
+                }else
+                    notCol.fillGroupTemp();
+                SearchToolbarLayoutArrow.IsVisible = false;
+                SearchToolbarLayout.IsVisible = false;
+                underline_all.BackgroundColor = Color.FromHex("5873FF");
+                underline_all.TranslationX = 1000;
+                await Grid_messages.TranslateTo(-1000, 0, 150);
+                notesList.BindingContext = notCol.Notes_temp;
+                await Grid_messages.TranslateTo(1000, 0, 0);
+                await Grid_messages.TranslateTo(0, 0, 150);
             }
+            SearchToolbarLayoutArrow.IsVisible = true;
+            SearchToolbarLayout.IsVisible = true;
         }
 
         private void FindBtdClicked(object sender, EventArgs e)                //Функция инициализации поиска
@@ -194,7 +245,6 @@ namespace FineNotes
                 SearchToolbarLayoutArrow.TranslateTo(0, 0, 250);
                 toolBarBlocked = true;
         }
-        bool hided = true;
         private void ShowBtnsClicked(object sender, EventArgs e) //Функция скрывания/показа кнопок удаления и изменения
         {
             if (!hided)
@@ -215,18 +265,44 @@ namespace FineNotes
         private void SearchBackClicked(object sender, EventArgs e)      //Функция сохранения изменений в заметке
         {var rotateAnimation = new Animation(v => SearchEntry.HeightRequest = v, 0, 60);
             notCol.Notes_temp.Clear();
-            notesList.BindingContext = notCol.Notes;
+            if (currentPage == "All")
+            {
+                notesList.BindingContext = notCol.Notes;
+            }
+            else if (currentPage == "Private")
+            {
+                notCol.fillPrivateTemp();
+                notesList.BindingContext = notCol.Notes_temp;
+            }
+            else if (currentPage == "Group")
+            {
+                notCol.fillGroupTemp();
+                notesList.BindingContext = notCol.Notes_temp;
+            }
             var rotateAnimationBack = new Animation(v => SearchEntry.HeightRequest = v, 60, 0);
             rotateAnimationBack.Commit(this, "HeightAnimationBack", 16, 500, Easing.SinIn, null, null);
             toolBarBlocked = false;
             toolbar_layout.TranslateTo(0, 0, 150);
             SearchToolbarLayout.TranslateTo(100, 0, 250);
             SearchToolbarLayoutArrow.TranslateTo(100, 0, 250);
+            hided = true;
+            SearchEntry.Text = "";
         }
         private void SearchClicked(object sender, EventArgs e)
         {       //Функция поиска заметки
             string find_str = SearchEntry.Text;
-            notCol.findAllByPart(find_str);
+            if (currentPage == "All")
+            {
+                notCol.findAllByPart(find_str);
+            }
+            else if (currentPage == "Private")
+            {
+                notCol.findPrivateByPart(find_str);
+            }
+            else if (currentPage == "Group")
+            {
+                notCol.findGroupByPart(find_str);
+            }
             notesList.BindingContext = notCol.Notes_temp;
         }
     }

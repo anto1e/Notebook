@@ -67,6 +67,30 @@ namespace FineNotes
                 }
             }
         }
+        public void findPrivateByPart(string str)
+        {
+            Notes_temp.Clear();
+            foreach (var elem in Notes)
+            {
+                if (elem.Header.IndexOf(str, StringComparison.OrdinalIgnoreCase) >= 0 || (elem.Message.Length > 0 && elem.Message.IndexOf(str, StringComparison.OrdinalIgnoreCase) >= 0))
+                {
+                    if (elem.Author == "123@mail.ru" && elem.Allowers.Count() == 0)
+                    Notes_temp.Add(new Note { Number = elem.Number, Header = elem.Header, Message = elem.Message, Author = elem.Author, Date = elem.Date, Allowers = elem.Allowers });
+                }
+            }
+        }
+        public void findGroupByPart(string str)
+        {
+            Notes_temp.Clear();
+            foreach (var elem in Notes)
+            {
+                if (elem.Header.IndexOf(str, StringComparison.OrdinalIgnoreCase) >= 0 || (elem.Message.Length > 0 && elem.Message.IndexOf(str, StringComparison.OrdinalIgnoreCase) >= 0))
+                {
+                    if (elem.Author != "123@mail.ru" || elem.Allowers.Count() != 0)
+                    Notes_temp.Add(new Note { Number = elem.Number, Header = elem.Header, Message = elem.Message, Author = elem.Author, Date = elem.Date, Allowers = elem.Allowers });
+                }
+            }
+        }
     }
 }
 

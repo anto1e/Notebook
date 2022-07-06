@@ -34,18 +34,18 @@
         </Grid.RowDefinitions>
             <Frame BackgroundColor="#F9FFE2" Margin="20" CornerRadius="20" VerticalOptions="FillAndExpand" Grid.Row="0" Grid.Column="0">
             <StackLayout>
-                        <AbsoluteLayout HeightRequest="20">
+                        <AbsoluteLayout HeightRequest="30">
                         <RelativeLayout>
                      <Label  WidthRequest="100" HorizontalTextAlignment="Start"
                                 RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
                 Property=Width, Factor=0, Constant=0}" 
                 RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
-                Property=Height, Factor=0.5, Constant=-10}" x:Name="Email_label" TextDecorations="Underline"></Label>
-                    <Label WidthRequest="100" HorizontalTextAlignment="End"
+                Property=Height, Factor=0.2, Constant=0}" x:Name="Email_label" TextDecorations="Underline"></Label>
+                    <Label WidthRequest="180" HorizontalTextAlignment="End" VerticalOptions="Center"
                 RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
-                Property=Width, Factor=1, Constant=-100}" 
+                Property=Width, Factor=1, Constant=-180}" 
                 RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
-                Property=Height, Factor=0.5, Constant=-10}"
+                Property=Height, Factor=0.2, Constant=0}"
                 x:Name="Date_label" TextDecorations="Underline"></Label>
 
                         </RelativeLayout>

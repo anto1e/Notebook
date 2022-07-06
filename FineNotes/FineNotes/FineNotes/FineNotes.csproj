@@ -33,6 +33,10 @@
     <None Remove="Resources\img\cancel.png" />
     <None Remove="Resources\img\cancel.png" />
     <None Remove="Resources\img\check.png" />
+    <None Remove="Resources\img\go_back.png" />
+    <None Remove="Resources\img\go_back.png" />
+    <None Remove="Resources\img\loupe.png" />
+    <None Remove="Resources\img\loupe.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\img\pen_logo.png" />
@@ -46,5 +50,7 @@
     <EmbeddedResource Include="Resources\img\right_arrow.png" />
     <EmbeddedResource Include="Resources\img\cancel.png" />
     <EmbeddedResource Include="Resources\img\check.png" />
+    <EmbeddedResource Include="Resources\img\go_back.png" />
+    <EmbeddedResource Include="Resources\img\loupe.png" />
   </ItemGroup>
 </Project>

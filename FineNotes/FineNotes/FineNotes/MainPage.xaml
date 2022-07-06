@@ -225,7 +225,7 @@
                              <Frame.GestureRecognizers>
                             <TapGestureRecognizer Tapped="SearchBackClicked" NumberOfTapsRequired="1"/>
                             </Frame.GestureRecognizers>
-                        <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.cancel.png}" WidthRequest="20" HeightRequest="20" Scale="3">
+                        <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.go_back.png}" WidthRequest="20" HeightRequest="20" Scale="3.5">
                              <Image.GestureRecognizers>
                             <TapGestureRecognizer Tapped="SearchBackClicked" NumberOfTapsRequired="1"/>
                             </Image.GestureRecognizers>
@@ -235,7 +235,7 @@
                              <Frame.GestureRecognizers>
                             <TapGestureRecognizer Tapped="SearchClicked" NumberOfTapsRequired="1"/>
                             </Frame.GestureRecognizers>
-                        <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.check.png}" WidthRequest="20" HeightRequest="20" Scale="3.2">
+                        <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.loupe.png}" WidthRequest="20" HeightRequest="20" Scale="3.2">
                             <Image.GestureRecognizers>
                             <TapGestureRecognizer Tapped="SearchClicked" NumberOfTapsRequired="1"/>
                             </Image.GestureRecognizers>
