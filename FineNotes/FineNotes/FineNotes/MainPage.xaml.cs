@@ -16,8 +16,8 @@ namespace FineNotes
         public MainPage()
         {
             InitializeComponent();
-            notesList.BindingContext = notCol.Notes;
             SubscribeColChanging();
+            notCol.Read();
             MessagingCenter.Send<Page>(this, "CollectionChanged!");
             
         }
@@ -29,6 +29,7 @@ namespace FineNotes
                 this, // кто подписывается на сообщения
                 "CollectionChanged!",   // название сообщения
                 (sender) => {
+                    notesList.BindingContext = notCol.Notes;
                     int cntNotCol = notCol.Notes.Count;
                     int cntNotColPriv = notCol.Notes.Count(i => i.Allowers.Count() == 0 && i.Author == "123@mail.ru");
                     int cntNotColGroup = notCol.Notes.Count(i => i.Allowers.Count() != 0 || i.Author != "123@mail.ru");
@@ -291,6 +292,8 @@ namespace FineNotes
         private void SearchClicked(object sender, EventArgs e)
         {       //Функция поиска заметки
             string find_str = SearchEntry.Text;
+            if (find_str == null)
+                find_str = "";
             if (currentPage == "All")
             {
                 notCol.findAllByPart(find_str);

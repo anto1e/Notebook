@@ -1,25 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
+using System.Text.Json;
+using Newtonsoft.Json;
 
 namespace FineNotes
 {
     public class NotesCollection                        //Коллекция заметок, паттерн одиночка
     {
+        readonly string folderPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
         protected internal ObservableCollection<Note> Notes { get; set; }
         protected internal ObservableCollection<Note> Notes_temp { get; set; }
         private static NotesCollection instance = null;
         public NotesCollection()
         {
             Notes_temp = new ObservableCollection<Note> {};
-            Notes = new ObservableCollection<Note> {
-            new Note{Number=1,Header="Test",Message="Message",Author="123@mail.ru",Date="03.07.2022",},
-            new Note{Number=2,Header="Test1",Message="Message",Author="123@mail.ru",Date="03.07.2022"},
-            new Note{Number=3,Header="Test2",Message="Message",Author="123@mail.ru",Date="03.07.2022"},
-            new Note{Number=4,Header="Test3",Message="Message",Author="123@mail.ru",Date="03.07.2022"},
-            new Note{Number=5,Header="Test4",Message="Message",Author="123@mail.ru",Date="03.07.2022"},
-            };
+            Notes = new ObservableCollection<Note> {};
         }
         public static NotesCollection getInstance()
         {
@@ -89,6 +87,25 @@ namespace FineNotes
                     if (elem.Author != "123@mail.ru" || elem.Allowers.Count() != 0)
                     Notes_temp.Add(new Note { Number = elem.Number, Header = elem.Header, Message = elem.Message, Author = elem.Author, Date = elem.Date, Allowers = elem.Allowers });
                 }
+            }
+        }
+        public void Save()          //Запись коллекции в файл(Json)
+        {
+            string filename = "Notes.json";
+            if (String.IsNullOrEmpty(filename)) return;
+            // перезаписываем файл
+            string json = JsonConvert.SerializeObject(Notes.ToArray());
+            File.WriteAllText(Path.Combine(folderPath, filename), json);
+            // обновляем список файлов
+        }
+        public void Read()          //Чтение коллекции из файла(Json)
+        {
+            //Save();
+            string filename = "Notes.json";
+            if (File.Exists(Path.Combine(folderPath, filename)))
+            {
+                string readText = File.ReadAllText(Path.Combine(folderPath, filename));
+                Notes = JsonConvert.DeserializeObject<ObservableCollection<Note>>(readText);
             }
         }
     }

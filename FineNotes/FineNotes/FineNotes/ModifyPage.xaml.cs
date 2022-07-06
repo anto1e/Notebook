@@ -49,6 +49,7 @@ namespace FineNotes
                 note.Header = Note_header.Text;
                 note.Message = Note_msg.Text;
                 note.Date = DateTime.Now.ToString();
+                notCol.Save();
             }
             MessagingCenter.Send<Page>(this, "CollectionChanged!");
         }
@@ -56,7 +57,8 @@ namespace FineNotes
         {
             var note = notCol.Notes.FirstOrDefault(i => i.Number == number);
             notCol.Notes.Remove(note);
-            foreach(var elem in notCol.Notes)
+            notCol.Save();
+            foreach (var elem in notCol.Notes)
             {
                 if (elem.Number > number)
                     elem.Number -= 1;

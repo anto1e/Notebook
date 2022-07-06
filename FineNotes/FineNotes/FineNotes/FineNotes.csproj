@@ -13,6 +13,8 @@
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2196" />
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="System.Text.Json" Version="6.0.5" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Resources\img\logout.png" />
@@ -37,6 +39,8 @@
     <None Remove="Resources\img\go_back.png" />
     <None Remove="Resources\img\loupe.png" />
     <None Remove="Resources\img\loupe.png" />
+    <None Remove="Newtonsoft.Json" />
+    <None Remove="System.Text.Json" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\img\pen_logo.png" />
