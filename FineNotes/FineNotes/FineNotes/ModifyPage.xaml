@@ -50,7 +50,7 @@
 
                         </RelativeLayout>
                     </AbsoluteLayout>
-            <Entry Placeholder="Заголовок"  x:Name="Note_header" TextColor="#1456FF" FontFamily="noto-header" /><ScrollView VerticalOptions="FillAndExpand">
+            <Entry Placeholder="Заголовок"  x:Name="Note_header" TextColor="#1456FF" FontFamily="noto-header" FontSize="Large" /><ScrollView VerticalOptions="FillAndExpand">
             <Editor FontFamily="noto-italic" VerticalOptions="FillAndExpand" Placeholder="Текст заметки" x:Name="Note_msg"></Editor></ScrollView>
 
             </StackLayout>

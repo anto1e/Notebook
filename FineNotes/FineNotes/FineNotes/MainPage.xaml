@@ -100,7 +100,7 @@
 
         </Frame>
 
-        <Entry Placeholder="" TranslationY="0" HeightRequest="0" x:Name="SearchEntry" BackgroundColor="#BAEAFF" FontFamily="noto-italic"/>
+        <Entry Placeholder="" TranslationY="0" HeightRequest="0" x:Name="SearchEntry" BackgroundColor="#FBFFFB" FontFamily="noto-italic"/>
             <Grid VerticalOptions="FillAndExpand" x:Name="Grid_messages">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />

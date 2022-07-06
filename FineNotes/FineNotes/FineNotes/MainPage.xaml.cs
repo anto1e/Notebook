@@ -115,7 +115,7 @@ namespace FineNotes
             if (currentPage == "All")
             {
                 currentPage = "Private";
-                if (!hided)
+                if (toolBarBlocked)
                 {
                     SearchClicked(null, null);
                 }else
@@ -132,7 +132,7 @@ namespace FineNotes
             if (currentPage == "Group")
             {
                 currentPage = "Private";
-                if (!hided)
+                if (toolBarBlocked)
                 {
                     SearchClicked(null, null);
                 }else
@@ -156,7 +156,7 @@ namespace FineNotes
             if (currentPage == "Private")
             {
                 currentPage = "All";
-                if (!hided)
+                if (toolBarBlocked)
                 {   
                     SearchClicked(null, null);
                 }
@@ -165,7 +165,7 @@ namespace FineNotes
                 underline_priv.BackgroundColor = Color.FromHex("5873FF");
                 underline_priv.TranslationX = 1000;
                 await Grid_messages.TranslateTo(1000, 0, 150);
-                if (hided)
+                if (!toolBarBlocked)
                 {
                     notesList.BindingContext = notCol.Notes;
                 }
@@ -175,7 +175,7 @@ namespace FineNotes
             if (currentPage == "Group")
             {
                 currentPage = "All";
-                if (!hided)
+                if (toolBarBlocked)
                 {
                     SearchClicked(null, null);
                 }
@@ -184,7 +184,7 @@ namespace FineNotes
                 underline_group.BackgroundColor = Color.FromHex("5873FF");
                 underline_group.TranslationX = 1000;
                 await Grid_messages.TranslateTo(1000, 0, 150);
-                if (hided)
+                if (!toolBarBlocked)
                 {
                     notesList.BindingContext = notCol.Notes;
                 }
@@ -201,7 +201,7 @@ namespace FineNotes
             if (currentPage == "Private")
             {
                 currentPage = "Group";
-                if (!hided)
+                if (toolBarBlocked)
                 {
                     SearchClicked(null, null);
                 }else
@@ -218,7 +218,7 @@ namespace FineNotes
             if (currentPage == "All")
             {
                 currentPage = "Group";
-                if (!hided)
+                if (toolBarBlocked)
                 {
                     SearchClicked(null, null);
                 }else
