@@ -16,6 +16,10 @@ namespace FineNotes
         public MainPage()
         {
             InitializeComponent();
+            if (Device.RuntimePlatform == Device.iOS)
+            {
+                Header.Padding = new Thickness(20, 38, 20, 20);
+            }
             SubscribeColChanging();
             notCol.Read();
             MessagingCenter.Send<Page>(this, "CollectionChanged!");
@@ -71,7 +75,7 @@ namespace FineNotes
                 {
                     if (previousScrollPosition < e.ScrollY)
                     {
-                        if (scrollXCnt > 5)
+                        if (scrollXCnt > 1)
                         {
                             //scrolled down
                             previousScrollPosition = e.ScrollY;
@@ -116,16 +120,17 @@ namespace FineNotes
             if (currentPage == "All")
             {
                 currentPage = "Private";
-                if (toolBarBlocked)
-                {
-                    SearchClicked(null, null);
-                }else
-                    notCol.fillPrivateTemp();
                 SearchToolbarLayoutArrow.IsVisible = false;
                 SearchToolbarLayout.IsVisible = false;
                 underline_all.BackgroundColor = Color.FromHex("5873FF");
                 underline_all.TranslationX = 1000;
                 await Grid_messages.TranslateTo(-1000, 0, 150);
+                if (toolBarBlocked)
+                {
+                    SearchClicked(null, null);
+                }
+                else
+                    notCol.fillPrivateTemp();
                 notesList.BindingContext = notCol.Notes_temp;
                 await Grid_messages.TranslateTo(1000, 0, 0);
                 await Grid_messages.TranslateTo(0, 0, 150);
@@ -133,16 +138,17 @@ namespace FineNotes
             if (currentPage == "Group")
             {
                 currentPage = "Private";
-                if (toolBarBlocked)
-                {
-                    SearchClicked(null, null);
-                }else
-                    notCol.fillPrivateTemp();
                 SearchToolbarLayoutArrow.IsVisible = false;
                 SearchToolbarLayout.IsVisible = false;
                 underline_group.BackgroundColor = Color.FromHex("5873FF");
                 underline_group.TranslationX = 1000;
                 await Grid_messages.TranslateTo(1000, 0, 150);
+                if (toolBarBlocked)
+                {
+                    SearchClicked(null, null);
+                }
+                else
+                    notCol.fillPrivateTemp();
                 notesList.BindingContext = notCol.Notes_temp;
                 await Grid_messages.TranslateTo(-1000, 0, 0);
                 await Grid_messages.TranslateTo(0, 0, 150);
@@ -157,15 +163,15 @@ namespace FineNotes
             if (currentPage == "Private")
             {
                 currentPage = "All";
-                if (toolBarBlocked)
-                {   
-                    SearchClicked(null, null);
-                }
                 SearchToolbarLayoutArrow.IsVisible = false;
                 SearchToolbarLayout.IsVisible = false;
                 underline_priv.BackgroundColor = Color.FromHex("5873FF");
                 underline_priv.TranslationX = 1000;
                 await Grid_messages.TranslateTo(1000, 0, 150);
+                if (toolBarBlocked)
+                {
+                    SearchClicked(null, null);
+                }
                 if (!toolBarBlocked)
                 {
                     notesList.BindingContext = notCol.Notes;
@@ -176,15 +182,15 @@ namespace FineNotes
             if (currentPage == "Group")
             {
                 currentPage = "All";
-                if (toolBarBlocked)
-                {
-                    SearchClicked(null, null);
-                }
                 SearchToolbarLayoutArrow.IsVisible = false;
                 SearchToolbarLayout.IsVisible = false;
                 underline_group.BackgroundColor = Color.FromHex("5873FF");
                 underline_group.TranslationX = 1000;
                 await Grid_messages.TranslateTo(1000, 0, 150);
+                if (toolBarBlocked)
+                {
+                    SearchClicked(null, null);
+                }
                 if (!toolBarBlocked)
                 {
                     notesList.BindingContext = notCol.Notes;
@@ -202,16 +208,17 @@ namespace FineNotes
             if (currentPage == "Private")
             {
                 currentPage = "Group";
-                if (toolBarBlocked)
-                {
-                    SearchClicked(null, null);
-                }else
-                    notCol.fillGroupTemp();
                 SearchToolbarLayoutArrow.IsVisible = false;
                 SearchToolbarLayout.IsVisible = false;
                 underline_priv.BackgroundColor = Color.FromHex("5873FF");
                 underline_priv.TranslationX = 1000;
                 await Grid_messages.TranslateTo(-1000, 0, 150);
+                if (toolBarBlocked)
+                {
+                    SearchClicked(null, null);
+                }
+                else
+                    notCol.fillGroupTemp();
                 notesList.BindingContext = notCol.Notes_temp;
                 await Grid_messages.TranslateTo(1000, 0, 0);
                 await Grid_messages.TranslateTo(0, 0, 150);
@@ -219,16 +226,17 @@ namespace FineNotes
             if (currentPage == "All")
             {
                 currentPage = "Group";
-                if (toolBarBlocked)
-                {
-                    SearchClicked(null, null);
-                }else
-                    notCol.fillGroupTemp();
                 SearchToolbarLayoutArrow.IsVisible = false;
                 SearchToolbarLayout.IsVisible = false;
                 underline_all.BackgroundColor = Color.FromHex("5873FF");
                 underline_all.TranslationX = 1000;
                 await Grid_messages.TranslateTo(-1000, 0, 150);
+                if (toolBarBlocked)
+                {
+                    SearchClicked(null, null);
+                }
+                else
+                    notCol.fillGroupTemp();
                 notesList.BindingContext = notCol.Notes_temp;
                 await Grid_messages.TranslateTo(1000, 0, 0);
                 await Grid_messages.TranslateTo(0, 0, 150);

@@ -17,6 +17,10 @@ namespace FineNotes
         public AddPage()
         {
             InitializeComponent();
+            if (Device.RuntimePlatform == Device.iOS)
+            {
+                Header.Padding = new Thickness(0,35,0,0);
+            }
         }
         private async void BackButton_Clicked(object sender, EventArgs e)
         {

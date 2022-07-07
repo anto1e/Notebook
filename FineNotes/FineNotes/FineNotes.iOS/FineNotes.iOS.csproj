@@ -68,6 +68,9 @@
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CustomEntryRenderer.cs" />
+    <Compile Include="CustomEditorRenderer.cs" />
+    <None Include="Resources\.DS_Store" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
@@ -138,5 +141,8 @@
       <Project>{6E47FC6C-2E73-4C73-AAD7-D5723438ED2B}</Project>
       <Name>FineNotes</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
   </ItemGroup>
 </Project>

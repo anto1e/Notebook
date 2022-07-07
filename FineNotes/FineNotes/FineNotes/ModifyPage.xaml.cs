@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace FineNotes
@@ -12,6 +13,10 @@ namespace FineNotes
         public ModifyPage(Note note)
         {
             InitializeComponent();
+            if (Device.RuntimePlatform == Device.iOS)
+            {
+                Header.Padding = new Thickness(0, 35, 0, 0);
+            }
             number = note.Number;
             Note_header.Text = note.Header;
             Note_msg.Text = note.Message;
@@ -65,6 +70,13 @@ namespace FineNotes
             }
             MessagingCenter.Send<Page>(this, "CollectionChanged!");
             await Navigation.PopAsync();
+        }
+        void editor_Focused(System.Object sender, Xamarin.Forms.FocusEventArgs e)
+        {
+            if (DeviceInfo.Platform.Equals(DevicePlatform.iOS))
+            {
+                scrollView.ScrollToAsync(scrollView.ScrollX, scrollView.ScrollY, true);
+            }
         }
     }   
 }

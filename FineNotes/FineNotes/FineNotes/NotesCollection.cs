@@ -28,7 +28,10 @@ namespace FineNotes
         public void addNote(string header,string message, string author, string date,List<string> list)
         {
             var index = Notes.Count()+1;
+            if (index%2 != 0) //Поменять!
             Notes.Add(new Note {Number = index, Header = header, Message = message, Author = author, Date = date, Allowers=list});
+            else    //Поменять!
+            Notes.Add(new Note { Number = index, Header = header, Message = message, Author = "321@mail.ru", Date = date, Allowers = list });
         }
         public void fillPrivateTemp()   //Наполнение временной коллекции личными заметками
         {

@@ -7,22 +7,13 @@
     NavigationPage.HasNavigationBar="false">
     <ContentPage.Content>
         <StackLayout BackgroundColor="#ECECEC">
-            <AbsoluteLayout BackgroundColor="#5873FF" HeightRequest="60">
+            <AbsoluteLayout BackgroundColor="#5873FF" HeightRequest="60" x:Name="Header">
             <RelativeLayout>
-
-                        <Frame Opacity="0" HeightRequest ="60" WidthRequest="60" Margin="0" Padding="0" HorizontalOptions="Start"
-
-                       > <Frame.GestureRecognizers>
-            <TapGestureRecognizer Tapped="BackButton_Clicked" NumberOfTapsRequired="1"/>
-            </Frame.GestureRecognizers></Frame>
-             <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.left_arrow.png}" WidthRequest="40" HeightRequest="50"
-           RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
-                Property=Width, Factor=0, Constant=10}" 
+                <Label TextColor="#FFEEB1" HorizontalTextAlignment="Start" WidthRequest="220" FontSize="20" FontFamily="noto-header" RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
+                Property=Width, Factor=0, Constant=50}" 
            RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
-                Property=Height, Factor=0.3, Constant=-10}"
-           ><Image.GestureRecognizers>
-            <TapGestureRecognizer Tapped="BackButton_Clicked" NumberOfTapsRequired="1"/>
-            </Image.GestureRecognizers></Image>
+                Property=Height, Factor=0.3}"
+           >Изменение заметки</Label>
         </RelativeLayout>
             </AbsoluteLayout>
                         <Grid VerticalOptions="FillAndExpand">
@@ -40,22 +31,29 @@
                                 RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
                 Property=Width, Factor=0, Constant=0}" 
                 RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
-                Property=Height, Factor=0.2, Constant=0}" x:Name="Email_label" TextDecorations="Underline"></Label>
+                Property=Height, Factor=0.2, Constant=0}" x:Name="Email_label" TextDecorations="Underline" TextColor="Black"></Label>
                     <Label WidthRequest="180" HorizontalTextAlignment="End" VerticalOptions="Center"
                 RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
                 Property=Width, Factor=1, Constant=-180}" 
                 RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
                 Property=Height, Factor=0.2, Constant=0}"
-                x:Name="Date_label" TextDecorations="Underline"></Label>
+                x:Name="Date_label" TextDecorations="Underline" TextColor="Black"></Label>
 
                         </RelativeLayout>
                     </AbsoluteLayout>
-            <Entry Placeholder="Заголовок"  x:Name="Note_header" TextColor="#1456FF" FontFamily="noto-header" FontSize="Large" /><ScrollView VerticalOptions="FillAndExpand">
-            <Editor FontFamily="noto-italic" VerticalOptions="FillAndExpand" Placeholder="Текст заметки" x:Name="Note_msg"></Editor></ScrollView>
+                        <StackLayout BackgroundColor="Gray" Padding="-5,-5,-5,1">
+            <local:CustomEntry Placeholder="Заголовок" BackgroundColor="#F9FFE2" x:Name="Note_header" TextColor="#1456FF" FontFamily="noto-header" FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" />
+                            </StackLayout>
+                            <ScrollView x:Name="scrollView"
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand">
+            <local:CustomEditor Focused="editor_Focused"
+                    AutoSize="TextChanges" FontFamily="noto-italic" BackgroundColor="#F9FFE2" TextColor="Black" VerticalOptions="FillAndExpand" Placeholder="Текст заметки" x:Name="Note_msg"></local:CustomEditor></ScrollView>
 
             </StackLayout>
         </Frame>
-                <AbsoluteLayout HorizontalOptions="End" VerticalOptions="End" Margin="0,0,10,170" HeightRequest="40">
+                <!-- Стрелка для показа/сокрытия тулбара -->
+                <AbsoluteLayout HorizontalOptions="End" VerticalOptions="End" Margin="0,0,10,270" HeightRequest="40">
                         <Frame HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0084E4" x:Name="ArrowFrame" Opacity="0.2">
                         <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.right_arrow.png}" x:Name="ArrowBtn" WidthRequest="20" HeightRequest="20" Scale="1.8" RotationY="180">
                             <Image.GestureRecognizers>
@@ -68,10 +66,12 @@
                             </Frame.GestureRecognizers>
                     </Frame>
 
+                    <!-- Тулбар удаления, редактирования, перехода в главное меню -->
+
                 </AbsoluteLayout>
-                 <AbsoluteLayout HorizontalOptions="End" VerticalOptions="End" Margin="0,0,10,20">
+                 <AbsoluteLayout HorizontalOptions="End" VerticalOptions="End" Margin="0,0,10,50">
                     <StackLayout Spacing="2" x:Name="buttons_layout" TranslationX="100">
-                     <Frame HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0084E4">
+                                             <Frame HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0084E4">
                              <Frame.GestureRecognizers>
                             <TapGestureRecognizer Tapped="NoteDeleteClicked" NumberOfTapsRequired="1"/>
                             </Frame.GestureRecognizers>
@@ -81,7 +81,7 @@
                             </Image.GestureRecognizers>
                         </Image>
                     </Frame>
-                    <Frame HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0CC8A6">
+                                            <Frame HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0CC8A6">
                              <Frame.GestureRecognizers>
                             <TapGestureRecognizer Tapped="NoteChangeClicked" NumberOfTapsRequired="1"/>
                             </Frame.GestureRecognizers>
@@ -90,6 +90,19 @@
                             <TapGestureRecognizer Tapped="NoteChangeClicked" NumberOfTapsRequired="1"/>
                             </Image.GestureRecognizers>
                                 </Image>
+                    </Frame>
+                     <Frame HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0084E4">
+                             <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="NoteDeleteClicked" NumberOfTapsRequired="1"/>
+                            </Frame.GestureRecognizers>
+                    <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.left_arrow.png}" WidthRequest="20" HeightRequest="20" Scale="3.4"
+                    RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
+                Property=Width, Factor=0, Constant=10}" 
+                    RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
+                Property=Height, Factor=0.3, Constant=-10}"
+           ><Image.GestureRecognizers>
+            <TapGestureRecognizer Tapped="BackButton_Clicked" NumberOfTapsRequired="1"/>
+            </Image.GestureRecognizers></Image>
                     </Frame>
 
 
