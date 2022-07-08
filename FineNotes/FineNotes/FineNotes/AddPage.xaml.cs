@@ -31,7 +31,8 @@ namespace FineNotes
             if (!String.IsNullOrEmpty(Note_header.Text))
             {
              string note_header = Note_header.Text;
-            string note_msg = Note_msg.Text;
+             string note_msg = "";
+            note_msg= Note_msg.Text;
             string note_author = "123@mail.ru";
             string date = DateTime.Now.ToString();
             List<string> temp = new List<string>();     //Поменять!!!

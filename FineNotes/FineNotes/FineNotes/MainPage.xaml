@@ -22,15 +22,13 @@
            RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
                 Property=Height, Factor=0.2, Constant=-20}"
            > </Image>
-        <Frame BackgroundColor="#00E492" CornerRadius="15" WidthRequest="20" HeightRequest="20" x:Name="logout_btn" Padding="10" Margin="0"
-        RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
+
+                <ImageButton Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.logout.png}" BackgroundColor="#00E492" CornerRadius="20" WidthRequest="40" HeightRequest="40" x:Name="logout_btn" Padding="10,7,7,7"
+                             RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
                 Property=Width, Factor=0.95, Constant=-20}" 
            RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
                 Property=Height, Factor=0.2, Constant=-10}"
-        >
-        <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.logout.png}" HeightRequest="10" WidthRequest="10"
-               />
-                </Frame>
+                             ></ImageButton>
 
         <Label Text="Все(0)"  FontSize="18" FontFamily="noto-italic" TextColor="#FFEEB1" x:Name="label_all"
            RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
@@ -103,7 +101,7 @@
         <!-- Основное поле с заметками -->
 
         <Entry Placeholder="Поиск" TextColor="black" TranslationY="0" HeightRequest="0" Margin="0,-10,0,0" x:Name="SearchEntry" Opacity="0.6" BackgroundColor="#5873FF" FontFamily="noto-italic"/>
-            <Grid VerticalOptions="FillAndExpand" x:Name="Grid_messages">
+            <Grid VerticalOptions="FillAndExpand">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
@@ -111,7 +109,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
          
-        <ScrollView Grid.Column="0" Grid.Row="0" VerticalOptions="StartAndExpand" Scrolled="scrollHandler" TranslationY="0">
+        <ScrollView Grid.Column="0" Grid.Row="0" VerticalOptions="StartAndExpand" Scrolled="scrollHandler" TranslationY="0"  x:Name="Grid_messages">
        <StackLayout BindableLayout.ItemsSource= "{Binding}" x:Name="notesList">
       <BindableLayout.ItemTemplate>
         <DataTemplate>
@@ -166,27 +164,14 @@
                 <RelativeLayout>
                 <Frame BackgroundColor="#0084E4" CornerRadius="15" WidthRequest="180" HeightRequest="30" x:Name="toolbar_frame" Padding="5"
                 ></Frame>
-                
-                <Frame BackgroundColor="#00E492" CornerRadius="40" HeightRequest="35" WidthRequest="35" x:Name="toolbar_circle"
+               
+                <ImageButton BackgroundColor="#00E492" CornerRadius="36" HeightRequest="75" WidthRequest="75" x:Name="toolbar_circle" Padding="18"
               RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=toolbar_frame,
              Property=X, Factor=1, Constant=56.5}"
               RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=toolbar_frame, 
-              Property=Y, Factor=1, Constant=-17.5}">
-                <Frame.GestureRecognizers>
-            <TapGestureRecognizer Tapped="addBtnClicked" NumberOfTapsRequired="1"/>
-            </Frame.GestureRecognizers>                 
-
-           <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.add.png}" x:Name="ArrowBtn" HeightRequest="30" WidthRequest="30" VerticalOptions="FillAndExpand"
-              RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=toolbar_frame,
-             Property=X, Factor=1, Constant=-115}"
-              RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=toolbar_frame, 
-              Property=Y, Factor=0.5, Constant=-30}"
-           >
-            <Image.GestureRecognizers>
-            <TapGestureRecognizer Tapped="addBtnClicked" NumberOfTapsRequired="1"/>
-            </Image.GestureRecognizers> 
-            </Image>
-                </Frame>
+              Property=Y, Factor=1, Constant=-18.5}" Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.add.png}"
+              Clicked="addBtnClicked">
+                    </ImageButton>
 
 
            <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.find.png}" HeightRequest="30" WidthRequest="30"
@@ -210,42 +195,17 @@
 
                 <!-- Тулбар поиска-->
      </AbsoluteLayout>
-            <AbsoluteLayout HorizontalOptions="End" VerticalOptions="End" Margin="0,0,10,170" HeightRequest="40" TranslationX="100" x:Name="SearchToolbarLayoutArrow">
-                        <Frame HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0084E4" x:Name="ArrowFrame" Opacity="0.2">
-                        <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.right_arrow.png}" x:Name="ArrowBtnTool" WidthRequest="20" HeightRequest="20" Scale="1.8" RotationY="180">
-                            <Image.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="ShowBtnsClicked" NumberOfTapsRequired="1"/>
-                            </Image.GestureRecognizers>
-
-                        </Image>
-                             <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="ShowBtnsClicked" NumberOfTapsRequired="1"/>
-                            </Frame.GestureRecognizers>
-                    </Frame>
+            <AbsoluteLayout HorizontalOptions="End" VerticalOptions="End" Margin="0,0,10,170" HeightRequest="60" WidthRequest="60" TranslationX="100" x:Name="SearchToolbarLayoutArrow">
+                <ImageButton HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0084E4" x:Name="ArrowFrame" Opacity="0.2"
+                            Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.right_arrow.png}" RotationY="180" Padding="10" Clicked="ShowBtnsClicked"></ImageButton>
+   
 
                 </AbsoluteLayout>
                  <AbsoluteLayout HorizontalOptions="End" VerticalOptions="End" Margin="0,0,10,20" x:Name="SearchToolbarLayout">
-                    <StackLayout Spacing="2" x:Name="buttons_layout" TranslationX="100">
-                     <Frame HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0084E4">
-                             <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="SearchBackClicked" NumberOfTapsRequired="1"/>
-                            </Frame.GestureRecognizers>
-                        <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.left_arrow.png}" WidthRequest="20" HeightRequest="20" Scale="3.4">
-                             <Image.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="SearchBackClicked" NumberOfTapsRequired="1"/>
-                            </Image.GestureRecognizers>
-                        </Image>
-                    </Frame>
-                    <Frame HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0CC8A6">
-                             <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="SearchClicked" NumberOfTapsRequired="1"/>
-                            </Frame.GestureRecognizers>
-                        <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.loupe.png}" WidthRequest="20" HeightRequest="20" Scale="3.2">
-                            <Image.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="SearchClicked" NumberOfTapsRequired="1"/>
-                            </Image.GestureRecognizers>
-                                </Image>
-                    </Frame>
+                    <StackLayout Spacing="5" x:Name="buttons_layout" TranslationX="100">
+                    <ImageButton HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0084E4" Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.left_arrow.png}" WidthRequest="60" HeightRequest="60" Clicked="SearchBackClicked"></ImageButton>
+                    <ImageButton HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0CC8A6"
+                     Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.loupe.png}" WidthRequest="60" HeightRequest="60" Clicked="SearchClicked"></ImageButton>
 
 
                     </StackLayout>

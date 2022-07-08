@@ -120,8 +120,6 @@ namespace FineNotes
             if (currentPage == "All")
             {
                 currentPage = "Private";
-                SearchToolbarLayoutArrow.IsVisible = false;
-                SearchToolbarLayout.IsVisible = false;
                 underline_all.BackgroundColor = Color.FromHex("5873FF");
                 underline_all.TranslationX = 1000;
                 await Grid_messages.TranslateTo(-1000, 0, 150);
@@ -138,8 +136,6 @@ namespace FineNotes
             if (currentPage == "Group")
             {
                 currentPage = "Private";
-                SearchToolbarLayoutArrow.IsVisible = false;
-                SearchToolbarLayout.IsVisible = false;
                 underline_group.BackgroundColor = Color.FromHex("5873FF");
                 underline_group.TranslationX = 1000;
                 await Grid_messages.TranslateTo(1000, 0, 150);
@@ -153,8 +149,6 @@ namespace FineNotes
                 await Grid_messages.TranslateTo(-1000, 0, 0);
                 await Grid_messages.TranslateTo(0, 0, 150);
             }
-            SearchToolbarLayoutArrow.IsVisible = true;
-            SearchToolbarLayout.IsVisible = true;
         }
         private async void AllNotesClicked(object sender, EventArgs e)      //Переход на страницу со всеми заметками
         {
@@ -163,8 +157,6 @@ namespace FineNotes
             if (currentPage == "Private")
             {
                 currentPage = "All";
-                SearchToolbarLayoutArrow.IsVisible = false;
-                SearchToolbarLayout.IsVisible = false;
                 underline_priv.BackgroundColor = Color.FromHex("5873FF");
                 underline_priv.TranslationX = 1000;
                 await Grid_messages.TranslateTo(1000, 0, 150);
@@ -182,8 +174,6 @@ namespace FineNotes
             if (currentPage == "Group")
             {
                 currentPage = "All";
-                SearchToolbarLayoutArrow.IsVisible = false;
-                SearchToolbarLayout.IsVisible = false;
                 underline_group.BackgroundColor = Color.FromHex("5873FF");
                 underline_group.TranslationX = 1000;
                 await Grid_messages.TranslateTo(1000, 0, 150);
@@ -198,8 +188,6 @@ namespace FineNotes
                 await Grid_messages.TranslateTo(-1000, 0, 0);
                 await Grid_messages.TranslateTo(0, 0, 150);
             }
-            SearchToolbarLayoutArrow.IsVisible = true;
-            SearchToolbarLayout.IsVisible = true;
         }
         private async void GroupNotesClicked(object sender, EventArgs e)      //Переход на страницу с групповыми заметками
         {
@@ -208,8 +196,6 @@ namespace FineNotes
             if (currentPage == "Private")
             {
                 currentPage = "Group";
-                SearchToolbarLayoutArrow.IsVisible = false;
-                SearchToolbarLayout.IsVisible = false;
                 underline_priv.BackgroundColor = Color.FromHex("5873FF");
                 underline_priv.TranslationX = 1000;
                 await Grid_messages.TranslateTo(-1000, 0, 150);
@@ -226,8 +212,6 @@ namespace FineNotes
             if (currentPage == "All")
             {
                 currentPage = "Group";
-                SearchToolbarLayoutArrow.IsVisible = false;
-                SearchToolbarLayout.IsVisible = false;
                 underline_all.BackgroundColor = Color.FromHex("5873FF");
                 underline_all.TranslationX = 1000;
                 await Grid_messages.TranslateTo(-1000, 0, 150);
@@ -241,8 +225,6 @@ namespace FineNotes
                 await Grid_messages.TranslateTo(1000, 0, 0);
                 await Grid_messages.TranslateTo(0, 0, 150);
             }
-            SearchToolbarLayoutArrow.IsVisible = true;
-            SearchToolbarLayout.IsVisible = true;
         }
 
         private void FindBtdClicked(object sender, EventArgs e)                //Функция инициализации поиска
@@ -259,14 +241,14 @@ namespace FineNotes
             if (!hided)
             {
                 buttons_layout.TranslateTo(100, 0, 250);
-                ArrowBtnTool.RotateYTo(180, 250);
+                ArrowFrame.RotateYTo(180, 250);
                 ArrowFrame.Opacity = 0.2;
                 hided = true;
             }
             else
             {
                 buttons_layout.TranslateTo(0, 0, 250);
-                ArrowBtnTool.RotateYTo(0, 250);
+                ArrowFrame.RotateYTo(0, 250);
                 ArrowFrame.Opacity = 1;
                 hided = false;
             }

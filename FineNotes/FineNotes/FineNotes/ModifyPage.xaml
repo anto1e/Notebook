@@ -54,56 +54,25 @@
         </Frame>
                 <!-- Стрелка для показа/сокрытия тулбара -->
                 <AbsoluteLayout HorizontalOptions="End" VerticalOptions="End" Margin="0,0,10,270" HeightRequest="40">
-                        <Frame HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0084E4" x:Name="ArrowFrame" Opacity="0.2">
-                        <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.right_arrow.png}" x:Name="ArrowBtn" WidthRequest="20" HeightRequest="20" Scale="1.8" RotationY="180">
-                            <Image.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="ShowBtnsClicked" NumberOfTapsRequired="1"/>
-                            </Image.GestureRecognizers>
-
-                        </Image>
-                             <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="ShowBtnsClicked" NumberOfTapsRequired="1"/>
-                            </Frame.GestureRecognizers>
-                    </Frame>
+<ImageButton HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0084E4" x:Name="ArrowFrame" Opacity="0.2" HeightRequest="60" WidthRequest="60"
+                            Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.right_arrow.png}" RotationY="180" Padding="10" Clicked="ShowBtnsClicked"></ImageButton>
 
                     <!-- Тулбар удаления, редактирования, перехода в главное меню -->
 
                 </AbsoluteLayout>
                  <AbsoluteLayout HorizontalOptions="End" VerticalOptions="End" Margin="0,0,10,50">
-                    <StackLayout Spacing="2" x:Name="buttons_layout" TranslationX="100">
-                                             <Frame HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0084E4">
-                             <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="NoteDeleteClicked" NumberOfTapsRequired="1"/>
-                            </Frame.GestureRecognizers>
-                        <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.cancel.png}" WidthRequest="20" HeightRequest="20" Scale="3">
-                             <Image.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="NoteDeleteClicked" NumberOfTapsRequired="1"/>
-                            </Image.GestureRecognizers>
-                        </Image>
-                    </Frame>
-                                            <Frame HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0CC8A6">
-                             <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="NoteChangeClicked" NumberOfTapsRequired="1"/>
-                            </Frame.GestureRecognizers>
-                        <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.check.png}" WidthRequest="20" HeightRequest="20" Scale="3.2">
-                            <Image.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="NoteChangeClicked" NumberOfTapsRequired="1"/>
-                            </Image.GestureRecognizers>
-                                </Image>
-                    </Frame>
-                     <Frame HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0084E4">
-                             <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="NoteDeleteClicked" NumberOfTapsRequired="1"/>
-                            </Frame.GestureRecognizers>
-                    <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.left_arrow.png}" WidthRequest="20" HeightRequest="20" Scale="3.4"
+                    <StackLayout Spacing="3" x:Name="buttons_layout" TranslationX="100">
+
+                        <ImageButton HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0084E4"
+                           Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.cancel.png}" WidthRequest="60" HeightRequest="60" Clicked="NoteDeleteClicked"></ImageButton>
+                        <ImageButton HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0CC8A6"
+                                 Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.check.png}" WidthRequest="60" HeightRequest="60" Clicked="NoteChangeClicked"></ImageButton>
+                        <ImageButton HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0084E4"
+                                    Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.left_arrow.png}" WidthRequest="60" HeightRequest="60"
                     RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
                 Property=Width, Factor=0, Constant=10}" 
                     RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
-                Property=Height, Factor=0.3, Constant=-10}"
-           ><Image.GestureRecognizers>
-            <TapGestureRecognizer Tapped="BackButton_Clicked" NumberOfTapsRequired="1"/>
-            </Image.GestureRecognizers></Image>
-                    </Frame>
+                Property=Height, Factor=0.3, Constant=-10}" Clicked="BackButton_Clicked"></ImageButton>
 
 
                     </StackLayout>

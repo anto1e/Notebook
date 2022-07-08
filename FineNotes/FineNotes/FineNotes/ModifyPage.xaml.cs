@@ -34,14 +34,14 @@ namespace FineNotes
             if (!hided)
             {
                 buttons_layout.TranslateTo(100, 0, 250);
-                ArrowBtn.RotateYTo(180, 250);
+                ArrowFrame.RotateYTo(180, 250);
                 ArrowFrame.Opacity = 0.2;
                 hided = true;
             }
             else
             {
                 buttons_layout.TranslateTo(0, 0, 250);
-                ArrowBtn.RotateYTo(0, 250);
+                ArrowFrame.RotateYTo(0, 250);
                 ArrowFrame.Opacity = 1;
                 hided = false;
             }

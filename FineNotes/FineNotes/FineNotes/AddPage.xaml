@@ -35,27 +35,17 @@
         </Frame>
                              <AbsoluteLayout HorizontalOptions="End" VerticalOptions="End" Margin="0,0,10,50">
                     <StackLayout Spacing="8" x:Name="buttons_layout">
-
-                     <Frame HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#00E492" x:Name="Pen_frame" Opacity="0.2">
-                        <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.pen_logo.png}" WidthRequest="20" HeightRequest="20" Scale="2">
-                        <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="AddButton_Clicked" NumberOfTapsRequired="1"/>
-                        </Image.GestureRecognizers>
-                        </Image>
-                    </Frame>
-                     <Frame HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0084E4" Opacity="0.8">
-                             <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="BackButton_Clicked" NumberOfTapsRequired="1"/>
-                            </Frame.GestureRecognizers>
-                    <Image Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.left_arrow.png}" WidthRequest="20" HeightRequest="20" Scale="3.4" Opacity="0.9"
+                    <ImageButton HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#00E492" x:Name="Pen_frame" Opacity="0.2"
+                              Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.pen_logo.png}" WidthRequest="60" HeightRequest="60" Padding="10" Clicked="AddButton_Clicked"  ></ImageButton>
+                    <ImageButton HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0084E4"
+                                 Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.left_arrow.png}" WidthRequest="60" HeightRequest="60" Opacity="0.9"
                     RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
                     Property=Width, Factor=0, Constant=10}" 
                      RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
-                    Property=Height, Factor=0.3, Constant=-10}"
-                    ><Image.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="BackButton_Clicked" NumberOfTapsRequired="1"/>
-                    </Image.GestureRecognizers></Image>
-                    </Frame>
+                    Property=Height, Factor=0.3, Constant=-10}" Clicked="BackButton_Clicked">
+
+
+                    </ImageButton>
 
 
                     </StackLayout>
