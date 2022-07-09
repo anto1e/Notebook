@@ -28,7 +28,7 @@
                 Property=Width, Factor=0.95, Constant=-20}" 
            RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
                 Property=Height, Factor=0.2, Constant=-10}"
-                             ></ImageButton>
+                             Clicked="LogoutBtnClicked"></ImageButton>
 
         <Label Text="Все(0)"  FontSize="18" FontFamily="noto-italic" TextColor="#FFEEB1" x:Name="label_all"
            RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 

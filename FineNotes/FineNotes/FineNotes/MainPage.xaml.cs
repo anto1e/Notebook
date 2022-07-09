@@ -25,6 +25,10 @@ namespace FineNotes
             MessagingCenter.Send<Page>(this, "CollectionChanged!");
             
         }
+        private async void LogoutBtnClicked(Object sender, EventArgs e)
+        {
+            await Navigation.PopAsync();
+        }
         bool toolBarBlocked = false;
         private string currentPage = "All";
         private void SubscribeColChanging()     //Функция для изменения отображения кол-ва заметок на главной странице при изменении коллекции

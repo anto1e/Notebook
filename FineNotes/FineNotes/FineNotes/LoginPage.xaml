@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local = "clr-namespace:FineNotes"
+    x:Class="FineNotes.LoginPage"
+    NavigationPage.HasNavigationBar="false"
+    >
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="#ECECEC">
+            <RelativeLayout x:Name="SignInLayout">    <!--Поле входа-->
+                <Frame BackgroundColor="#5873FF" WidthRequest="300" HeightRequest="180" Opacity="0.6"
+                       RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
+                Property=Width, Factor=0.5, Constant=-170}" 
+           RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
+                Property=Height, Factor=0.2, Constant=0}">
+                    <RelativeLayout>
+                    <Label FontFamily="noto-header" TextColor="#FFEEB1" FontSize="30" WidthRequest="100" VerticalTextAlignment="Start"
+               RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
+                Property=Width, Factor=0.5, Constant=-50}" 
+           RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
+                Property=Height, Factor=0, Constant=-10}">Вход</Label>
+                        <local:CustomEntry TextColor="black" x:Name="Email_entry" Placeholder="Логин" WidthRequest="250" HeightRequest="40" BackgroundColor="white"
+                RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
+                Property=Width, Factor=0.5, Constant=-125}" 
+           RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
+                Property=Height, Factor=0.3, Constant=0}">
+                        </local:CustomEntry>
+                        <local:CustomEntry TextColor="Black" IsPassword="True" x:Name="Password_entry" Placeholder="Пароль" WidthRequest="250" HeightRequest="40" BackgroundColor="white"
+                RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
+                Property=Width, Factor=0.5, Constant=-125}" 
+           RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
+                Property=Height, Factor=0.6, Constant=0}">
+                        </local:CustomEntry>
+                        <Label x:Name="error_label" TextColor="Red"
+                         RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
+                Property=Width, Factor=0.5, Constant=-125}" 
+           RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
+                Property=Height, Factor=0.95, Constant=0}"></Label>
+                   </RelativeLayout>
+                </Frame>
+            </RelativeLayout>
+                        <RelativeLayout IsVisible="false" TranslationX="500" x:Name="RegisterLayout">    <!--Поле регистрации-->
+                <Frame BackgroundColor="#5873FF" WidthRequest="300" HeightRequest="180" Opacity="0.6"
+                       RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
+                Property=Width, Factor=0.5, Constant=-170}" 
+           RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
+                Property=Height, Factor=0.2, Constant=0}">
+                    <RelativeLayout>
+                    <Label FontFamily="noto-header" TextColor="#FFEEB1" FontSize="30" WidthRequest="220" VerticalTextAlignment="Start"
+               RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
+                Property=Width, Factor=0.5, Constant=-100}" 
+           RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
+                Property=Height, Factor=0, Constant=-20}">Регистрация</Label>
+                        <local:CustomEntry TextColor="black" x:Name="Email_entry_reg" Placeholder="Логин" WidthRequest="250" HeightRequest="40" BackgroundColor="#ECECEC"
+                RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
+                Property=Width, Factor=0.5, Constant=-125}" 
+           RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
+                Property=Height, Factor=0.2, Constant=0}">
+                        </local:CustomEntry>
+                        <local:CustomEntry TextColor="Black" IsPassword="True" x:Name="Password_entry_reg" Placeholder="Пароль" WidthRequest="250" HeightRequest="40" BackgroundColor="#ECECEC"
+                RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
+                Property=Width, Factor=0.5, Constant=-125}" 
+           RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
+                Property=Height, Factor=0.45, Constant=0}">
+                        </local:CustomEntry>
+                <local:CustomEntry TextColor="Black" IsPassword="True" x:Name="RePassword_entry_reg" Placeholder="Повторите пароль" WidthRequest="250" HeightRequest="40" BackgroundColor="#ECECEC"
+                RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
+                Property=Width, Factor=0.5, Constant=-125}" 
+           RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
+                Property=Height, Factor=0.7, Constant=0}">
+                        </local:CustomEntry>
+                        <Label x:Name="error_label_reg" TextColor="Red"
+                         RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
+                Property=Width, Factor=0.5, Constant=-125}" 
+           RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
+                Property=Height, Factor=0.98, Constant=0}"></Label>
+                   </RelativeLayout>
+                </Frame>
+            </RelativeLayout>
+            <!--Тулбар-->
+           <!-- Стрелка для показа/сокрытия тулбара -->
+                <AbsoluteLayout HorizontalOptions="End" VerticalOptions="End" Margin="0,0,10,30" HeightRequest="40">
+<ImageButton HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0084E4" x:Name="ArrowFrame" Opacity="0.2" HeightRequest="60" WidthRequest="60"
+                            Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.right_arrow.png}" RotationY="180" Padding="10" Clicked="ShowBtnsClicked"></ImageButton>
+
+                    <!-- Тулбар удаления, редактирования, перехода в главное меню -->
+
+                </AbsoluteLayout>
+                 <AbsoluteLayout HorizontalOptions="End" VerticalOptions="End" Margin="0,0,10,60">
+                    <StackLayout Spacing="3" x:Name="buttons_layout" TranslationX="100">
+
+                        <ImageButton HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0084E4"
+                           Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.no_connection.png}" WidthRequest="60" HeightRequest="60" Clicked="OfflineClicked"></ImageButton>
+                        <ImageButton HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0084E4" Padding="-5" x:Name="SignBtn"
+                                 Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.register.png}" WidthRequest="60" HeightRequest="60" Clicked="RegSignBtnClicked"></ImageButton>
+                    <ImageButton IsVisible="false" HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0084E4" Padding="-5" x:Name="RegBtn"
+                                 Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.SignIn.png}" WidthRequest="60" HeightRequest="60" Clicked="RegSignBtnClicked"></ImageButton>
+                        <ImageButton HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0CC8A6" Padding="-5"
+                                    Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.login.png}" WidthRequest="60" HeightRequest="60"
+                    RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
+                Property=Width, Factor=0, Constant=10}" 
+                    RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
+                Property=Height, Factor=0.3, Constant=-10}" Clicked="LoginButton_Clicked"></ImageButton>
+
+
+                    </StackLayout>
+                </AbsoluteLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
+

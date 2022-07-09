@@ -16,8 +16,8 @@ namespace FineNotes
         private static NotesCollection instance = null;
         public NotesCollection()
         {
-            Notes_temp = new ObservableCollection<Note> {};
-            Notes = new ObservableCollection<Note> {};
+            Notes_temp = new ObservableCollection<Note> { };
+            Notes = new ObservableCollection<Note> { };
         }
         public static NotesCollection getInstance()
         {
@@ -25,13 +25,13 @@ namespace FineNotes
                 instance = new NotesCollection();
             return instance;
         }
-        public void addNote(string header,string message, string author, string date,List<string> list)
+        public void addNote(string header, string message, string author, string date, List<string> list)
         {
-            var index = Notes.Count()+1;
-            if (index%2 != 0) //Поменять!
-            Notes.Add(new Note {Number = index, Header = header, Message = message, Author = author, Date = date, Allowers=list});
+            var index = Notes.Count() + 1;
+            if (index % 2 != 0) //Поменять!
+                Notes.Add(new Note { Number = index, Header = header, Message = message, Author = author, Date = date, Allowers = list });
             else    //Поменять!
-            Notes.Add(new Note { Number = index, Header = header, Message = message, Author = "321@mail.ru", Date = date, Allowers = list });
+                Notes.Add(new Note { Number = index, Header = header, Message = message, Author = "321@mail.ru", Date = date, Allowers = list });
         }
         public void fillPrivateTemp()   //Наполнение временной коллекции личными заметками
         {
@@ -42,7 +42,7 @@ namespace FineNotes
                 {
                     Notes_temp.Add(new Note { Number = elem.Number, Header = elem.Header, Message = elem.Message, Author = elem.Author, Date = elem.Date, Allowers = elem.Allowers });
                 }
-                
+
             }
         }
         public void fillGroupTemp()   //Наполнение временной коллекции групповыми заметками
@@ -62,7 +62,7 @@ namespace FineNotes
             Notes_temp.Clear();
             foreach (var elem in Notes)
             {
-                if (elem.Header.IndexOf(str, StringComparison.OrdinalIgnoreCase) >= 0 || (elem.Message.Length >0 && elem.Message.IndexOf(str, StringComparison.OrdinalIgnoreCase) >= 0))
+                if (elem.Header.IndexOf(str, StringComparison.OrdinalIgnoreCase) >= 0 || (elem.Message.Length > 0 && elem.Message.IndexOf(str, StringComparison.OrdinalIgnoreCase) >= 0))
                 {
                     Notes_temp.Add(new Note { Number = elem.Number, Header = elem.Header, Message = elem.Message, Author = elem.Author, Date = elem.Date, Allowers = elem.Allowers });
                 }
@@ -76,7 +76,7 @@ namespace FineNotes
                 if (elem.Header.IndexOf(str, StringComparison.OrdinalIgnoreCase) >= 0 || (elem.Message.Length > 0 && elem.Message.IndexOf(str, StringComparison.OrdinalIgnoreCase) >= 0))
                 {
                     if (elem.Author == "123@mail.ru" && elem.Allowers.Count() == 0)
-                    Notes_temp.Add(new Note { Number = elem.Number, Header = elem.Header, Message = elem.Message, Author = elem.Author, Date = elem.Date, Allowers = elem.Allowers });
+                        Notes_temp.Add(new Note { Number = elem.Number, Header = elem.Header, Message = elem.Message, Author = elem.Author, Date = elem.Date, Allowers = elem.Allowers });
                 }
             }
         }
@@ -88,7 +88,7 @@ namespace FineNotes
                 if (elem.Header.IndexOf(str, StringComparison.OrdinalIgnoreCase) >= 0 || (elem.Message.Length > 0 && elem.Message.IndexOf(str, StringComparison.OrdinalIgnoreCase) >= 0))
                 {
                     if (elem.Author != "123@mail.ru" || elem.Allowers.Count() != 0)
-                    Notes_temp.Add(new Note { Number = elem.Number, Header = elem.Header, Message = elem.Message, Author = elem.Author, Date = elem.Date, Allowers = elem.Allowers });
+                        Notes_temp.Add(new Note { Number = elem.Number, Header = elem.Header, Message = elem.Message, Author = elem.Author, Date = elem.Date, Allowers = elem.Allowers });
                 }
             }
         }
@@ -113,4 +113,3 @@ namespace FineNotes
         }
     }
 }
-
