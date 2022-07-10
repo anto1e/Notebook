@@ -9,8 +9,8 @@
     <StackLayout BackgroundColor="#ECECEC">
         <AbsoluteLayout BackgroundColor="#5873FF" HeightRequest="60" x:Name="Header" Padding="0,0,0,0">
         <RelativeLayout>
-                <Label TextColor="#FFEEB1" FontSize="Large" HorizontalTextAlignment="Start" WidthRequest="220" FontFamily="noto-header" RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
-                Property=Width, Factor=0, Constant=50}" 
+                <Label TextColor="#FFEEB1" FontSize="Large" HorizontalTextAlignment="Start" WidthRequest="300" FontFamily="noto-header" RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
+                Property=Width, Factor=0, Constant=30}" 
            RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
                 Property=Height, Factor=0.3}"
            >Создание заметки</Label>

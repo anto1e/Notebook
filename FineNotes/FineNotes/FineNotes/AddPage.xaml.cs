@@ -13,6 +13,7 @@ namespace FineNotes
 {
     public partial class AddPage : ContentPage
     {
+        Session session = Session.getInstance();
         NotesCollection notCol = NotesCollection.getInstance();
         public AddPage()
         {
@@ -33,15 +34,15 @@ namespace FineNotes
              string note_header = Note_header.Text;
              string note_msg = "";
             note_msg= Note_msg.Text;
-            string note_author = "123@mail.ru";
+            string note_author = session.Email;
             string date = DateTime.Now.ToString();
             List<string> temp = new List<string>();     //Поменять!!!
-            //temp.Add("123@1233.ru");
-            //temp.Add("321@321.ru");
             notCol.addNote(note_header, note_msg, note_author, date,temp);
             notCol.Save();
-            MessagingCenter.Send<Page>(this, "CollectionChanged!");
-            await Navigation.PopAsync();
+                session.Modified = true;
+                MessagingCenter.Send<Page>(this, "CollectionChanged!");
+                MessagingCenter.Send<Page>(this, "Show Toolbar!");
+                await Navigation.PopAsync();
             }
         }
         public void AddTextChanged(object sender, EventArgs e)              //Функция изменения прозрачности у кнопки

@@ -9,7 +9,7 @@
     <ContentPage.Content>
         <StackLayout BackgroundColor="#ECECEC">
             <RelativeLayout x:Name="SignInLayout">    <!--Поле входа-->
-                <Frame BackgroundColor="#5873FF" WidthRequest="300" HeightRequest="180" Opacity="0.6"
+                <Frame BackgroundColor="#5873FF" WidthRequest="300" HeightRequest="180" Opacity="0.6" CornerRadius="20"
                        RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
                 Property=Width, Factor=0.5, Constant=-170}" 
            RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
@@ -20,13 +20,13 @@
                 Property=Width, Factor=0.5, Constant=-50}" 
            RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
                 Property=Height, Factor=0, Constant=-10}">Вход</Label>
-                        <local:CustomEntry TextColor="black" x:Name="Email_entry" Placeholder="Логин" WidthRequest="250" HeightRequest="40" BackgroundColor="white"
+                        <local:CustomEntry BackgroundColor="#ECECEC" TextColor="black" x:Name="Email_entry" Placeholder="Логин" WidthRequest="250" HeightRequest="40" 
                 RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
                 Property=Width, Factor=0.5, Constant=-125}" 
            RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
                 Property=Height, Factor=0.3, Constant=0}">
                         </local:CustomEntry>
-                        <local:CustomEntry TextColor="Black" IsPassword="True" x:Name="Password_entry" Placeholder="Пароль" WidthRequest="250" HeightRequest="40" BackgroundColor="white"
+                        <local:CustomEntry TextColor="Black" IsPassword="True" x:Name="Password_entry" Placeholder="Пароль" WidthRequest="250" HeightRequest="40" BackgroundColor="#ECECEC"
                 RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
                 Property=Width, Factor=0.5, Constant=-125}" 
            RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,

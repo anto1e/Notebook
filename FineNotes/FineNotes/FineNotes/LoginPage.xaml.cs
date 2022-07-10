@@ -10,6 +10,7 @@ namespace FineNotes
 {
     public partial class LoginPage : ContentPage
     {
+        Session session = Session.getInstance();
         public LoginPage()
         {
             InitializeComponent();
@@ -75,9 +76,33 @@ namespace FineNotes
                 SignBtn.IsVisible = true;
             }
         }
+        bool IsValidEmail(string email) //Проверка email
+        {
+            var trimmedEmail = email.Trim();
+
+            if (trimmedEmail.EndsWith("."))
+            {
+                return false; // suggested by @TK-421
+            }
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == trimmedEmail;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         private async void OfflineClicked (object sender, EventArgs e)          //Нажата кнопку Оффлайн режима
         {
-            await Navigation.PushAsync(new MainPage());
+            if (session.readSession())
+            {
+                session.Online = false;
+                await Navigation.PushAsync(new MainPage());
+            }
+            else
+                await DisplayAlert("Нет данных", "Нет данных о прошлом входе", "ОK");
         }
         private async void LoginButton_Clicked(object sender, EventArgs e)            //Нажата кнопка входа
         {
@@ -87,61 +112,99 @@ namespace FineNotes
             {
                 conn.Open();
                 string databaseTable = "Users";
+                string email="";
+                string email_ses = "";
                 if (!isReg)
                 {
-                    string email = "'" + Email_entry.Text + "'";
-                    string password = "'" + Password_entry.Text + "'";
-                    //var query = "SELECT * FROM Users WHERE Email='123@mail.ru'";
-                    string pass_hashed = "'" + hashing(password) + "'";
-                    var query = "SELECT * FROM " + databaseTable + " WHERE Email=" + email + " AND Password=" + pass_hashed;
-                    MySqlCommand cmd = new MySqlCommand(query, conn);
-                    var result = cmd.ExecuteScalar();
-                    if (result == null)
-                        error_label.Text = "Неверный ввод!";
+                    email = Email_entry.Text;
+                    email_ses = "'" + email + "'";
+                    if (!IsValidEmail(email))
+                        error_label.Text = "Неверный email!";
                     else
                     {
-                        await Navigation.PushAsync(new MainPage());
-                        error_label.Text = "";
-                        Email_entry.Text = "";
-                        Password_entry.Text = "";
+                        string password = "'" + Password_entry.Text + "'";
+                        //var query = "SELECT * FROM Users WHERE Email='123@mail.ru'";
+                        string pass_hashed = "'" + hashing(password) + "'";
+                        var query = "SELECT * FROM " + databaseTable + " WHERE Email=" + email_ses + " AND Password=" + pass_hashed;
+                        MySqlCommand cmd = new MySqlCommand(query, conn);
+                        var result = cmd.ExecuteScalar();
+                        if (result == null)
+                            error_label.Text = "Неверный ввод!";
+                        else
+                        {
+                            error_label.Text = "";
+                            Email_entry.Text = "";
+                            Password_entry.Text = "";
+                        }
                     }
                 }
                 else
                 {
-                    string email = "'" + Email_entry_reg.Text + "'";
-                    string password = "'" + Password_entry_reg.Text + "'";
-                    string repass = "'" + RePassword_entry_reg.Text + "'";
-                    if (password != repass)
-                    {
-                        error_label_reg.Text = "Пароли не совпадают!";
-                    }
+                    email = Email_entry_reg.Text;
+                    email_ses = "'" + email + "'";
+                    if (!IsValidEmail(email))
+                        error_label_reg.Text = "Неверный email!";
                     else
                     {
-                        var query = "SELECT * FROM " + databaseTable + " WHERE Email=" + email;
-                        MySqlCommand cmd = new MySqlCommand(query, conn);
-                        var result = cmd.ExecuteScalar();
-                        if (result != null)
+                        string password = "'" + Password_entry_reg.Text + "'";
+                        string repass = "'" + RePassword_entry_reg.Text + "'";
+                        if (password != repass)
                         {
-                            error_label_reg.Text = "Пользователь уже зарегистрирован!";
+                            error_label_reg.Text = "Пароли не совпадают!";
                         }
                         else
                         {
-                            string pass_hashed = "'"+hashing(password)+"'";
-                            query = "INSERT INTO " + databaseTable + "(Email,Password) VALUES (" + email + "," + pass_hashed + ")";
-                            cmd = new MySqlCommand(query, conn);
-                            cmd.ExecuteNonQuery();
-                            await Navigation.PushAsync(new MainPage());
-                            error_label_reg.Text = "";
-                            Email_entry_reg.Text = "";
-                            Password_entry_reg.Text = "";
-                            RePassword_entry_reg.Text = "";
+                            var query = "SELECT * FROM " + databaseTable + " WHERE Email=" + email_ses;
+                            MySqlCommand cmd = new MySqlCommand(query, conn);
+                            var result = cmd.ExecuteScalar();
+                            if (result != null)
+                            {
+                                error_label_reg.Text = "Пользователь уже зарегистрирован!";
+                            }
+                            else
+                            {
+                                string pass_hashed = "'" + hashing(password) + "'";
+                                query = "INSERT INTO " + databaseTable + "(Email,Password) VALUES (" + email + "," + pass_hashed + ")";
+                                cmd = new MySqlCommand(query, conn);
+                                cmd.ExecuteNonQuery();
+                                error_label_reg.Text = "";
+                                Email_entry_reg.Text = "";
+                                Password_entry_reg.Text = "";
+                                RePassword_entry_reg.Text = "";
+                            }
                         }
                     }
                 }
+                session.readSession();
+                if (session.Email != email)
+                {
+                    if (session.Email != "")
+                    {
+                        session.clearNotes();
+                        session.insertAllNotes();
+                    }
+                    session.Email = email;
+                }
+                else
+                {
+                    session.Email = email;
+                    if (session.Modified && !session.Online)
+                    {
+                        session.clearNotes();
+                        session.insertAllNotes();
+                    }
+                }
+                session.getElemsFromDB();
+                conn.Close();
+                session.Online = true;
+                session.Modified = false;
+                session.writeSession();
+                
+                await Navigation.PushAsync(new MainPage());
             }
             catch (Exception ex)
             {
-                error_label.Text = "Не удалось подключиться!";
+                await DisplayAlert("Нет подключения", "Не удалось подключиться к базе данных", "ОK");
             }
             conn.Close();
         }

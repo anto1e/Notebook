@@ -12,6 +12,7 @@ namespace FineNotes
 {
     public partial class MainPage : ContentPage
     {
+        Session session = Session.getInstance();
         NotesCollection notCol = NotesCollection.getInstance();
         public MainPage()
         {
@@ -21,47 +22,68 @@ namespace FineNotes
                 Header.Padding = new Thickness(20, 38, 20, 20);
             }
             SubscribeColChanging();
-            notCol.Read();
+            if (!session.Online)
+                notCol.Read();
             MessagingCenter.Send<Page>(this, "CollectionChanged!");
             
         }
         private async void LogoutBtnClicked(Object sender, EventArgs e)
         {
+            session.writeSession();
+            session.Email = "";
+            session.Online = false;
+            session.Modified = false;
+            notCol.Save();
+            notCol.ClearAll();
             await Navigation.PopAsync();
         }
         bool toolBarBlocked = false;
         private string currentPage = "All";
+
         private void SubscribeColChanging()     //Функция для изменения отображения кол-ва заметок на главной странице при изменении коллекции
         {
-              MessagingCenter.Subscribe<Page>(
+            MessagingCenter.Subscribe<Page>(
+              this, // кто подписывается на сообщения
+              "CollectionChanged!",   // название сообщения
+              (sender) => {
+                  session.writeSession();
+                  if (session.Modified && session.Online)
+                  {
+                      session.clearNotes();
+                      session.insertAllNotes();
+                      session.Modified = false;
+                  }
+                  notesList.BindingContext = notCol.Notes;
+                  int cntNotCol = notCol.Notes.Count;
+                  int cntNotColPriv = notCol.Notes.Count(i => i.Allowers.Count() == 0 && i.Author == session.Email);
+                  int cntNotColGroup = notCol.Notes.Count(i => i.Allowers.Count() != 0 || i.Author != session.Email);
+                  if (cntNotCol < 100)
+                      label_all.Text = "Все(" + cntNotCol.ToString() + ")";
+                  else
+                      label_all.Text = "Все>99";
+                  if (cntNotColPriv < 100)
+                      label_priv.Text = "Личные(" + cntNotColPriv.ToString() + ")";
+                  else
+                      label_priv.Text = "Личные>99";
+                  if (cntNotColGroup < 100)
+                      label_group.Text = "Групповые(" + cntNotColGroup.ToString() + ")";
+                  else
+                      label_group.Text = "Групповые>99";
+                  if (currentPage == "Private")
+                  {
+                      notCol.fillPrivateTemp(session.Email);
+                  }
+                  if (currentPage == "Group")
+                  {
+                      notCol.fillGroupTemp(session.Email);
+                  }
+              });    // вызываемое действие
+                              MessagingCenter.Subscribe<Page>(
                 this, // кто подписывается на сообщения
-                "CollectionChanged!",   // название сообщения
+                "Show Toolbar!",   // название сообщения
                 (sender) => {
-                    notesList.BindingContext = notCol.Notes;
-                    int cntNotCol = notCol.Notes.Count;
-                    int cntNotColPriv = notCol.Notes.Count(i => i.Allowers.Count() == 0 && i.Author == "123@mail.ru");
-                    int cntNotColGroup = notCol.Notes.Count(i => i.Allowers.Count() != 0 || i.Author != "123@mail.ru");
-                    if (cntNotCol < 100)
-                        label_all.Text = "Все(" + cntNotCol.ToString() + ")";
-                    else
-                        label_all.Text = "Все>99";
-                    if (cntNotColPriv < 100)
-                        label_priv.Text = "Личные(" + cntNotColPriv.ToString() + ")";
-                    else
-                        label_priv.Text = "Личные>99";
-                    if (cntNotColGroup < 100)
-                        label_group.Text = "Групповые(" + cntNotColGroup.ToString() + ")";
-                    else
-                        label_group.Text = "Групповые>99";
-                    if (currentPage == "Private")
-                    {
-                        notCol.fillPrivateTemp();
-                    }
-                    if (currentPage == "Group")
-                    {
-                        notCol.fillGroupTemp();
-                    }
-                });    // вызываемое действие
+                    toolbar_layout.TranslateTo(0, 0, 150);
+                });
 
         }
         private async void addBtnClicked(object sender, EventArgs args)       //Обработка нажатия на кнопку "Добавить"
@@ -132,7 +154,7 @@ namespace FineNotes
                     SearchClicked(null, null);
                 }
                 else
-                    notCol.fillPrivateTemp();
+                    notCol.fillPrivateTemp(session.Email);
                 notesList.BindingContext = notCol.Notes_temp;
                 await Grid_messages.TranslateTo(1000, 0, 0);
                 await Grid_messages.TranslateTo(0, 0, 150);
@@ -148,7 +170,7 @@ namespace FineNotes
                     SearchClicked(null, null);
                 }
                 else
-                    notCol.fillPrivateTemp();
+                    notCol.fillPrivateTemp(session.Email);
                 notesList.BindingContext = notCol.Notes_temp;
                 await Grid_messages.TranslateTo(-1000, 0, 0);
                 await Grid_messages.TranslateTo(0, 0, 150);
@@ -208,7 +230,7 @@ namespace FineNotes
                     SearchClicked(null, null);
                 }
                 else
-                    notCol.fillGroupTemp();
+                    notCol.fillGroupTemp(session.Email);
                 notesList.BindingContext = notCol.Notes_temp;
                 await Grid_messages.TranslateTo(1000, 0, 0);
                 await Grid_messages.TranslateTo(0, 0, 150);
@@ -224,7 +246,7 @@ namespace FineNotes
                     SearchClicked(null, null);
                 }
                 else
-                    notCol.fillGroupTemp();
+                    notCol.fillGroupTemp(session.Email);
                 notesList.BindingContext = notCol.Notes_temp;
                 await Grid_messages.TranslateTo(1000, 0, 0);
                 await Grid_messages.TranslateTo(0, 0, 150);
@@ -266,12 +288,12 @@ namespace FineNotes
             }
             else if (currentPage == "Private")
             {
-                notCol.fillPrivateTemp();
+                notCol.fillPrivateTemp(session.Email);
                 notesList.BindingContext = notCol.Notes_temp;
             }
             else if (currentPage == "Group")
             {
-                notCol.fillGroupTemp();
+                notCol.fillGroupTemp(session.Email);
                 notesList.BindingContext = notCol.Notes_temp;
             }
             var rotateAnimationBack = new Animation(v => SearchEntry.HeightRequest = v, 60, 0);
@@ -283,7 +305,7 @@ namespace FineNotes
             hided = true;
             SearchEntry.Text = "";
         }
-        private void SearchClicked(object sender, EventArgs e)
+        private void SearchClicked(object sender, EventArgs e)      //Нажата кнопка поиска
         {       //Функция поиска заметки
             string find_str = SearchEntry.Text;
             if (find_str == null)
@@ -294,11 +316,11 @@ namespace FineNotes
             }
             else if (currentPage == "Private")
             {
-                notCol.findPrivateByPart(find_str);
+                notCol.findPrivateByPart(find_str,session.Email);
             }
             else if (currentPage == "Group")
             {
-                notCol.findGroupByPart(find_str);
+                notCol.findGroupByPart(find_str,session.Email);
             }
             notesList.BindingContext = notCol.Notes_temp;
         }

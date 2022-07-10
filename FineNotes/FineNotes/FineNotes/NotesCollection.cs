@@ -25,32 +25,30 @@ namespace FineNotes
                 instance = new NotesCollection();
             return instance;
         }
-        public void addNote(string header, string message, string author, string date, List<string> list)
+        public void addNote(string header, string message, string author, string date, List<string> list)       //Добавление заметки в коллекцию
         {
-            var index = Notes.Count() + 1;
-            if (index % 2 != 0) //Поменять!
+            var index = Notes.Count()+1;
                 Notes.Add(new Note { Number = index, Header = header, Message = message, Author = author, Date = date, Allowers = list });
-            else    //Поменять!
-                Notes.Add(new Note { Number = index, Header = header, Message = message, Author = "321@mail.ru", Date = date, Allowers = list });
+
         }
-        public void fillPrivateTemp()   //Наполнение временной коллекции личными заметками
+        public void fillPrivateTemp(string email)   //Наполнение временной коллекции личными заметками
         {
             Notes_temp.Clear();
             foreach (var elem in Notes)
             {
-                if (elem.Author == "123@mail.ru" && elem.Allowers.Count() == 0)
+                if (elem.Author == email && elem.Allowers.Count() == 0)
                 {
                     Notes_temp.Add(new Note { Number = elem.Number, Header = elem.Header, Message = elem.Message, Author = elem.Author, Date = elem.Date, Allowers = elem.Allowers });
                 }
 
             }
         }
-        public void fillGroupTemp()   //Наполнение временной коллекции групповыми заметками
+        public void fillGroupTemp(string email)   //Наполнение временной коллекции групповыми заметками
         {
             Notes_temp.Clear();
             foreach (var elem in Notes)
             {
-                if (elem.Author != "123@mail.ru" || elem.Allowers.Count() != 0)
+                if (elem.Author != email || elem.Allowers.Count() != 0)
                 {
                     Notes_temp.Add(new Note { Number = elem.Number, Header = elem.Header, Message = elem.Message, Author = elem.Author, Date = elem.Date, Allowers = elem.Allowers });
                 }
@@ -68,28 +66,36 @@ namespace FineNotes
                 }
             }
         }
-        public void findPrivateByPart(string str)
+        public void findPrivateByPart(string str, string email)
         {
             Notes_temp.Clear();
             foreach (var elem in Notes)
             {
                 if (elem.Header.IndexOf(str, StringComparison.OrdinalIgnoreCase) >= 0 || (elem.Message.Length > 0 && elem.Message.IndexOf(str, StringComparison.OrdinalIgnoreCase) >= 0))
                 {
-                    if (elem.Author == "123@mail.ru" && elem.Allowers.Count() == 0)
+                    if (elem.Author == email && elem.Allowers.Count() == 0)
                         Notes_temp.Add(new Note { Number = elem.Number, Header = elem.Header, Message = elem.Message, Author = elem.Author, Date = elem.Date, Allowers = elem.Allowers });
                 }
             }
         }
-        public void findGroupByPart(string str)
+        public void findGroupByPart(string str, string email)
         {
             Notes_temp.Clear();
             foreach (var elem in Notes)
             {
                 if (elem.Header.IndexOf(str, StringComparison.OrdinalIgnoreCase) >= 0 || (elem.Message.Length > 0 && elem.Message.IndexOf(str, StringComparison.OrdinalIgnoreCase) >= 0))
                 {
-                    if (elem.Author != "123@mail.ru" || elem.Allowers.Count() != 0)
+                    if (elem.Author != email || elem.Allowers.Count() != 0)
                         Notes_temp.Add(new Note { Number = elem.Number, Header = elem.Header, Message = elem.Message, Author = elem.Author, Date = elem.Date, Allowers = elem.Allowers });
                 }
+            }
+        }
+        public void change_indexes()
+        {
+            foreach (var elem in Notes)
+            {
+                var indx = Notes.IndexOf(elem) + 1;
+                elem.Number = indx;
             }
         }
         public void Save()          //Запись коллекции в файл(Json)
@@ -103,12 +109,18 @@ namespace FineNotes
         }
         public void Read()          //Чтение коллекции из файла(Json)
         {
-            //Save();
             string filename = "Notes.json";
             if (File.Exists(Path.Combine(folderPath, filename)))
             {
                 string readText = File.ReadAllText(Path.Combine(folderPath, filename));
                 Notes = JsonConvert.DeserializeObject<ObservableCollection<Note>>(readText);
+            }
+        }
+        public void ClearAll()
+        {
+            for (int i = Notes.Count - 1; i >= 0; i--)
+            {
+                    Notes.RemoveAt(i);
             }
         }
     }

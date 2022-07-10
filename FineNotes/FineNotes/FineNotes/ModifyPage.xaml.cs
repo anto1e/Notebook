@@ -8,6 +8,7 @@ namespace FineNotes
 {
     public partial class ModifyPage : ContentPage
     {
+        Session session = Session.getInstance();
         NotesCollection notCol = NotesCollection.getInstance();
         int number;
         public ModifyPage(Note note)
@@ -55,20 +56,20 @@ namespace FineNotes
                 note.Message = Note_msg.Text;
                 note.Date = DateTime.Now.ToString();
                 notCol.Save();
+                session.Modified = true;
             }
             MessagingCenter.Send<Page>(this, "CollectionChanged!");
+            
         }
         private async void NoteDeleteClicked(object sender, EventArgs e)        //Функция удаления заметки
         {
             var note = notCol.Notes.FirstOrDefault(i => i.Number == number);
             notCol.Notes.Remove(note);
+            notCol.change_indexes();
             notCol.Save();
-            foreach (var elem in notCol.Notes)
-            {
-                if (elem.Number > number)
-                    elem.Number -= 1;
-            }
+            session.Modified = true;
             MessagingCenter.Send<Page>(this, "CollectionChanged!");
+            MessagingCenter.Send<Page>(this, "Show Toolbar!");
             await Navigation.PopAsync();
         }
         void editor_Focused(System.Object sender, Xamarin.Forms.FocusEventArgs e)
