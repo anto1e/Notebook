@@ -58,7 +58,7 @@ namespace FineNotes
                 int id_to_find = getIdFromDB(email);
                 string databaseTable = "Notes";
                 string Id = "'" + id_to_find.ToString() + "'";
-                var query = "SELECT Number,Header,Message,Date FROM " + databaseTable + " WHERE id_author = "+id_to_find;
+                var query = "SELECT Number,Header,Message,Date,Type FROM " + databaseTable + " WHERE id_author = "+id_to_find;
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 MySqlDataReader reader = cmd.ExecuteReader();
                 if (reader.HasRows)
@@ -67,7 +67,7 @@ namespace FineNotes
                     while (reader.Read())
                     {
                         List<string> temp = new List<string>();
-                        note_temp = new Note { Number = reader.GetInt32(0), Header = reader.GetString(1), Message = reader.GetString(2), Author = email, Date = reader.GetString(3), Allowers = temp };
+                        note_temp = new Note { Number = reader.GetInt32(0), Header = reader.GetString(1), Message = reader.GetString(2), Author = email, Date = reader.GetString(3), Allowers = temp ,Type = reader.GetInt32(4)};
                         notCol.Notes.Add(note_temp);
                     }
                 }
@@ -123,7 +123,7 @@ namespace FineNotes
                     {
                         query += ",";
                     }
-                    query += "(" + "'" + elem.Number.ToString() + "','" + id_to_insert.ToString() + "','" + elem.Header + "','" + elem.Message + "','" + elem.Date + "')";
+                    query += "(" + "'" + elem.Number.ToString() + "','" + id_to_insert.ToString() + "','" + elem.Header + "','" + elem.Message + "','" + elem.Date + "','"+elem.Type+"')";
                 }
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 var result = cmd.ExecuteNonQuery();

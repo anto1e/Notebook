@@ -12,8 +12,17 @@
                 <Label TextColor="#FFEEB1" HorizontalTextAlignment="Start" WidthRequest="300" FontSize="Large" FontFamily="noto-header" RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
                 Property=Width, Factor=0, Constant=30}" 
            RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
-                Property=Height, Factor=0.3}"
+                Property=Height, Factor=0.2}"
            >Изменение заметки</Label>
+                    <ImageButton HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0CC8A6"
+                    Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.register.png}" WidthRequest="60" HeightRequest="60"
+                    RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
+                Property=Width, Factor=1, Constant=-70}" 
+                    RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
+                Property=Height, Factor=0.2, Constant=-20}" Clicked="showSidebarClicked">
+
+
+                    </ImageButton>
         </RelativeLayout>
             </AbsoluteLayout>
                         <Grid VerticalOptions="FillAndExpand">
@@ -74,9 +83,25 @@
                     RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
                 Property=Height, Factor=0.3, Constant=-10}" Clicked="BackButton_Clicked"></ImageButton>
 
-
                     </StackLayout>
 
+                </AbsoluteLayout>
+                
+                        <!--Сайдбар-->
+                        <AbsoluteLayout x:Name="Sidebar" TranslationX="500" IsVisible="false" BackgroundColor="#0084E4" Opacity="0.95" VerticalOptions="FillAndExpand" HorizontalOptions="End" WidthRequest="200" Margin="0,20,0,20"
+                            >
+                    <StackLayout VerticalOptions="FillAndExpand" Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                        <StackLayout Spacing="0" Orientation="Horizontal">
+                            <local:CustomEntry TextColor="black" VerticalOptions="StartAndExpand" Margin="15" HeightRequest="40" WidthRequest="120" HorizontalOptions="FillAndExpand" BackgroundColor="white" Placeholder="Email"></local:CustomEntry>
+                            <ImageButton Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.check.png}" BackgroundColor="#0CC8A6"
+                                 HeightRequest="30" WidthRequest="40" Margin="0,15,0,12" Padding="-5"></ImageButton>
+                        </StackLayout>
+                        <ScrollView VerticalOptions="FillAndExpand" HeightRequest="{Binding WidthRequest, Source={x:Reference Sidebar}}">
+                        <ListView x:Name="usersList" VerticalOptions="FillAndExpand" ItemsSource="{Binding users}" BackgroundColor="#0084E4" WidthRequest="180">
+
+                        </ListView>
+                     </ScrollView>
+                    </StackLayout>
                 </AbsoluteLayout>
                 </Grid>
         </StackLayout>

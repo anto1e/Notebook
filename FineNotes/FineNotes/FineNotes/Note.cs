@@ -12,7 +12,21 @@ namespace FineNotes
         private string author;
         private string date;
         private int number;
+        private int type;
         List<string> allowers = new List<string>();
+
+        public int Type
+        {
+            get { return type; }
+            set
+            {
+                if (type != value)
+                {
+                    type = value;
+                    OnPropertyChanged("Type");
+                }
+            }
+        }
 
         public int Number
         {

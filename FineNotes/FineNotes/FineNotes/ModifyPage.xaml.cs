@@ -25,6 +25,28 @@ namespace FineNotes
             List<string> lst = note.Allowers;
             Date_label.Text = note.Date;
         }
+        private bool side_hided = true;
+        private async void showSidebarClicked(object sender, EventArgs e)   //Функция показа / скрытия сайдбара
+        {
+            string[] users = new string[] { "111@mail.ru", "xyz12@mail.ru", "azazazaaaza@gmail.com", "321@mail.ru" };
+            var template = new DataTemplate(typeof(TextCell));
+            template.SetValue(TextCell.TextColorProperty, Color.FromHex("FFEEB1"));
+            usersList.ItemTemplate = template;
+            template.SetBinding(TextCell.TextProperty, ".");
+            if (side_hided)
+            {
+                usersList.ItemsSource = users;
+                Sidebar.IsVisible = true;
+                await Sidebar.TranslateTo(0, 0, 250);
+                side_hided = false;
+            }
+            else
+            {
+                await Sidebar.TranslateTo(500, 0, 250);
+                Sidebar.IsVisible = false;
+                side_hided = true;
+            }
+        }
         private async void BackButton_Clicked(object sender, EventArgs e)
         {
             await Navigation.PopAsync();

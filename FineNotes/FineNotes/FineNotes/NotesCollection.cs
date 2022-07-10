@@ -25,10 +25,10 @@ namespace FineNotes
                 instance = new NotesCollection();
             return instance;
         }
-        public void addNote(string header, string message, string author, string date, List<string> list)       //Добавление заметки в коллекцию
+        public void addNote(string header, string message, string author, string date, List<string> list, int type)       //Добавление заметки в коллекцию
         {
             var index = Notes.Count()+1;
-                Notes.Add(new Note { Number = index, Header = header, Message = message, Author = author, Date = date, Allowers = list });
+                Notes.Add(new Note { Number = index, Header = header, Message = message, Author = author, Date = date, Allowers = list,Type = type });
 
         }
         public void fillPrivateTemp(string email)   //Наполнение временной коллекции личными заметками
@@ -36,7 +36,7 @@ namespace FineNotes
             Notes_temp.Clear();
             foreach (var elem in Notes)
             {
-                if (elem.Author == email && elem.Allowers.Count() == 0)
+                if (elem.Type == 0)
                 {
                     Notes_temp.Add(new Note { Number = elem.Number, Header = elem.Header, Message = elem.Message, Author = elem.Author, Date = elem.Date, Allowers = elem.Allowers });
                 }
@@ -48,7 +48,7 @@ namespace FineNotes
             Notes_temp.Clear();
             foreach (var elem in Notes)
             {
-                if (elem.Author != email || elem.Allowers.Count() != 0)
+                if (elem.Type == 1)
                 {
                     Notes_temp.Add(new Note { Number = elem.Number, Header = elem.Header, Message = elem.Message, Author = elem.Author, Date = elem.Date, Allowers = elem.Allowers });
                 }
@@ -73,7 +73,7 @@ namespace FineNotes
             {
                 if (elem.Header.IndexOf(str, StringComparison.OrdinalIgnoreCase) >= 0 || (elem.Message.Length > 0 && elem.Message.IndexOf(str, StringComparison.OrdinalIgnoreCase) >= 0))
                 {
-                    if (elem.Author == email && elem.Allowers.Count() == 0)
+                    if (elem.Type == 0)
                         Notes_temp.Add(new Note { Number = elem.Number, Header = elem.Header, Message = elem.Message, Author = elem.Author, Date = elem.Date, Allowers = elem.Allowers });
                 }
             }
@@ -85,7 +85,7 @@ namespace FineNotes
             {
                 if (elem.Header.IndexOf(str, StringComparison.OrdinalIgnoreCase) >= 0 || (elem.Message.Length > 0 && elem.Message.IndexOf(str, StringComparison.OrdinalIgnoreCase) >= 0))
                 {
-                    if (elem.Author != email || elem.Allowers.Count() != 0)
+                    if (elem.Type == 1)
                         Notes_temp.Add(new Note { Number = elem.Number, Header = elem.Header, Message = elem.Message, Author = elem.Author, Date = elem.Date, Allowers = elem.Allowers });
                 }
             }

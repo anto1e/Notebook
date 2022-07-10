@@ -16,7 +16,7 @@ namespace FineNotes
             InitializeComponent();
         }
         private bool hided = true;
-        private void ShowBtnsClicked(object sender, EventArgs e)
+        private void ShowBtnsClicked(object sender, EventArgs e)    //Функция показа кнопок
         {
             if (!hided)
             {
