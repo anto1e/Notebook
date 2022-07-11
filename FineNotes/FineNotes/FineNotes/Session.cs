@@ -116,7 +116,7 @@ namespace FineNotes
                 conn.Close();
                 return true;
               }
-               catch (Exception e)
+               catch (Exception exp)
             {
                 conn.Close();
                 return false;

@@ -56,11 +56,12 @@ namespace FineNotes
 
         public void fillGroupTemp(string email)   //Наполнение временной коллекции личными заметками
         {
+            Notes_temp.Clear();
             foreach (var elem in Notes)
             {
                 if (elem.Type == 1)
                 {
-                    Notes_group.Add(new Note { Number = elem.Number, Header = elem.Header, Message = elem.Message, Author = elem.Author, Date = elem.Date });
+                    Notes_temp.Add(new Note { Number = elem.Number, Header = elem.Header, Message = elem.Message, Author = elem.Author, Date = elem.Date });
                 }
 
             }
@@ -90,7 +91,8 @@ namespace FineNotes
         }
         public void findGroupByPart(string str, string email)
         {
-            foreach (var elem in Notes_group)
+            Notes_temp.Clear();
+            foreach (var elem in Notes)
             {
                 if (elem.Header.IndexOf(str, StringComparison.OrdinalIgnoreCase) >= 0 || (elem.Message.Length > 0 && elem.Message.IndexOf(str, StringComparison.OrdinalIgnoreCase) >= 0))
                 {

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using MySqlConnector;
 using Xamarin.Forms;
 
 namespace FineNotes
@@ -27,7 +28,7 @@ namespace FineNotes
             MessagingCenter.Send<Page>(this, "CollectionChanged!");
             
         }
-        private async void LogoutBtnClicked(Object sender, EventArgs e)
+        private async void LogoutBtnClicked(Object sender, EventArgs e)     //Нажата кнопка выхода
         {
             session.writeSession();
             session.Email = "";
@@ -39,8 +40,25 @@ namespace FineNotes
         }
         bool toolBarBlocked = false;
         private string currentPage = "All";
-        public void RefreshBtnClicked(object sender, EventArgs e)      //Обновление кол-ва заметок
+        public async void RefreshBtnClicked(object sender, EventArgs e)      //Обновление кол-ва заметок
         {
+                string connStr = "server=sql11.freesqldatabase.com;user=sql11505068;database=sql11505068;port=3306;password=qGc1gqsgCv";
+                MySqlConnection conn = new MySqlConnection(connStr);
+                try
+                {
+                    conn.Open();
+                    conn.Close();
+                }
+                catch(Exception ex)
+                {
+                    await DisplayAlert("Нет подключения", "Нет подключения к Базе Данных", "ОK");
+                    return;
+                }
+            if (session.Modified)
+            {
+                session.clearNotes();
+                session.insertAllNotes();
+            }
             session.getElemsFromDB();
             MessagingCenter.Send<Page>(this, "CollectionChanged!");
         }
@@ -87,6 +105,17 @@ namespace FineNotes
                 "Show Toolbar!",   // название сообщения
                 (sender) => {
                     toolbar_layout.TranslateTo(0, 0, 150);
+
+                });
+            MessagingCenter.Subscribe<Page>(
+                this, // кто подписывается на сообщения
+                "Group Changed!",   // название сообщения
+                (sender) => {
+                    toolbar_layout.TranslateTo(0, 0, 150);
+                    session.clearNotes();
+                    session.insertAllNotes();
+                    session.getElemsFromDB();
+                    session.Modified = false;
                 });
 
         }
@@ -234,8 +263,8 @@ namespace FineNotes
                     SearchClicked(null, null);
                 }
                 else
-                
-                notesList.BindingContext = notCol.Notes_group;
+                notCol.fillGroupTemp(session.Email);
+                notesList.BindingContext = notCol.Notes_temp;
                 await Grid_messages.TranslateTo(1000, 0, 0);
                 await Grid_messages.TranslateTo(0, 0, 150);
             }
@@ -250,7 +279,8 @@ namespace FineNotes
                     SearchClicked(null, null);
                 }
                 else
-                notesList.BindingContext = notCol.Notes_group;
+                notCol.fillGroupTemp(session.Email);
+                notesList.BindingContext = notCol.Notes_temp;
                 await Grid_messages.TranslateTo(1000, 0, 0);
                 await Grid_messages.TranslateTo(0, 0, 150);
             }

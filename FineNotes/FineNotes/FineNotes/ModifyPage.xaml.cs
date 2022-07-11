@@ -12,17 +12,19 @@ namespace FineNotes
         List<string> users;
         Session session = Session.getInstance();
         NotesCollection notCol = NotesCollection.getInstance();
-        int number;
-        int type;
+        private int number;
+        private int type;
+        private string author="";
         public ModifyPage(Note note)
         {
             InitializeComponent();
-            if (note.Author != session.Email)
+            if (note.Author != session.Email || !session.Online)
                 SidebarBtn.IsVisible = false;
             if (Device.RuntimePlatform == Device.iOS)
             {
                 Header.Padding = new Thickness(0, 35, 0, 0);
             }
+            author = note.Author;
             number = note.Number;
             Note_header.Text = note.Header;
             Note_msg.Text = note.Message;
@@ -105,24 +107,77 @@ namespace FineNotes
         }
         private void NoteChangeClicked(object sender, EventArgs e)      //Функция сохранения изменений в заметке
         {
-            var note = notCol.Notes.FirstOrDefault(i => i.Number == number);
-            if (note != null)
+            if (type == 1)
             {
-                note.Header = Note_header.Text;
-                note.Message = Note_msg.Text;
-                note.Date = DateTime.Now.ToString();
-                notCol.Save();
-                session.Modified = true;
+                string connStr = "server=sql11.freesqldatabase.com;user=sql11505068;database=sql11505068;port=3306;password=qGc1gqsgCv";
+                MySqlConnection conn = new MySqlConnection(connStr);
+                try
+                {
+                    conn.Open();
+                    string databaseTable = "GroupNotes";
+                    string note_to_change = "'" + number + "'";
+                    var query = "UPDATE " + databaseTable + " SET Header = " + "'" + Note_header.Text.ToString() + "',Message = '" + Note_msg.Text.ToString() + "',Date = '" + DateTime.Now.ToString() + "' WHERE Number = '" + number*-1 + "'";
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    var result = cmd.ExecuteScalar();
+                    session.Modified = true;
+                    conn.Close();
+                    MessagingCenter.Send<Page>(this, "Group Changed!");
+                    MessagingCenter.Send<Page>(this, "CollectionChanged!");
+                }
+                catch (Exception ex)
+                {
+                    conn.Close();
+                    return;
+                }
             }
-            MessagingCenter.Send<Page>(this, "CollectionChanged!");
-            
+            else
+            {
+                var note = notCol.Notes.FirstOrDefault(i => i.Number == number);
+                if (note != null)
+                {
+                    note.Header = Note_header.Text;
+                    note.Message = Note_msg.Text;
+                    note.Date = DateTime.Now.ToString();
+                    notCol.Save();
+                    session.Modified = true;
+                }
+                MessagingCenter.Send<Page>(this, "CollectionChanged!");
+            }
         }
         private async void NoteDeleteClicked(object sender, EventArgs e)        //Функция удаления заметки
         {
-            var note = notCol.Notes.FirstOrDefault(i => i.Number == number);
-            notCol.Notes.Remove(note);
-            notCol.change_indexes();
-            notCol.Save();
+            if (type == 1)
+            {
+                if (author == session.Email)
+                {
+                    string connStr = "server=sql11.freesqldatabase.com;user=sql11505068;database=sql11505068;port=3306;password=qGc1gqsgCv";
+                    MySqlConnection conn = new MySqlConnection(connStr);
+                    try
+                    {
+                        conn.Open();
+                        string databaseTable = "GroupNotes";
+                        string note_to_change = "'" + number + "'";
+                        string query = "DELETE FROM " + databaseTable + " WHERE Number = " + "'" + number * -1 + "'";
+                        MySqlCommand cmd = new MySqlCommand(query, conn);
+                        var result = cmd.ExecuteScalar();
+                        MessagingCenter.Send<Page>(this, "Group Changed!");
+                        conn.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        conn.Close();
+                        return;
+                    }
+                }
+            }
+            else
+            {
+                var note = notCol.Notes.FirstOrDefault(i => i.Number == number);
+                notCol.Notes.Remove(note);
+                notCol.change_indexes();
+                notCol.Save();
+            }
+
             session.Modified = true;
             MessagingCenter.Send<Page>(this, "CollectionChanged!");
             MessagingCenter.Send<Page>(this, "Show Toolbar!");
@@ -146,13 +201,35 @@ namespace FineNotes
                 {
                     conn.Open();
                     string databaseTable = "SharedUsers";
-                    var query = "DELETE FROM " + databaseTable + " WHERE Shared=" + user_to_del + " AND Number = " + number*-1;
+                    var query = "DELETE FROM " + databaseTable + " WHERE Shared=" + user_to_del + " AND Number = " + "'"+number*-1+"'";
                     MySqlCommand cmd = new MySqlCommand(query, conn);
                     var result = cmd.ExecuteScalar();
                     conn.Close();
                     users.Remove(e.SelectedItem.ToString());
                     usersList.ItemsSource = null;
                     usersList.ItemsSource = users;
+                    if (users.Count() == 0)
+                    {
+                        try
+                        {
+                            conn.Open();
+                            query = "DELETE FROM GroupNotes WHERE Number=" + number * -1;
+                            cmd = new MySqlCommand(query, conn);
+                            var result1 = cmd.ExecuteScalar();
+                            type = 0;
+                            notCol.addNote(Note_header.Text, Note_msg.Text, session.Email, DateTime.Now.ToString(), type);
+                            number = notCol.Notes.Count() + 1;
+                            notCol.Save();
+                            MessagingCenter.Send<Page>(this, "Group Changed!");
+                            MessagingCenter.Send<Page>(this, "CollectionChanged!");
+                        }
+                        catch(Exception ex)
+                        {
+                            conn.Close();
+                            return;
+                        }
+                    }
+                    conn.Close();
                 }
                 catch (Exception ex)
                 {
@@ -172,13 +249,37 @@ namespace FineNotes
                 string databaseTable = "SharedUsers";
                 if (isUserExists(user_to_add))
                 {
-                    var query = "INSERT INTO " + databaseTable + " VALUES (" + "'" + number * -1 + "','"+ user_to_add + "'"+")";
-                    MySqlCommand cmd = new MySqlCommand(query, conn);
-                    var result = cmd.ExecuteScalar();
-                    conn.Close();
-                    users.Add(user_to_add);
-                    usersList.ItemsSource = null;
-                    usersList.ItemsSource = users;
+                    if (type == 0)
+                    {
+                        try
+                        {
+                            string databaseNotes = "GroupNotes";
+                            var query1 = "INSERT INTO " + databaseNotes + "(Author,Header,Message,Date) VALUES ('" + session.Email + "','" + Note_header.Text.ToString() + "','" + Note_msg.Text + "','" + DateTime.Now.ToString() + "')";
+                            MySqlCommand cmd1 = new MySqlCommand(query1, conn);
+                            var result1 = cmd1.ExecuteScalar();
+                            var note = notCol.Notes.FirstOrDefault(i => i.Number == number);
+                            notCol.Notes.Remove(note);
+                            session.Modified = true;
+                            type = 1;
+                            number = Convert.ToInt32(cmd1.LastInsertedId) * -1;
+                            notCol.change_indexes();
+                            notCol.Save();
+                            MessagingCenter.Send<Page>(this, "Group Changed!");
+                            MessagingCenter.Send<Page>(this, "CollectionChanged!");
+                        }
+                        catch (Exception ex)
+                        {
+                            conn.Close();
+                            return;
+                        }
+                    }
+                        var query = "INSERT INTO " + databaseTable + " VALUES (" + "'" + number * -1 + "','" + user_to_add + "'" + ")";
+                        MySqlCommand cmd = new MySqlCommand(query, conn);
+                        var result = cmd.ExecuteScalar();
+                        conn.Close();
+                        users.Add(user_to_add);
+                        usersList.ItemsSource = null;
+                        usersList.ItemsSource = users;
                 }
             }
             catch (Exception ex)
