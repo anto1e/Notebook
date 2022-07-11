@@ -189,7 +189,10 @@
              Property=X, Factor=1, Constant=145}"
               RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=toolbar_frame, 
               Property=Y, Factor=0.5, Constant=5}"
-           />
+              ><Image.GestureRecognizers>
+            <TapGestureRecognizer Tapped="RefreshBtnClicked"/>
+            </Image.GestureRecognizers>  
+           </Image>
       </RelativeLayout>
 
 

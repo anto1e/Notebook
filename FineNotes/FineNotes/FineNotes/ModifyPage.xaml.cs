@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using MySqlConnector;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -8,12 +9,16 @@ namespace FineNotes
 {
     public partial class ModifyPage : ContentPage
     {
+        List<string> users;
         Session session = Session.getInstance();
         NotesCollection notCol = NotesCollection.getInstance();
         int number;
+        int type;
         public ModifyPage(Note note)
         {
             InitializeComponent();
+            if (note.Author != session.Email)
+                SidebarBtn.IsVisible = false;
             if (Device.RuntimePlatform == Device.iOS)
             {
                 Header.Padding = new Thickness(0, 35, 0, 0);
@@ -22,13 +27,42 @@ namespace FineNotes
             Note_header.Text = note.Header;
             Note_msg.Text = note.Message;
             Email_label.Text = note.Author;
-            List<string> lst = note.Allowers;
             Date_label.Text = note.Date;
+            type = note.Type;
         }
         private bool side_hided = true;
+        private List<string> getSharedUsers()           //Получение списка расшареных пользователей из БД для данной заметки
+        {
+            string connStr = "server=sql11.freesqldatabase.com;user=sql11505068;database=sql11505068;port=3306;password=qGc1gqsgCv";
+            MySqlConnection conn = new MySqlConnection(connStr);
+            try
+            {
+                conn.Open();
+                List<string> temp = new List<string>();
+                string note_to_find = "'" + number*-1 + "'";
+                string databaseTable = "SharedUsers";
+                var query = "SELECT Shared FROM " + databaseTable + " WHERE Number = " + note_to_find;
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        temp.Add(reader.GetString(0));
+                    }
+                }
+                conn.Close();
+                return temp;
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                return null;
+            }
+        }
         private async void showSidebarClicked(object sender, EventArgs e)   //Функция показа / скрытия сайдбара
         {
-            string[] users = new string[] { "111@mail.ru", "xyz12@mail.ru", "azazazaaaza@gmail.com", "321@mail.ru" };
+            users = getSharedUsers();
             var template = new DataTemplate(typeof(TextCell));
             template.SetValue(TextCell.TextColorProperty, Color.FromHex("FFEEB1"));
             usersList.ItemTemplate = template;
@@ -101,6 +135,82 @@ namespace FineNotes
                 scrollView.ScrollToAsync(scrollView.ScrollX, scrollView.ScrollY, true);
             }
         }
-    }   
-}
+        private void SharedUserSelected(object sender, SelectedItemChangedEventArgs e)      //Функция удаления расшаренного пользователя
+        {
+            if (e.SelectedItem != null)
+            {
+                string user_to_del = "'"+e.SelectedItem.ToString()+"'";
+                string connStr = "server=sql11.freesqldatabase.com;user=sql11505068;database=sql11505068;port=3306;password=qGc1gqsgCv";
+                MySqlConnection conn = new MySqlConnection(connStr);
+                try
+                {
+                    conn.Open();
+                    string databaseTable = "SharedUsers";
+                    var query = "DELETE FROM " + databaseTable + " WHERE Shared=" + user_to_del + " AND Number = " + number*-1;
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    var result = cmd.ExecuteScalar();
+                    conn.Close();
+                    users.Remove(e.SelectedItem.ToString());
+                    usersList.ItemsSource = null;
+                    usersList.ItemsSource = users;
+                }
+                catch (Exception ex)
+                {
+                    conn.Close();
+                    return;
+                }
+            }
+        }
+        private void AddSharedUser(object sender, EventArgs e)      //Функция добавления расшареного пользователя
+        {
+            string user_to_add = email_shared.Text.ToString();
+            string connStr = "server=sql11.freesqldatabase.com;user=sql11505068;database=sql11505068;port=3306;password=qGc1gqsgCv";
+            MySqlConnection conn = new MySqlConnection(connStr);
+            try
+            {
+                conn.Open();
+                string databaseTable = "SharedUsers";
+                if (isUserExists(user_to_add))
+                {
+                    var query = "INSERT INTO " + databaseTable + " VALUES (" + "'" + number * -1 + "','"+ user_to_add + "'"+")";
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    var result = cmd.ExecuteScalar();
+                    conn.Close();
+                    users.Add(user_to_add);
+                    usersList.ItemsSource = null;
+                    usersList.ItemsSource = users;
+                }
+            }
+            catch (Exception ex)
+            {
+                conn.Close();
+                return;
+            }
+        }
+        private bool isUserExists(string user_to_add)     //Функция проверки существования пользователя
+        {
+            string connStr = "server=sql11.freesqldatabase.com;user=sql11505068;database=sql11505068;port=3306;password=qGc1gqsgCv";
+            MySqlConnection conn = new MySqlConnection(connStr);
+            try
+            {
+                conn.Open();
+                string databaseTable = "Users";
+                var query = "SELECT * FROM " + databaseTable + " WHERE Email=" + "'"+user_to_add+"'";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                var result = cmd.ExecuteScalar();
+                conn.Close();
+                email_shared.Text = "";
+                if (result != null && user_to_add!=session.Email)
+                    return true;
+                else
+                    return false;
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                return false;
+            }
+        }
+    }
+}   
 

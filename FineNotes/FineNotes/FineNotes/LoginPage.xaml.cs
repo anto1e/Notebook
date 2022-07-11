@@ -117,60 +117,77 @@ namespace FineNotes
                 if (!isReg)
                 {
                     email = Email_entry.Text;
-                    email_ses = "'" + email + "'";
+                    email_ses = "\"" + email + "\"";
                     if (!IsValidEmail(email))
+                    {
+                        conn.Close();
                         error_label.Text = "Неверный email!";
+                        return;
+                    }
                     else
                     {
                         string password = "'" + Password_entry.Text + "'";
-                        //var query = "SELECT * FROM Users WHERE Email='123@mail.ru'";
+                        //var query = "SELECT Email FROM Users";
                         string pass_hashed = "'" + hashing(password) + "'";
-                        var query = "SELECT * FROM " + databaseTable + " WHERE Email=" + email_ses + " AND Password=" + pass_hashed;
+                        var query = "SELECT * FROM " + databaseTable + " WHERE Email=" + "'" + email + "'" + " AND Password=" + pass_hashed;
                         MySqlCommand cmd = new MySqlCommand(query, conn);
                         var result = cmd.ExecuteScalar();
                         if (result == null)
+                        {
+                            conn.Close();
                             error_label.Text = "Неверный ввод!";
+                            return;
+                        }
                         else
                         {
-                            error_label.Text = "";
                             Email_entry.Text = "";
                             Password_entry.Text = "";
+                            error_label.Text = "";
                         }
                     }
                 }
                 else
                 {
                     email = Email_entry_reg.Text;
-                    email_ses = "'" + email + "'";
+                    email_ses = "\"" + email + "\"";
                     if (!IsValidEmail(email))
+                    {
+                        conn.Close();
                         error_label_reg.Text = "Неверный email!";
+                        return;
+                    }
                     else
                     {
                         string password = "'" + Password_entry_reg.Text + "'";
                         string repass = "'" + RePassword_entry_reg.Text + "'";
                         if (password != repass)
                         {
+                            conn.Close();
                             error_label_reg.Text = "Пароли не совпадают!";
+                            return;
                         }
                         else
                         {
-                            var query = "SELECT * FROM " + databaseTable + " WHERE Email=" + email_ses;
+                            var query = "SELECT * FROM " + databaseTable + " WHERE Email=" + "'" + email + "'";
                             MySqlCommand cmd = new MySqlCommand(query, conn);
                             var result = cmd.ExecuteScalar();
                             if (result != null)
                             {
+                                conn.Close();
                                 error_label_reg.Text = "Пользователь уже зарегистрирован!";
+                                return;
                             }
                             else
                             {
                                 string pass_hashed = "'" + hashing(password) + "'";
-                                query = "INSERT INTO " + databaseTable + "(Email,Password) VALUES (" + email + "," + pass_hashed + ")";
+                                query = "INSERT INTO " + databaseTable + "(Email,Password) VALUES (" + "\"" + email + "\"" + "," + pass_hashed + ")";
                                 cmd = new MySqlCommand(query, conn);
                                 cmd.ExecuteNonQuery();
                                 error_label_reg.Text = "";
                                 Email_entry_reg.Text = "";
                                 Password_entry_reg.Text = "";
                                 RePassword_entry_reg.Text = "";
+
                             }
                         }
                     }
@@ -193,17 +210,18 @@ namespace FineNotes
                         session.clearNotes();
                         session.insertAllNotes();
                     }
+
                 }
                 session.getElemsFromDB();
-                conn.Close();
                 session.Online = true;
                 session.Modified = false;
                 session.writeSession();
-                
+                conn.Close();
                 await Navigation.PushAsync(new MainPage());
             }
             catch (Exception ex)
             {
+                conn.Close();
                 await DisplayAlert("Нет подключения", "Не удалось подключиться к базе данных", "ОK");
             }
             conn.Close();

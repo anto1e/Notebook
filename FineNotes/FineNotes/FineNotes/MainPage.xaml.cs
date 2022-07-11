@@ -39,7 +39,11 @@ namespace FineNotes
         }
         bool toolBarBlocked = false;
         private string currentPage = "All";
-
+        public void RefreshBtnClicked(object sender, EventArgs e)      //Обновление кол-ва заметок
+        {
+            session.getElemsFromDB();
+            MessagingCenter.Send<Page>(this, "CollectionChanged!");
+        }
         private void SubscribeColChanging()     //Функция для изменения отображения кол-ва заметок на главной странице при изменении коллекции
         {
             MessagingCenter.Subscribe<Page>(
@@ -55,8 +59,8 @@ namespace FineNotes
                   }
                   notesList.BindingContext = notCol.Notes;
                   int cntNotCol = notCol.Notes.Count;
-                  int cntNotColPriv = notCol.Notes.Count(i => i.Allowers.Count() == 0 && i.Author == session.Email);
-                  int cntNotColGroup = notCol.Notes.Count(i => i.Allowers.Count() != 0 || i.Author != session.Email);
+                  int cntNotColPriv = notCol.Notes.Count(i => i.Type == 0);
+                  int cntNotColGroup = notCol.Notes.Count(i => i.Type == 1);
                   if (cntNotCol < 100)
                       label_all.Text = "Все(" + cntNotCol.ToString() + ")";
                   else
@@ -135,7 +139,7 @@ namespace FineNotes
         private async void OnListViewItemSelected(object sender, EventArgs args) {                //Функция полученя заметки, на которую нажал пользователь
             var frame = (Frame)sender;
             frame.BackgroundColor = Color.FromHex("DCE1C6");
-            Note SelectedItem = notCol.Notes.FirstOrDefault(itm => itm.Number == Convert.ToInt32(((TappedEventArgs)args).Parameter.ToString()));
+            Note SelectedItem = notCol.Notes.FirstOrDefault(itm => itm.Number == Convert.ToInt32(((TappedEventArgs)args).Parameter.ToString()) && itm.Number == Convert.ToInt32(((TappedEventArgs)args).Parameter.ToString()));
             await Navigation.PushAsync(new ModifyPage(SelectedItem));
             frame.BackgroundColor = Color.FromHex("F9FFE2");
         }
@@ -230,8 +234,8 @@ namespace FineNotes
                     SearchClicked(null, null);
                 }
                 else
-                    notCol.fillGroupTemp(session.Email);
-                notesList.BindingContext = notCol.Notes_temp;
+                
+                notesList.BindingContext = notCol.Notes_group;
                 await Grid_messages.TranslateTo(1000, 0, 0);
                 await Grid_messages.TranslateTo(0, 0, 150);
             }
@@ -246,8 +250,7 @@ namespace FineNotes
                     SearchClicked(null, null);
                 }
                 else
-                    notCol.fillGroupTemp(session.Email);
-                notesList.BindingContext = notCol.Notes_temp;
+                notesList.BindingContext = notCol.Notes_group;
                 await Grid_messages.TranslateTo(1000, 0, 0);
                 await Grid_messages.TranslateTo(0, 0, 150);
             }

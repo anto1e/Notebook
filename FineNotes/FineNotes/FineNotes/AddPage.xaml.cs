@@ -37,8 +37,7 @@ namespace FineNotes
             string note_author = session.Email;
             string date = DateTime.Now.ToString();
             int type = 0;
-            List<string> temp = new List<string>();     //Поменять!!!
-            notCol.addNote(note_header, note_msg, note_author, date,temp,type);
+            notCol.addNote(note_header, note_msg, note_author, date,type);
             notCol.Save();
                 session.Modified = true;
                 MessagingCenter.Send<Page>(this, "CollectionChanged!");

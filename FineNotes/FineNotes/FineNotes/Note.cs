@@ -13,7 +13,6 @@ namespace FineNotes
         private string date;
         private int number;
         private int type;
-        List<string> allowers = new List<string>();
 
         public int Type
         {
@@ -86,15 +85,6 @@ namespace FineNotes
                     date = value;
                     OnPropertyChanged("Date");
                 }
-            }
-        }
-        public List<string> Allowers
-        {
-            get { return allowers; }
-            set
-            {
-                allowers = value;
-                OnPropertyChanged("Allowers");
             }
         }
 
