@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using MySqlConnector;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace FineNotes
@@ -47,14 +48,16 @@ namespace FineNotes
                 try
                 {
                     conn.Open();
+                    session.Online = true;
                     conn.Close();
                 }
                 catch(Exception ex)
                 {
-                    await DisplayAlert("Нет подключения", "Нет подключения к Базе Данных", "ОK");
+                await DisplayAlert("Нет подключения", "Нет подключения к Базе Данных, вы теперь в офлайн режиме", "ОK");
+                session.Online = false;
                     return;
                 }
-            if (session.Modified)
+            if (session.Modified && session.Online)
             {
                 session.clearNotes();
                 session.insertAllNotes();
@@ -68,37 +71,38 @@ namespace FineNotes
               this, // кто подписывается на сообщения
               "CollectionChanged!",   // название сообщения
               (sender) => {
-                  session.writeSession();
-                  if (session.Modified && session.Online)
-                  {
-                      session.clearNotes();
-                      session.insertAllNotes();
-                      session.Modified = false;
-                  }
-                  notesList.BindingContext = notCol.Notes;
-                  int cntNotCol = notCol.Notes.Count;
-                  int cntNotColPriv = notCol.Notes.Count(i => i.Type == 0);
-                  int cntNotColGroup = notCol.Notes.Count(i => i.Type == 1);
-                  if (cntNotCol < 100)
-                      label_all.Text = "Все(" + cntNotCol.ToString() + ")";
-                  else
-                      label_all.Text = "Все>99";
-                  if (cntNotColPriv < 100)
-                      label_priv.Text = "Личные(" + cntNotColPriv.ToString() + ")";
-                  else
-                      label_priv.Text = "Личные>99";
-                  if (cntNotColGroup < 100)
-                      label_group.Text = "Групповые(" + cntNotColGroup.ToString() + ")";
-                  else
-                      label_group.Text = "Групповые>99";
-                  if (currentPage == "Private")
-                  {
-                      notCol.fillPrivateTemp(session.Email);
-                  }
-                  if (currentPage == "Group")
-                  {
-                      notCol.fillGroupTemp(session.Email);
-                  }
+                      session.writeSession();
+                      if (session.Modified && session.Online)
+                      {
+                          session.clearNotes();
+                          session.insertAllNotes();
+                          session.Modified = false;
+                      }
+                      int cntNotCol = notCol.Notes.Count;
+                      int cntNotColPriv = notCol.Notes.Count(i => i.Type == 0);
+                      int cntNotColGroup = notCol.Notes.Count(i => i.Type == 1);
+
+                          notesList.BindingContext = notCol.Notes;
+                          if (cntNotCol < 100)
+                              label_all.Text = "Все(" + cntNotCol.ToString() + ")";
+                          else
+                              label_all.Text = "Все>99";
+                          if (cntNotColPriv < 100)
+                              label_priv.Text = "Личные(" + cntNotColPriv.ToString() + ")";
+                          else
+                              label_priv.Text = "Личные>99";
+                          if (cntNotColGroup < 100)
+                              label_group.Text = "Групповые(" + cntNotColGroup.ToString() + ")";
+                          else
+                              label_group.Text = "Групповые>99";
+                          if (currentPage == "Private")
+                          {
+                              notCol.fillPrivateTemp(session.Email);
+                          }
+                          if (currentPage == "Group")
+                          {
+                              notCol.fillGroupTemp(session.Email);
+                          }
               });    // вызываемое действие
                               MessagingCenter.Subscribe<Page>(
                 this, // кто подписывается на сообщения

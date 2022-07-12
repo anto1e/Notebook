@@ -25,14 +25,14 @@
                     </ImageButton>
         </RelativeLayout>
             </AbsoluteLayout>
-                        <Grid VerticalOptions="FillAndExpand">
+                        <Grid VerticalOptions="FillAndExpand" Margin="20">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-            <Frame BackgroundColor="#F9FFE2" Margin="20" CornerRadius="20" VerticalOptions="FillAndExpand" Grid.Row="0" Grid.Column="0">
+            <Frame x:Name="fr1" BackgroundColor="#F9FFE2" CornerRadius="20" VerticalOptions="FillAndExpand" Grid.Row="0" Grid.Column="0">
             <StackLayout>
                         <AbsoluteLayout HeightRequest="30">
                         <RelativeLayout>
@@ -73,9 +73,9 @@
                     <StackLayout Spacing="3" x:Name="buttons_layout" TranslationX="100">
 
                         <ImageButton HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0084E4"
-                           Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.cancel.png}" WidthRequest="60" HeightRequest="60" Clicked="NoteDeleteClicked"></ImageButton>
+                           Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.cancel.png}" x:Name="cancelBtn" WidthRequest="60" HeightRequest="60" Clicked="NoteDeleteClicked"></ImageButton>
                         <ImageButton HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0CC8A6"
-                                 Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.check.png}" WidthRequest="60" HeightRequest="60" Clicked="NoteChangeClicked"></ImageButton>
+                                 Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.check.png}" x:Name="saveBtn" WidthRequest="60" HeightRequest="60" Clicked="NoteChangeClicked"></ImageButton>
                         <ImageButton HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0084E4"
                                     Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.left_arrow.png}" WidthRequest="60" HeightRequest="60"
                     RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
@@ -88,21 +88,21 @@
                 </AbsoluteLayout>
                 
                         <!--Сайдбар-->
-                        <AbsoluteLayout x:Name="Sidebar" TranslationX="500" IsVisible="false" BackgroundColor="#0084E4" Opacity="0.95" VerticalOptions="FillAndExpand" HorizontalOptions="End" WidthRequest="200" Margin="0,20,0,20"
-                            >
-                    <StackLayout VerticalOptions="FillAndExpand" Orientation="Vertical" HorizontalOptions="FillAndExpand">
+
+                    <StackLayout TranslationX="500" IsVisible="false" Opacity="0.95" BackgroundColor="#0084E4" WidthRequest="300" x:Name="Sidebar" VerticalOptions="FillAndExpand"  Margin="0,0,-20,0" Orientation="Vertical" HorizontalOptions="End">
                         <StackLayout Spacing="0" Orientation="Horizontal">
-                            <local:CustomEntry TextColor="black" VerticalOptions="StartAndExpand" Margin="15" HeightRequest="40" x:Name="email_shared" WidthRequest="120" HorizontalOptions="FillAndExpand" BackgroundColor="white" Placeholder="Email"></local:CustomEntry>
+                            <local:CustomEntry TextColor="black" VerticalOptions="StartAndExpand" Margin="20" HeightRequest="40" x:Name="email_shared" WidthRequest="210" HorizontalOptions="FillAndExpand" BackgroundColor="white" Placeholder="Email"></local:CustomEntry>
                             <ImageButton Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.check.png}" BackgroundColor="#0CC8A6"
-                                 HeightRequest="30" WidthRequest="40" Margin="0,15,0,12" Padding="-5" Clicked="AddSharedUser"></ImageButton>
+                                 HeightRequest="30" WidthRequest="40" Margin="0,18,10,20" Padding="-5" Clicked="AddSharedUser"></ImageButton>
                         </StackLayout>
-                        <ScrollView VerticalOptions="FillAndExpand" HeightRequest="{Binding WidthRequest, Source={x:Reference Sidebar}}">
-                        <ListView x:Name="usersList" ItemSelected="SharedUserSelected" VerticalOptions="FillAndExpand" ItemsSource="{Binding users}" BackgroundColor="#0084E4" WidthRequest="180">
+                       
+                        <ScrollView VerticalOptions="FillAndExpand" x:Name="Users_Scroll">
+                        <ListView x:Name="usersList" ItemSelected="SharedUserSelected" VerticalOptions="FillAndExpand" ItemsSource="{Binding users}" BackgroundColor="#0084E4" WidthRequest="280">
 
                         </ListView>
                      </ScrollView>
                     </StackLayout>
-                </AbsoluteLayout>
+
                 </Grid>
         </StackLayout>
 

@@ -60,6 +60,8 @@
     <None Remove="Microsoft.AspNetCore.Cryptography.KeyDerivation" />
     <None Remove="Microsoft.AspNetCore.Cryptography.Internal" />
     <None Remove="MySqlConnector" />
+    <None Remove="Xamarin.Forms.BackgroundKit" />
+    <None Remove="Xam.Plugin.Backgrounding" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\img\pen_logo.png" />

@@ -9,7 +9,7 @@
     <StackLayout BackgroundColor="#ECECEC">
         <!--Шапка приложения-->
         <Frame BackgroundColor="#5873FF" CornerRadius="0" HeightRequest="70" x:Name="Header">
-        <RelativeLayout>
+        <RelativeLayout> 
           <Label Text="Заметки" WidthRequest="130" TextColor="#FFEEB1" FontSize="28" FontFamily="noto-header" x:Name="header_text" VerticalOptions="Center"
             RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
                 Property=Width, Factor=0.5, Constant=-65}" 
@@ -119,7 +119,7 @@
             <TapGestureRecognizer CommandParameter="{Binding Number}" Tapped="OnListViewItemSelected" NumberOfTapsRequired="1" />
             </Frame.GestureRecognizers>     
         <RelativeLayout>
-          <Label Text="{Binding Number}" TextColor="#EBDD" FontFamily="noto-header" HorizontalTextAlignment="Center" FontSize="Small"
+          <Label Text="{Binding Number}" IsVisible="false" TextColor="#EBDD" FontFamily="noto-header" HorizontalTextAlignment="Center" FontSize="Small"
          RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
                 Property=Width, Factor=0, Constant=-10}" 
          RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,

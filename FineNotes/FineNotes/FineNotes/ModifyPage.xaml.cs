@@ -15,22 +15,58 @@ namespace FineNotes
         private int number;
         private int type;
         private string author="";
+        bool loaded = false;
         public ModifyPage(Note note)
         {
             InitializeComponent();
+            type = note.Type;
+            author = note.Author;
+            number = note.Number;
             if (note.Author != session.Email || !session.Online)
                 SidebarBtn.IsVisible = false;
+            if (type==1 && !session.Online)
+            {
+                saveBtn.IsVisible = false;
+                cancelBtn.IsVisible = false;
+            }
             if (Device.RuntimePlatform == Device.iOS)
             {
                 Header.Padding = new Thickness(0, 35, 0, 0);
             }
-            author = note.Author;
-            number = note.Number;
-            Note_header.Text = note.Header;
-            Note_msg.Text = note.Message;
-            Email_label.Text = note.Author;
-            Date_label.Text = note.Date;
-            type = note.Type;
+            if (type == 1 && session.Online)
+            {
+                string connStr = "server=sql11.freesqldatabase.com;user=sql11505068;database=sql11505068;port=3306;password=qGc1gqsgCv";
+                MySqlConnection conn = new MySqlConnection(connStr);
+                try
+                {
+                    conn.Open();
+                    string note_to_find = "'" + number * -1 + "'";
+                    string databaseTable = "GroupNotes";
+                    var query = "SELECT Author, Header, Message, Date FROM " + databaseTable + " WHERE Number = " + note_to_find;
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            author = reader.GetString(0);
+                            Note_header.Text = reader.GetString(1);
+                            Note_msg.Text = reader.GetString(2);
+                            Date_label.Text = reader.GetString(3);
+                        }
+                    }
+                    loaded = true;
+                    conn.Close();
+                }
+                catch (Exception e)
+                {
+                    conn.Close();
+                }
+            }
+                Note_header.Text = note.Header;
+                Note_msg.Text = note.Message;
+                Email_label.Text = author;
+                Date_label.Text = note.Date;
         }
         private bool side_hided = true;
         private List<string> getSharedUsers()           //Получение списка расшареных пользователей из БД для данной заметки
@@ -59,6 +95,8 @@ namespace FineNotes
             catch (Exception e)
             {
                 conn.Close();
+                DisplayAlert("Нет подключения", "Нет подключения к Базе Данных, вы теперь в офлайн режиме", "ОK");
+                session.Online = false;
                 return null;
             }
         }
@@ -83,8 +121,22 @@ namespace FineNotes
                 side_hided = true;
             }
         }
-        private async void BackButton_Clicked(object sender, EventArgs e)
+        private async void BackButton_Clicked(object sender, EventArgs e)       //Нажата кнопка домой
         {
+            if (loaded)
+            {
+                var note = notCol.Notes.FirstOrDefault(i => i.Number == number);
+                if (note != null)
+                {
+                    note.Header = Note_header.Text;
+                    note.Message = Note_msg.Text;
+                    note.Date = DateTime.Now.ToString();
+                    notCol.Save();
+                    session.Modified = true;
+                }
+                //MessagingCenter.Send<Page>(this, "Group Changed!");
+                MessagingCenter.Send<Page>(this, "CollectionChanged!");
+            }
             await Navigation.PopAsync();
         }
         private bool hided = true;
@@ -105,7 +157,7 @@ namespace FineNotes
                 hided = false;
             }
         }
-        private void NoteChangeClicked(object sender, EventArgs e)      //Функция сохранения изменений в заметке
+        private async void NoteChangeClicked(object sender, EventArgs e)      //Функция сохранения изменений в заметке
         {
             if (type == 1)
             {
@@ -127,6 +179,8 @@ namespace FineNotes
                 catch (Exception ex)
                 {
                     conn.Close();
+                    await DisplayAlert("Нет подключения", "Нет подключения к Базе Данных, вы теперь в офлайн режиме", "ОK");
+                    session.Online = false;
                     return;
                 }
             }
@@ -166,6 +220,8 @@ namespace FineNotes
                     catch (Exception ex)
                     {
                         conn.Close();
+                        await DisplayAlert("Нет подключения", "Нет подключения к Базе Данных, вы теперь в офлайн режиме", "ОK");
+                        session.Online = false;
                         return;
                     }
                 }
@@ -190,7 +246,7 @@ namespace FineNotes
                 scrollView.ScrollToAsync(scrollView.ScrollX, scrollView.ScrollY, true);
             }
         }
-        private void SharedUserSelected(object sender, SelectedItemChangedEventArgs e)      //Функция удаления расшаренного пользователя
+        private async void SharedUserSelected(object sender, SelectedItemChangedEventArgs e)      //Функция удаления расшаренного пользователя
         {
             if (e.SelectedItem != null)
             {
@@ -226,6 +282,8 @@ namespace FineNotes
                         catch(Exception ex)
                         {
                             conn.Close();
+                            await DisplayAlert("Нет подключения", "Нет подключения к Базе Данных, вы теперь в офлайн режиме", "ОK");
+                            session.Online = false;
                             return;
                         }
                     }
@@ -234,11 +292,13 @@ namespace FineNotes
                 catch (Exception ex)
                 {
                     conn.Close();
+                    await DisplayAlert("Нет подключения", "Нет подключения к Базе Данных, вы теперь в офлайн режиме", "ОK");
+                    session.Online = false;
                     return;
                 }
             }
         }
-        private void AddSharedUser(object sender, EventArgs e)      //Функция добавления расшареного пользователя
+        private async void AddSharedUser(object sender, EventArgs e)      //Функция добавления расшареного пользователя
         {
             string user_to_add = email_shared.Text.ToString();
             string connStr = "server=sql11.freesqldatabase.com;user=sql11505068;database=sql11505068;port=3306;password=qGc1gqsgCv";
@@ -270,20 +330,32 @@ namespace FineNotes
                         catch (Exception ex)
                         {
                             conn.Close();
+                            await DisplayAlert("Нет подключения", "Нет подключения к Базе Данных, вы теперь в офлайн режиме", "ОK");
+                            session.Online = false;
                             return;
                         }
                     }
                         var query = "INSERT INTO " + databaseTable + " VALUES (" + "'" + number * -1 + "','" + user_to_add + "'" + ")";
                         MySqlCommand cmd = new MySqlCommand(query, conn);
                         var result = cmd.ExecuteScalar();
+                    var temp = result;
                         conn.Close();
                         users.Add(user_to_add);
                         usersList.ItemsSource = null;
                         usersList.ItemsSource = users;
                 }
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
+                if (ex.ErrorCode.ToString() == "DuplicateKeyEntry")
+                {
+                    await DisplayAlert("Ошибка", "Пользователь уже добавлен", "ОK");
+                }
+                else
+                {
+                    DisplayAlert("Нет подключения", "Нет подключения к Базе Данных, вы теперь в офлайн режиме", "ОK");
+                    session.Online = false;
+                }
                 conn.Close();
                 return;
             }
@@ -309,6 +381,8 @@ namespace FineNotes
             catch (Exception e)
             {
                 conn.Close();
+                DisplayAlert("Нет подключения", "Нет подключения к Базе Данных, вы теперь в офлайн режиме", "ОK");
+                session.Online = false;
                 return false;
             }
         }
