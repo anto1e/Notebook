@@ -222,6 +222,7 @@ namespace FineNotes
             catch (Exception ex)
             {
                 conn.Close();
+                Console.WriteLine(ex.Message);
                 await DisplayAlert("Нет подключения", "Не удалось подключиться к базе данных", "ОK");
             }
             conn.Close();

@@ -7,19 +7,19 @@
     NavigationPage.HasNavigationBar="false">
     <ContentPage.Content>
         <StackLayout BackgroundColor="#ECECEC">
-            <AbsoluteLayout BackgroundColor="#5873FF" HeightRequest="60" x:Name="Header">
+            <AbsoluteLayout BackgroundColor="#5873FF" HeightRequest="70" x:Name="Header">
             <RelativeLayout>
                 <Label TextColor="#FFEEB1" HorizontalTextAlignment="Start" WidthRequest="300" FontSize="Large" FontFamily="noto-header" RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
                 Property=Width, Factor=0, Constant=30}" 
            RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
-                Property=Height, Factor=0.2}"
+                Property=Height, Factor=0.25}"
            >Изменение заметки</Label>
                     <ImageButton HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="25" BackgroundColor="#0CC8A6" x:Name="SidebarBtn"
                     Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.register.png}" WidthRequest="50" HeightRequest="50"
                     RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
                 Property=Width, Factor=1, Constant=-60}" 
                     RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
-                Property=Height, Factor=0.1, Constant=-5}" Clicked="showSidebarClicked">
+                Property=Height, Factor=0.15, Constant=0}" Clicked="showSidebarClicked">
 
 
                     </ImageButton>

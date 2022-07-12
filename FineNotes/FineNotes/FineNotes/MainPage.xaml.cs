@@ -54,6 +54,7 @@ namespace FineNotes
                 catch(Exception ex)
                 {
                 await DisplayAlert("Нет подключения", "Нет подключения к Базе Данных, вы теперь в офлайн режиме", "ОK");
+                Console.WriteLine(ex.Message);
                 session.Online = false;
                     return;
                 }
@@ -98,11 +99,15 @@ namespace FineNotes
                           if (currentPage == "Private")
                           {
                               notCol.fillPrivateTemp(session.Email);
-                          }
+                                notesList.BindingContext = notCol.Notes_temp;
+                            }
                           if (currentPage == "Group")
                           {
                               notCol.fillGroupTemp(session.Email);
-                          }
+                              notesList.BindingContext = notCol.Notes_temp;
+                            }
+                          if (currentPage == "All")
+                            notesList.BindingContext = notCol.Notes;
               });    // вызываемое действие
                               MessagingCenter.Subscribe<Page>(
                 this, // кто подписывается на сообщения

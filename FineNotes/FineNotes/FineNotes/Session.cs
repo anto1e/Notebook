@@ -67,6 +67,7 @@ namespace FineNotes
             catch (Exception e)
             {
                 conn.Close();
+                Console.WriteLine(e.Message);
             }
         }
     
@@ -99,6 +100,7 @@ namespace FineNotes
             catch (Exception e)
             {
                 conn.Close();
+                Console.WriteLine(e.Message);
             }
         }
         public bool clearNotes()      //Удаление всех заметок по Id автора
@@ -119,6 +121,7 @@ namespace FineNotes
                catch (Exception exp)
             {
                 conn.Close();
+                Console.WriteLine(exp.Message);
                 return false;
             }
         }
@@ -156,6 +159,7 @@ namespace FineNotes
             catch (Exception e)
             {
                 conn.Close();
+                Console.WriteLine(e.Message);
                 return false;
             }
         }

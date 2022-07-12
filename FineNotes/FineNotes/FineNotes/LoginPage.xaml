@@ -7,7 +7,7 @@
     NavigationPage.HasNavigationBar="false"
     >
     <ContentPage.Content>
-        <StackLayout BackgroundColor="#ECECEC">
+        <StackLayout BackgroundColor="#F9FFE2">
             <RelativeLayout x:Name="SignInLayout">    <!--Поле входа-->
                 <Frame BackgroundColor="#5873FF" WidthRequest="300" HeightRequest="180" Opacity="0.6" CornerRadius="20"
                        RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 

@@ -29,6 +29,10 @@ namespace FineNotes
                 saveBtn.IsVisible = false;
                 cancelBtn.IsVisible = false;
             }
+            if (type==1 && session.Email!= note.Author)
+            {
+                cancelBtn.IsVisible = false;
+            }
             if (Device.RuntimePlatform == Device.iOS)
             {
                 Header.Padding = new Thickness(0, 35, 0, 0);
@@ -61,12 +65,16 @@ namespace FineNotes
                 catch (Exception e)
                 {
                     conn.Close();
+                    Console.WriteLine(e.Message);
                 }
             }
+            else
+            {
                 Note_header.Text = note.Header;
                 Note_msg.Text = note.Message;
-                Email_label.Text = author;
                 Date_label.Text = note.Date;
+            }
+                Email_label.Text = author;
         }
         private bool side_hided = true;
         private List<string> getSharedUsers()           //Получение списка расшареных пользователей из БД для данной заметки
@@ -96,6 +104,7 @@ namespace FineNotes
             {
                 conn.Close();
                 DisplayAlert("Нет подключения", "Нет подключения к Базе Данных, вы теперь в офлайн режиме", "ОK");
+                Console.WriteLine(e.Message);
                 session.Online = false;
                 return null;
             }
@@ -179,6 +188,7 @@ namespace FineNotes
                 catch (Exception ex)
                 {
                     conn.Close();
+                    Console.WriteLine(ex.Message);
                     await DisplayAlert("Нет подключения", "Нет подключения к Базе Данных, вы теперь в офлайн режиме", "ОK");
                     session.Online = false;
                     return;
@@ -200,44 +210,49 @@ namespace FineNotes
         }
         private async void NoteDeleteClicked(object sender, EventArgs e)        //Функция удаления заметки
         {
-            if (type == 1)
+            string action = await DisplayActionSheet("Вы действительно хотите удалить заметку?", "Отмена", "Удалить");
+            if (action == "Удалить")
             {
-                if (author == session.Email)
+                if (type == 1)
                 {
-                    string connStr = "server=sql11.freesqldatabase.com;user=sql11505068;database=sql11505068;port=3306;password=qGc1gqsgCv";
-                    MySqlConnection conn = new MySqlConnection(connStr);
-                    try
+                    if (author == session.Email)
                     {
-                        conn.Open();
-                        string databaseTable = "GroupNotes";
-                        string note_to_change = "'" + number + "'";
-                        string query = "DELETE FROM " + databaseTable + " WHERE Number = " + "'" + number * -1 + "'";
-                        MySqlCommand cmd = new MySqlCommand(query, conn);
-                        var result = cmd.ExecuteScalar();
-                        MessagingCenter.Send<Page>(this, "Group Changed!");
-                        conn.Close();
-                    }
-                    catch (Exception ex)
-                    {
-                        conn.Close();
-                        await DisplayAlert("Нет подключения", "Нет подключения к Базе Данных, вы теперь в офлайн режиме", "ОK");
-                        session.Online = false;
-                        return;
+                        string connStr = "server=sql11.freesqldatabase.com;user=sql11505068;database=sql11505068;port=3306;password=qGc1gqsgCv";
+                        MySqlConnection conn = new MySqlConnection(connStr);
+                        try
+                        {
+                            conn.Open();
+                            string databaseTable = "GroupNotes";
+                            string note_to_change = "'" + number + "'";
+                            string query = "DELETE FROM " + databaseTable + " WHERE Number = " + "'" + number * -1 + "'";
+                            MySqlCommand cmd = new MySqlCommand(query, conn);
+                            var result = cmd.ExecuteScalar();
+                            MessagingCenter.Send<Page>(this, "Group Changed!");
+                            conn.Close();
+                        }
+                        catch (Exception ex)
+                        {
+                            conn.Close();
+                            Console.WriteLine(ex.Message);
+                            await DisplayAlert("Нет подключения", "Нет подключения к Базе Данных, вы теперь в офлайн режиме", "ОK");
+                            session.Online = false;
+                            return;
+                        }
                     }
                 }
-            }
-            else
-            {
-                var note = notCol.Notes.FirstOrDefault(i => i.Number == number);
-                notCol.Notes.Remove(note);
-                notCol.change_indexes();
-                notCol.Save();
-            }
+                else
+                {
+                    var note = notCol.Notes.FirstOrDefault(i => i.Number == number);
+                    notCol.Notes.Remove(note);
+                    notCol.change_indexes();
+                    notCol.Save();
+                }
 
-            session.Modified = true;
-            MessagingCenter.Send<Page>(this, "CollectionChanged!");
-            MessagingCenter.Send<Page>(this, "Show Toolbar!");
-            await Navigation.PopAsync();
+                session.Modified = true;
+                MessagingCenter.Send<Page>(this, "CollectionChanged!");
+                MessagingCenter.Send<Page>(this, "Show Toolbar!");
+                await Navigation.PopAsync();
+            }
         }
         void editor_Focused(System.Object sender, Xamarin.Forms.FocusEventArgs e)
         {
@@ -282,6 +297,7 @@ namespace FineNotes
                         catch(Exception ex)
                         {
                             conn.Close();
+                            Console.WriteLine(ex.Message);
                             await DisplayAlert("Нет подключения", "Нет подключения к Базе Данных, вы теперь в офлайн режиме", "ОK");
                             session.Online = false;
                             return;
@@ -330,6 +346,7 @@ namespace FineNotes
                         catch (Exception ex)
                         {
                             conn.Close();
+                            Console.WriteLine(ex.Message);
                             await DisplayAlert("Нет подключения", "Нет подключения к Базе Данных, вы теперь в офлайн режиме", "ОK");
                             session.Online = false;
                             return;
@@ -344,6 +361,8 @@ namespace FineNotes
                         usersList.ItemsSource = null;
                         usersList.ItemsSource = users;
                 }
+                else
+                    await DisplayAlert("Ошибка", "Пользователь с таким Email не зарегистрирован", "ОK");
             }
             catch (MySqlException ex)
             {
@@ -353,7 +372,7 @@ namespace FineNotes
                 }
                 else
                 {
-                    DisplayAlert("Нет подключения", "Нет подключения к Базе Данных, вы теперь в офлайн режиме", "ОK");
+                    await DisplayAlert("Нет подключения", "Нет подключения к Базе Данных, вы теперь в офлайн режиме", "ОK");
                     session.Online = false;
                 }
                 conn.Close();
@@ -381,6 +400,7 @@ namespace FineNotes
             catch (Exception e)
             {
                 conn.Close();
+                Console.WriteLine(e.Message);
                 DisplayAlert("Нет подключения", "Нет подключения к Базе Данных, вы теперь в офлайн режиме", "ОK");
                 session.Online = false;
                 return false;
