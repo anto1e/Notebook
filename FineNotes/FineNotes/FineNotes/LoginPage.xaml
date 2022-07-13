@@ -81,8 +81,8 @@
             <!--Тулбар-->
            <!-- Стрелка для показа/сокрытия тулбара -->
                 <AbsoluteLayout HorizontalOptions="End" VerticalOptions="End" Margin="0,0,10,30" HeightRequest="40">
-<ImageButton HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0084E4" x:Name="ArrowFrame" Opacity="0.2" HeightRequest="60" WidthRequest="60"
-                            Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.right_arrow.png}" RotationY="180" Padding="10" Clicked="ShowBtnsClicked"></ImageButton>
+<ImageButton  HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0084E4" x:Name="ArrowFrame" Opacity="0.2" HeightRequest="60" WidthRequest="60"
+                            Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.right_arrow.png}" RotationY="180" Padding="-5" Clicked="ShowBtnsClicked"></ImageButton>
 
                     <!-- Тулбар удаления, редактирования, перехода в главное меню -->
 

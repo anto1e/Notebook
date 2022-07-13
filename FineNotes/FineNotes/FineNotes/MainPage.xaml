@@ -131,7 +131,7 @@
          RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
                 Property=Height, Factor=0, Constant=-15}"
                />
-        <Label Text="{Binding Message}" TextColor="#696969" FontFamily="noto-italic" HorizontalTextAlignment="Start" MaxLines="3" LineBreakMode="TailTruncation"
+        <Label Text="{Binding Message}" TextColor="#696969" FontFamily="noto-reg" HorizontalTextAlignment="Start" MaxLines="3" LineBreakMode="TailTruncation"
            RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
                 Property=Width, Factor=0, Constant=0}" 
            RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
@@ -199,8 +199,8 @@
                 <!-- Тулбар поиска-->
      </AbsoluteLayout>
             <AbsoluteLayout HorizontalOptions="End" VerticalOptions="End" Margin="0,0,10,170" HeightRequest="60" WidthRequest="60" TranslationX="100" x:Name="SearchToolbarLayoutArrow">
-                <ImageButton HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0084E4" x:Name="ArrowFrame" Opacity="0.2"
-                            Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.right_arrow.png}" RotationY="180" Padding="10" Clicked="ShowBtnsClicked"></ImageButton>
+                <ImageButton  HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0084E4" x:Name="ArrowFrame" Opacity="0.2"
+                            Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.right_arrow.png}" RotationY="180" Padding="-5" Clicked="ShowBtnsClicked"></ImageButton>
    
 
                 </AbsoluteLayout>

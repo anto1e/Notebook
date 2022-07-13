@@ -35,7 +35,7 @@ namespace FineNotes
              string note_msg = "";
             note_msg= Note_msg.Text;
             string note_author = session.Email;
-            string date = DateTime.Now.ToString();
+            string date = DateTime.Now.ToString("MM/dd/yyyy HH:mm");
             int type = 0;
             notCol.addNote(note_header, note_msg, note_author, date,type);
             notCol.Save();

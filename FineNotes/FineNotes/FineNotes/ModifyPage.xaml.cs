@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using MySqlConnector;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -109,6 +110,21 @@ namespace FineNotes
                 return null;
             }
         }
+
+        private void checkLengthEntry(object sender, EventArgs e)
+        {
+            if (email_shared.Text.Length == 0)
+            {
+                ShareBtn.Opacity = 0.5;
+                ShareBtn.IsEnabled = false;
+            }
+            else
+            {
+                ShareBtn.Opacity = 1;
+                ShareBtn.IsEnabled = true;
+            }
+        }
+
         private async void showSidebarClicked(object sender, EventArgs e)   //Функция показа / скрытия сайдбара
         {
             users = getSharedUsers();
@@ -120,12 +136,23 @@ namespace FineNotes
             {
                 usersList.ItemsSource = users;
                 Sidebar.IsVisible = true;
-                await Sidebar.TranslateTo(0, 0, 250);
+                subFrame.IsVisible = true;
+                Task labelFade = this.subFrame.FadeTo(0.5, 250);
+                Task buttonFade = this.Sidebar.TranslateTo(0, 0, 250);
+
+                // Animate in parallel.
+                await Task.WhenAll(new List<Task> { labelFade, buttonFade });
+
                 side_hided = false;
             }
             else
             {
-                await Sidebar.TranslateTo(500, 0, 250);
+                Task labelFade = this.subFrame.FadeTo(0, 250);
+                Task buttonFade = this.Sidebar.TranslateTo(500, 0, 250);
+
+                // Animate in parallel.
+                await Task.WhenAll(new List<Task> { labelFade, buttonFade });
+                subFrame.IsVisible = false;
                 Sidebar.IsVisible = false;
                 side_hided = true;
             }
@@ -139,7 +166,7 @@ namespace FineNotes
                 {
                     note.Header = Note_header.Text;
                     note.Message = Note_msg.Text;
-                    note.Date = DateTime.Now.ToString();
+                    note.Date = DateTime.Now.ToString("MM/dd/yyyy HH:mm");
                     notCol.Save();
                     session.Modified = true;
                 }
@@ -177,7 +204,7 @@ namespace FineNotes
                     conn.Open();
                     string databaseTable = "GroupNotes";
                     string note_to_change = "'" + number + "'";
-                    var query = "UPDATE " + databaseTable + " SET Header = " + "'" + Note_header.Text.ToString() + "',Message = '" + Note_msg.Text.ToString() + "',Date = '" + DateTime.Now.ToString() + "' WHERE Number = '" + number*-1 + "'";
+                    var query = "UPDATE " + databaseTable + " SET Header = " + "'" + Note_header.Text.ToString() + "',Message = '" + Note_msg.Text.ToString() + "',Date = '" + DateTime.Now.ToString("MM/dd/yyyy HH:mm") + "' WHERE Number = '" + number*-1 + "'";
                     MySqlCommand cmd = new MySqlCommand(query, conn);
                     var result = cmd.ExecuteScalar();
                     session.Modified = true;
@@ -201,7 +228,7 @@ namespace FineNotes
                 {
                     note.Header = Note_header.Text;
                     note.Message = Note_msg.Text;
-                    note.Date = DateTime.Now.ToString();
+                    note.Date = DateTime.Now.ToString("MM/dd/yyyy HH:mm");
                     notCol.Save();
                     session.Modified = true;
                 }
@@ -288,7 +315,7 @@ namespace FineNotes
                             cmd = new MySqlCommand(query, conn);
                             var result1 = cmd.ExecuteScalar();
                             type = 0;
-                            notCol.addNote(Note_header.Text, Note_msg.Text, session.Email, DateTime.Now.ToString(), type);
+                            notCol.addNote(Note_header.Text, Note_msg.Text, session.Email, DateTime.Now.ToString("MM/dd/yyyy HH:mm"), type);
                             number = notCol.Notes.Count() + 1;
                             notCol.Save();
                             MessagingCenter.Send<Page>(this, "Group Changed!");
@@ -330,7 +357,7 @@ namespace FineNotes
                         try
                         {
                             string databaseNotes = "GroupNotes";
-                            var query1 = "INSERT INTO " + databaseNotes + "(Author,Header,Message,Date) VALUES ('" + session.Email + "','" + Note_header.Text.ToString() + "','" + Note_msg.Text + "','" + DateTime.Now.ToString() + "')";
+                            var query1 = "INSERT INTO " + databaseNotes + "(Author,Header,Message,Date) VALUES ('" + session.Email + "','" + Note_header.Text.ToString() + "','" + Note_msg.Text + "','" + DateTime.Now.ToString("MM/dd/yyyy HH:mm") + "')";
                             MySqlCommand cmd1 = new MySqlCommand(query1, conn);
                             var result1 = cmd1.ExecuteScalar();
                             var note = notCol.Notes.FirstOrDefault(i => i.Number == number);

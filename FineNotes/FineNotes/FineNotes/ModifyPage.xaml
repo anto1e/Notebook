@@ -7,6 +7,7 @@
     NavigationPage.HasNavigationBar="false">
     <ContentPage.Content>
         <StackLayout BackgroundColor="#ECECEC">
+
             <AbsoluteLayout BackgroundColor="#5873FF" HeightRequest="70" x:Name="Header">
             <RelativeLayout>
                 <Label TextColor="#FFEEB1" HorizontalTextAlignment="Start" WidthRequest="300" FontSize="Large" FontFamily="noto-header" RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
@@ -31,22 +32,22 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+        </Grid.RowDefinitions>          <!--#F9FFE2"-->
             <Frame x:Name="fr1" BackgroundColor="#F9FFE2" CornerRadius="20" VerticalOptions="FillAndExpand" Grid.Row="0" Grid.Column="0">
             <StackLayout>
                         <AbsoluteLayout HeightRequest="30">
                         <RelativeLayout>
-                     <Label  WidthRequest="100" HorizontalTextAlignment="Start"
+                     <Label  WidthRequest="180" MaxLines="1" LineBreakMode="TailTruncation" HorizontalTextAlignment="Start"
                                 RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
                 Property=Width, Factor=0, Constant=0}" 
                 RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
-                Property=Height, Factor=0.2, Constant=0}" x:Name="Email_label" TextDecorations="Underline" TextColor="Black"></Label>
-                    <Label WidthRequest="180" HorizontalTextAlignment="End" VerticalOptions="Center"
+                Property=Height, Factor=0.2, Constant=0}" x:Name="Email_label" TextColor="Black" Opacity="0.75"></Label>
+                    <Label WidthRequest="160" HorizontalTextAlignment="End" VerticalOptions="Center"
                 RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
-                Property=Width, Factor=1, Constant=-180}" 
+                Property=Width, Factor=1, Constant=-155}" 
                 RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
                 Property=Height, Factor=0.2, Constant=0}"
-                x:Name="Date_label" TextDecorations="Underline" TextColor="Black"></Label>
+                x:Name="Date_label" TextColor="Black" Opacity="0.75"></Label>
 
                         </RelativeLayout>
                     </AbsoluteLayout>
@@ -57,14 +58,14 @@
                 VerticalOptions="FillAndExpand"
                 HorizontalOptions="FillAndExpand">
             <local:CustomEditor Focused="editor_Focused"
-                    AutoSize="TextChanges" FontFamily="noto-italic" BackgroundColor="#F9FFE2" TextColor="Black" VerticalOptions="FillAndExpand" Placeholder="Текст заметки" x:Name="Note_msg"></local:CustomEditor></ScrollView>
+                    AutoSize="TextChanges" Opacity="0.75" FontFamily="noto-reg" BackgroundColor="#F9FFE2" TextColor="Black" VerticalOptions="FillAndExpand" Placeholder="Текст заметки" x:Name="Note_msg"></local:CustomEditor></ScrollView>
 
             </StackLayout>
         </Frame>
                 <!-- Стрелка для показа/сокрытия тулбара -->
                 <AbsoluteLayout HorizontalOptions="End" VerticalOptions="End" Margin="0,0,10,270" HeightRequest="40">
 <ImageButton HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0084E4" x:Name="ArrowFrame" Opacity="0.2" HeightRequest="60" WidthRequest="60"
-                            Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.right_arrow.png}" RotationY="180" Padding="10" Clicked="ShowBtnsClicked"></ImageButton>
+                            Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.right_arrow.png}" RotationY="180" Padding="-5" Clicked="ShowBtnsClicked"></ImageButton>
 
                     <!-- Тулбар удаления, редактирования, перехода в главное меню -->
 
@@ -86,13 +87,14 @@
                     </StackLayout>
 
                 </AbsoluteLayout>
-                
+                <Frame x:Name="subFrame" CornerRadius="20" VerticalOptions="FillAndExpand" IsVisible="false" Opacity="0" Scale="1" HorizontalOptions="FillAndExpand" BackgroundColor="black">
+                </Frame>
                         <!--Сайдбар-->
 
                     <StackLayout TranslationX="500" IsVisible="false" Opacity="0.95" BackgroundColor="#0084E4" WidthRequest="300" x:Name="Sidebar" VerticalOptions="FillAndExpand"  Margin="0,0,-20,0" Orientation="Vertical" HorizontalOptions="End">
                         <StackLayout Spacing="0" Orientation="Horizontal">
-                            <local:CustomEntry TextColor="black" VerticalOptions="StartAndExpand" Margin="20" HeightRequest="40" x:Name="email_shared" WidthRequest="210" HorizontalOptions="FillAndExpand" BackgroundColor="white" Placeholder="Email"></local:CustomEntry>
-                            <ImageButton Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.check.png}" BackgroundColor="#0CC8A6"
+                            <local:CustomEntry TextChanged="checkLengthEntry" TextColor="black" VerticalOptions="StartAndExpand" Margin="20" HeightRequest="40" x:Name="email_shared" WidthRequest="210" HorizontalOptions="FillAndExpand" BackgroundColor="white" Placeholder="Email"></local:CustomEntry>
+                            <ImageButton x:Name="ShareBtn" Opacity="0.5" IsEnabled="false" Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.check.png}" BackgroundColor="#0CC8A6"
                                  HeightRequest="30" WidthRequest="40" Margin="0,18,10,20" Padding="-5" Clicked="AddSharedUser"></ImageButton>
                         </StackLayout>
                        
@@ -102,10 +104,12 @@
                         </ListView>
                      </ScrollView>
                     </StackLayout>
+                                
 
                 </Grid>
         </StackLayout>
 
     </ContentPage.Content>
+
 </ContentPage>
 
