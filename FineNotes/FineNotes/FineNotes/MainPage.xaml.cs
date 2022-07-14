@@ -181,6 +181,88 @@ namespace FineNotes
             await Navigation.PushAsync(new ModifyPage(SelectedItem));
             frame.BackgroundColor = Color.FromHex("F9FFE2");
         }
+        private async void OnSwiped(object sender, SwipedEventArgs e)
+        {
+            switch (e.Direction)
+            {
+                case SwipeDirection.Right:
+                    if (currentPage == "Group")
+                    {
+                        underline_priv.TranslationX = 0;
+                        underline_priv.BackgroundColor = Color.FromHex("BBFA8A");
+                        currentPage = "Private";
+                        underline_group.BackgroundColor = Color.FromHex("5873FF");
+                        underline_group.TranslationX = 1000;
+                        await Grid_messages.TranslateTo(1000, 0, 150);
+                        if (toolBarBlocked)
+                        {
+                            SearchClicked(null, null);
+                        }
+                        else
+                            notCol.fillPrivateTemp(session.Email);
+                        notesList.BindingContext = notCol.Notes_temp;
+                        await Grid_messages.TranslateTo(-1000, 0, 0);
+                        await Grid_messages.TranslateTo(0, 0, 150);
+                    } else if(currentPage == "Private")
+                    {
+                        underline_all.TranslationX = 0;
+                        underline_all.BackgroundColor = Color.FromHex("BBFA8A");
+                        currentPage = "All";
+                        underline_priv.BackgroundColor = Color.FromHex("5873FF");
+                        underline_priv.TranslationX = 1000;
+                        await Grid_messages.TranslateTo(1000, 0, 150);
+                        if (toolBarBlocked)
+                        {
+                            SearchClicked(null, null);
+                        }
+                        if (!toolBarBlocked)
+                        {
+                            notesList.BindingContext = notCol.Notes;
+                        }
+                        await Grid_messages.TranslateTo(-1000, 0, 0);
+                        await Grid_messages.TranslateTo(0, 0, 150);
+                    }
+                    break;
+                case SwipeDirection.Left:
+                    if (currentPage == "All")
+                    {
+                        underline_priv.TranslationX = 0;
+                        underline_priv.BackgroundColor = Color.FromHex("BBFA8A");
+                        currentPage = "Private";
+                        underline_all.BackgroundColor = Color.FromHex("5873FF");
+                        underline_all.TranslationX = 1000;
+                        await Grid_messages.TranslateTo(-1000, 0, 150);
+                        if (toolBarBlocked)
+                        {
+                            SearchClicked(null, null);
+                        }
+                        else
+                            notCol.fillPrivateTemp(session.Email);
+                        notesList.BindingContext = notCol.Notes_temp;
+                        await Grid_messages.TranslateTo(1000, 0, 0);
+                        await Grid_messages.TranslateTo(0, 0, 150);
+                    }
+                    else if(currentPage == "Private")
+                    {
+                        underline_group.TranslationX = 0;
+                        underline_group.BackgroundColor = Color.FromHex("BBFA8A");
+                        currentPage = "Group";
+                        underline_priv.BackgroundColor = Color.FromHex("5873FF");
+                        underline_priv.TranslationX = 1000;
+                        await Grid_messages.TranslateTo(-1000, 0, 150);
+                        if (toolBarBlocked)
+                        {
+                            SearchClicked(null, null);
+                        }
+                        else
+                            notCol.fillGroupTemp(session.Email);
+                        notesList.BindingContext = notCol.Notes_temp;
+                        await Grid_messages.TranslateTo(1000, 0, 0);
+                        await Grid_messages.TranslateTo(0, 0, 150);
+                    }
+                    break;
+            }
+        }
         private async void PrivateNotesClicked(object sender, EventArgs e)      //Переход на страницу с личными заметками
         {
             underline_priv.TranslationX = 0;

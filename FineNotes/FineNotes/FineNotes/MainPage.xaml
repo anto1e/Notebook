@@ -102,6 +102,10 @@
 
         <Entry Placeholder="Поиск" TextColor="black" TranslationY="0" HeightRequest="0" Margin="0,-10,0,0" x:Name="SearchEntry" Opacity="0.6" BackgroundColor="#5873FF" FontFamily="noto-italic"/>
             <Grid VerticalOptions="FillAndExpand">
+                <Grid.GestureRecognizers>
+         <SwipeGestureRecognizer Direction="Left" Swiped="OnSwiped"/>
+        <SwipeGestureRecognizer Direction="Right" Swiped="OnSwiped"/>
+                 </Grid.GestureRecognizers>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
@@ -110,7 +114,7 @@
         </Grid.RowDefinitions>
          
         <ScrollView Grid.Column="0" Grid.Row="0" VerticalOptions="StartAndExpand" Scrolled="scrollHandler" TranslationY="0"  x:Name="Grid_messages">
-       <StackLayout BindableLayout.ItemsSource= "{Binding}" x:Name="notesList">
+                <StackLayout BindableLayout.ItemsSource= "{Binding}" x:Name="notesList">
       <BindableLayout.ItemTemplate>
         <DataTemplate>
 
