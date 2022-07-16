@@ -30,7 +30,7 @@
                 Property=Height, Factor=0.2, Constant=-10}"
                              Clicked="LogoutBtnClicked"></ImageButton>
 
-        <Label Text="Все(0)"  FontSize="18" FontFamily="noto-italic" TextColor="#FFEEB1" x:Name="label_all"
+        <Label Text="Все"  FontSize="18" FontFamily="noto-italic" TextColor="#FFEEB1" x:Name="label_all"
            RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
                 Property=Width, Factor=0.08}" 
            RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
@@ -52,7 +52,7 @@
             <TapGestureRecognizer Tapped="AllNotesClicked"/>
             </BoxView.GestureRecognizers></BoxView>
 
-        <Label Text="Личные(0)" FontSize="18" FontFamily="noto-italic" TextColor="#FFEEB1" x:Name="label_priv" 
+        <Label Text="Личные" FontSize="18" FontFamily="noto-italic" TextColor="#FFEEB1" x:Name="label_priv" 
              RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=label_all,
              Property=X, Factor=1, Constant=65}"
            RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
@@ -73,7 +73,7 @@
             <TapGestureRecognizer Tapped="PrivateNotesClicked"/>
             </BoxView.GestureRecognizers></BoxView>
 
-         <Label Text="Групповые(0)" FontSize="18" FontFamily="noto-italic" TextColor="#FFEEB1" x:Name="label_group"
+         <Label Text="Групповые" FontSize="18" FontFamily="noto-italic" TextColor="#FFEEB1" x:Name="label_group"
              RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=label_priv,
              Property=X, Factor=1, Constant=115}"
            RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
@@ -118,7 +118,7 @@
       <BindableLayout.ItemTemplate>
         <DataTemplate>
 
-        <Frame BackgroundColor="#F9FFE2" Margin="30,10,30,10" CornerRadius="20" x:Name="abcd" HeightRequest="100" BorderColor="#E2E8CE" VerticalOptions="FillAndExpand">
+        <Frame x:Name="NoteFrame" BackgroundColor="#F9FFE2" Margin="30,10,30,10" CornerRadius="20" HeightRequest="100" BorderColor="#E2E8CE" VerticalOptions="FillAndExpand">
              <Frame.GestureRecognizers>
             <TapGestureRecognizer CommandParameter="{Binding Number}" Tapped="OnListViewItemSelected" NumberOfTapsRequired="1" />
             </Frame.GestureRecognizers>     
@@ -131,7 +131,7 @@
                />
         <Label Text="{Binding Header}" TextColor="#1456FF" FontFamily="noto-header" HorizontalTextAlignment="Start" FontSize="Medium" MaxLines="1" LineBreakMode="TailTruncation" Margin="0,0,40,0"
          RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
-                Property=Width, Factor=0.1, Constant=0}" 
+                Property=Width, Factor=0, Constant=0}" 
          RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
                 Property=Height, Factor=0, Constant=-15}"
                />
@@ -161,9 +161,12 @@
       </BindableLayout.ItemTemplate>
     </StackLayout>
 
-                  <!-- Тулбар снизу экрана-->
 
         </ScrollView>
+                <Frame x:Name="notifyFrame" IsVisible="false" Opacity="0" VerticalOptions="Start" Margin="-5" BackgroundColor="#00E492" HorizontalOptions="FillAndExpand" HeightRequest="50" Padding="0">
+                    <Label Opacity="0.7" FontFamily="noto-italic" VerticalOptions="Center" HorizontalOptions="Center">Обновлено!</Label>
+                </Frame>
+                              <!-- Тулбар снизу экрана-->
        <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="End" Opacity="1" Margin="0,0,0,35" HeightRequest="40" x:Name="toolbar_layout">
                 <RelativeLayout>
                 <Frame BackgroundColor="#0084E4" CornerRadius="15" WidthRequest="180" HeightRequest="30" x:Name="toolbar_frame" Padding="5"
@@ -211,7 +214,7 @@
                  <AbsoluteLayout HorizontalOptions="End" VerticalOptions="End" Margin="0,0,10,20" x:Name="SearchToolbarLayout">
                     <StackLayout Spacing="5" x:Name="buttons_layout" TranslationX="100">
                     <ImageButton HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0084E4" Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.left_arrow.png}" WidthRequest="60" HeightRequest="60" Clicked="SearchBackClicked"></ImageButton>
-                    <ImageButton HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0CC8A6"
+                    <ImageButton HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#00E492"
                      Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.loupe.png}" WidthRequest="60" HeightRequest="60" Clicked="SearchClicked"></ImageButton>
 
 

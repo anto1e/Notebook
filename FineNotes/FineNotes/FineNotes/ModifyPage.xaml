@@ -15,7 +15,7 @@
            RelativeLayout.YConstraint= "{ConstraintExpression Type=RelativeToParent,
                 Property=Height, Factor=0.25}"
            >Изменение заметки</Label>
-                    <ImageButton HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="25" BackgroundColor="#0CC8A6" x:Name="SidebarBtn"
+                    <ImageButton HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="25" BackgroundColor="#00E492" x:Name="SidebarBtn"
                     Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.register.png}" WidthRequest="50" HeightRequest="50"
                     RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
                 Property=Width, Factor=1, Constant=-60}" 
@@ -75,7 +75,7 @@
 
                         <ImageButton HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0084E4"
                            Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.cancel.png}" x:Name="cancelBtn" WidthRequest="60" HeightRequest="60" Clicked="NoteDeleteClicked"></ImageButton>
-                        <ImageButton HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0CC8A6"
+                        <ImageButton HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#00E492"
                                  Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.check.png}" x:Name="saveBtn" WidthRequest="60" HeightRequest="60" Clicked="NoteChangeClicked"></ImageButton>
                         <ImageButton HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0084E4"
                                     Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.left_arrow.png}" WidthRequest="60" HeightRequest="60"
@@ -88,14 +88,17 @@
 
                 </AbsoluteLayout>
                 <Frame x:Name="subFrame" CornerRadius="20" VerticalOptions="FillAndExpand" IsVisible="false" Opacity="0" Scale="1" HorizontalOptions="FillAndExpand" BackgroundColor="black">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="CloseSidebarClicked"/>
+                </Frame.GestureRecognizers>
                 </Frame>
                         <!--Сайдбар-->
 
-                    <StackLayout TranslationX="500" IsVisible="false" Opacity="0.95" BackgroundColor="#0084E4" WidthRequest="300" x:Name="Sidebar" VerticalOptions="FillAndExpand"  Margin="0,0,-20,0" Orientation="Vertical" HorizontalOptions="End">
+                    <StackLayout TranslationX="500" IsVisible="false" Opacity="1" BackgroundColor="#0084E4" WidthRequest="300" x:Name="Sidebar" VerticalOptions="FillAndExpand"  Margin="0,0,-20,0" Orientation="Vertical" HorizontalOptions="End">
                         <StackLayout Spacing="0" Orientation="Horizontal">
-                            <local:CustomEntry TextChanged="checkLengthEntry" TextColor="black" VerticalOptions="StartAndExpand" Margin="20" HeightRequest="40" x:Name="email_shared" WidthRequest="210" HorizontalOptions="FillAndExpand" BackgroundColor="white" Placeholder="Email"></local:CustomEntry>
-                            <ImageButton x:Name="ShareBtn" Opacity="0.5" IsEnabled="false" Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.check.png}" BackgroundColor="#0CC8A6"
-                                 HeightRequest="30" WidthRequest="40" Margin="0,18,10,20" Padding="-5" Clicked="AddSharedUser"></ImageButton>
+                            <local:CustomEntry TextChanged="checkLengthEntry" TextColor="black" VerticalOptions="StartAndExpand" Margin="20" HeightRequest="40" x:Name="email_shared" WidthRequest="200" HorizontalOptions="FillAndExpand" BackgroundColor="white" Placeholder="Email"></local:CustomEntry>
+                            <ImageButton x:Name="ShareBtn" CornerRadius="20" Opacity="0.5" IsEnabled="false" Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.check.png}" BackgroundColor="#00E492"
+                                 HeightRequest="45" WidthRequest="45" Margin="0,18,10,20" Padding="-5" Clicked="AddSharedUser"></ImageButton>
                         </StackLayout>
                        
                         <ScrollView VerticalOptions="FillAndExpand" x:Name="Users_Scroll">
@@ -104,8 +107,9 @@
                         </ListView>
                      </ScrollView>
                     </StackLayout>
-                                
-
+                  <Frame x:Name="notifyFrame" IsVisible="false" Opacity="0" VerticalOptions="Start" Margin="-28" BackgroundColor="#00E492" HorizontalOptions="FillAndExpand" HeightRequest="50" Padding="0">
+                    <Label Opacity="0.7" FontFamily="noto-italic" VerticalOptions="Center" HorizontalOptions="Center">Сохранено!</Label>
+                </Frame>
                 </Grid>
         </StackLayout>
 

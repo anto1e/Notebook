@@ -22,6 +22,8 @@
 	</array>
 	<key>MinimumOSVersion</key>
 	<string>8.0</string>
+	<key>UIUserInterfaceStyle</key>
+	 <string>Light</string>
 	<key>CFBundleDisplayName</key>
 	<string>FineNotes</string>
 	<key>CFBundleIdentifier</key>

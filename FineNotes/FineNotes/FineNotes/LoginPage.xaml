@@ -96,7 +96,7 @@
                                  Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.register.png}" WidthRequest="60" HeightRequest="60" Clicked="RegSignBtnClicked"></ImageButton>
                     <ImageButton IsVisible="false" HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0084E4" Padding="-5" x:Name="RegBtn"
                                  Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.SignIn.png}" WidthRequest="60" HeightRequest="60" Clicked="RegSignBtnClicked"></ImageButton>
-                        <ImageButton HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#0CC8A6" Padding="-5"
+                        <ImageButton HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="30" BackgroundColor="#00E492" Padding="-5"
                                     Source="{local:ImageResourceExtention Source=FineNotes.Resources.img.login.png}" WidthRequest="60" HeightRequest="60"
                     RelativeLayout.XConstraint= "{ConstraintExpression Type=RelativeToParent, 
                 Property=Width, Factor=0, Constant=10}" 

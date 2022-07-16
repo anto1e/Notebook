@@ -123,8 +123,19 @@ namespace FineNotes
                 ShareBtn.Opacity = 1;
                 ShareBtn.IsEnabled = true;
             }
-        }
+        }   //Функция проверки длины email для добавления с блокировкой/разблокировкой кнопки
 
+        private async void CloseSidebarClicked(object sender, EventArgs e)  //Функция обработки нажатия на затемненную заметку
+        {
+            Task labelFade = this.subFrame.FadeTo(0, 250);
+            Task buttonFade = this.Sidebar.TranslateTo(500, 0, 250);
+
+            // Animate in parallel.
+            await Task.WhenAll(new List<Task> { labelFade, buttonFade });
+            subFrame.IsVisible = false;
+            Sidebar.IsVisible = false;
+            side_hided = true;
+        }
         private async void showSidebarClicked(object sender, EventArgs e)   //Функция показа / скрытия сайдбара
         {
             users = getSharedUsers();
@@ -234,6 +245,11 @@ namespace FineNotes
                 }
                 MessagingCenter.Send<Page>(this, "CollectionChanged!");
             }
+            notifyFrame.IsVisible = true;
+            await notifyFrame.FadeTo(1, 250);
+            await notifyFrame.FadeTo(1, 500);
+            await notifyFrame.FadeTo(0, 250);
+            notifyFrame.IsVisible = false;
         }
         private async void NoteDeleteClicked(object sender, EventArgs e)        //Функция удаления заметки
         {
